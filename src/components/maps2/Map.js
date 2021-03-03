@@ -13,6 +13,22 @@ const center = {
 };
 
 function MyComponent() {
+
+  function fetchParkLocations(){
+    fetch("https://developer.nps.gov/api/v1/parks?limit=475&api_key=pZv5Z7M0OLQg4fbPDdRQ0pnVFYUIEOIWL0fNZhuX" )
+      .then( response => response.json() )
+      .then( parksJSON => {
+        // console.log(parksJSON)
+        const nationalParks = parksJSON.data.filter( park => {
+          return park.designation === "National Park"
+        }) 
+        console.log(nationalParks)
+      })
+
+  }
+
+  fetchParkLocations()
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: "AIzaSyBqJxI-mD0WlcgOeHe-1h3JgHnAO9HoqaI"

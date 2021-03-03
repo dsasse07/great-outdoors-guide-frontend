@@ -27,7 +27,7 @@ function App() {
       </InfoDisplay>
 
       <Footer>
-      <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1HqnoIntFl6D9k50J_zfYjXrvSnB7cXTu" width="640" height="480"></iframe>
+
       </Footer>
 
     </Container>
