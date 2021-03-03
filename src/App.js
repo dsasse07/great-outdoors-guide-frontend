@@ -1,5 +1,6 @@
 import './App.css';
-import MapSection from './components/map/Map' // import the map here
+// import MapSection from './components/map/Map' // import the map here
+import Map from './components/maps2/Map'
 import styled from 'styled-components'
 function App() {
 
@@ -17,7 +18,8 @@ function App() {
       </HeaderContainer>
 
       <MapContainer>
-        <MapSection location={centerLocation} zoomLevel={2} style={{flex: 1}}/> {/* include it here */}
+        <Map/>
+        {/* <MapSection location={centerLocation} zoomLevel={2} style={{flex: 1}}/> include it here */}
       </MapContainer>
 
       <InfoDisplay>
