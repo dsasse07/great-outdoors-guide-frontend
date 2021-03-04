@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import SideBar from './SideBar'
 import ParkInfo from './ParkInfo'
+import { Switch, Route} from 'react-router-dom'
+
 
 function InfoPanel({ activePark }) {
   
@@ -9,9 +11,13 @@ function InfoPanel({ activePark }) {
       <SideBarContainer>
         <SideBar activePark={activePark}/>
       </SideBarContainer>
-      <ParkContainer>
-        <ParkInfo activePark={activePark} />
-      </ParkContainer>
+      {/* <Switch>
+        <Route path='/parks/:parkCode/:component'>
+          <ParkContainer>
+            <ParkInfo activePark={activePark} />
+          </ParkContainer>
+        </Route>
+      </Switch> */}
     </Container>
   );
 }

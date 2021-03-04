@@ -1,20 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
-import ExploreIcon from '@material-ui/icons/Explore';
 
 const containerStyle = {
   width: '700px',
   height: '400px'
 };
 
-const center = {
-  lat: 44.5802,
-  lng: -103.4617,
-};
-
-function MyComponent({onFetchParks, onActiveParkChange}) {
+function MyComponent({onFetchParks, onActiveParkChange, setZoom, zoom, setCenter, center}) {
   const [markers, setMarkers] = useState([])
- 
+
+
 
   useEffect( () => {
     fetch(`https://developer.nps.gov/api/v1/parks?limit=475&api_key=${process.env.REACT_APP_PARKS_API_KEY}` )
@@ -24,14 +19,19 @@ function MyComponent({onFetchParks, onActiveParkChange}) {
           return park.designation === "National Park" || park.designation === "National Park & Preserve" || park.name === "National Park of American Samoa" || park.designation=== "National Park and Preserve" || park.designation=== "National and State Parks" || park.designation=== "National Parks"
         }) 
         const markerArray= nationalParks.map((park)=> {
-          return(<Marker onClick={()=> {onActiveParkChange(park)}} key={park.id} position={ {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) }}/>)
+          return(<Marker onClick={() => {handleMarkerClick(park)}} key={park.id} position={ {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) }}/>)
         })
         onFetchParks(nationalParks)    
         setMarkers(markerArray) 
-
       })
-
   }, [])
+
+  function handleMarkerClick(park){
+    
+    // setZoom(11)
+    // setCenter({lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) })
+    onActiveParkChange(park)
+  }
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -41,8 +41,8 @@ function MyComponent({onFetchParks, onActiveParkChange}) {
   const [map, setMap] = React.useState(null)
 
   const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
+    // const bounds = new window.google.maps.LatLngBounds();
+    // map.fitBounds(bounds);
     setMap(map)
   }, [])
 
@@ -50,14 +50,19 @@ function MyComponent({onFetchParks, onActiveParkChange}) {
     setMap(null)
   }, [])
 
+  function handleZoomChange(){
+    map && setZoom(map.zoom)
+  }
 
+  
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={{  lat: 40.5802, lng: -95.4617 }}
-        zoom={4}
-        // onLoad={onLoad}
+        center={center}
+        zoom={zoom}
+        onLoad={onLoad}
         onUnmount={onUnmount}
+        onZoomChanged={ handleZoomChange }
       >
         {/* <Marker position={ {lat:44.3386, lng:-68.2733} }/> */}
         {markers}

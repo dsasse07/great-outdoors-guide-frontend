@@ -1,21 +1,29 @@
 // import './App.css';
 import Map from './Map'
 import InfoPanel from './InfoPanel'
+import ParkList from './ParkList'
 import styled from 'styled-components'
 import {useState} from 'react'
 
 
 function App() {
-
   const [nationalParks, setNationalParks] = useState([])
   const [activePark, setActivePark] = useState(null)
-
+  const [zoom, setZoom] = useState(4)
+  const [center, setCenter] = useState({
+    lat: 44.5802,
+    lng: -103.4617,
+  })
+ 
   function handleSetParks(parkData){
     setNationalParks(parkData)
   }
 
   function handleActiveParkChange(park){
     setActivePark(park)
+    setZoom(11)
+    setCenter({lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) })
+    // history.push(`/${park.parkCode}`)
   }
 
   return (
@@ -25,7 +33,17 @@ function App() {
       </HeaderContainer>
 
       <MapContainer>
-        <Map onFetchParks={handleSetParks} onActiveParkChange={handleActiveParkChange}/>
+        <ParkList 
+          nationalParks={nationalParks} 
+          onActiveParkChange={handleActiveParkChange}
+        />
+        <Map 
+          onFetchParks={handleSetParks} 
+          onActiveParkChange={handleActiveParkChange}
+          setZoom={setZoom}
+          zoom={zoom}
+          center={center}
+        />  
       </MapContainer>
 
       <InfoDisplay >
@@ -59,6 +77,7 @@ const MapContainer = styled.section`
   background: pink;
   display: flex;
   justify-content: center;
+  height: 400px;
 `
 
 const InfoDisplay = styled.section`
