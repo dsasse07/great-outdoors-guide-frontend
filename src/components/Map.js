@@ -9,8 +9,6 @@ const containerStyle = {
 function MyComponent({onFetchParks, onActiveParkChange, setZoom, zoom, setCenter, center}) {
   const [markers, setMarkers] = useState([])
 
-
-
   useEffect( () => {
     fetch(`https://developer.nps.gov/api/v1/parks?limit=475&api_key=${process.env.REACT_APP_PARKS_API_KEY}` )
       .then( response => response.json() )
@@ -27,9 +25,6 @@ function MyComponent({onFetchParks, onActiveParkChange, setZoom, zoom, setCenter
   }, [])
 
   function handleMarkerClick(park){
-    
-    // setZoom(11)
-    // setCenter({lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) })
     onActiveParkChange(park)
   }
 

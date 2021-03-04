@@ -1,11 +1,15 @@
 import styled from 'styled-components'
 import SideBar from './SideBar'
 import ParkInfo from './ParkInfo'
-import { Switch, Route} from 'react-router-dom'
+import { Switch, Route, useHistory} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 
 function InfoPanel({ activePark }) {
-  
+
+  const params = useParams()
+  console.log('params', params)
+
   return (
     <Container>
       <SideBarContainer>
@@ -20,7 +24,9 @@ function InfoPanel({ activePark }) {
       </Switch> */}
     </Container>
   );
+
 }
+
 
 export default InfoPanel;
 

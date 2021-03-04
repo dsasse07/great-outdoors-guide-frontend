@@ -4,6 +4,7 @@ import InfoPanel from './InfoPanel'
 import ParkList from './ParkList'
 import styled from 'styled-components'
 import {useState} from 'react'
+import {Switch, Route } from 'react-router-dom'
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
     lat: 44.5802,
     lng: -103.4617,
   })
- 
+
   function handleSetParks(parkData){
     setNationalParks(parkData)
   }
@@ -23,7 +24,6 @@ function App() {
     setActivePark(park)
     setZoom(11)
     setCenter({lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) })
-    // history.push(`/${park.parkCode}`)
   }
 
   return (
@@ -47,11 +47,18 @@ function App() {
       </MapContainer>
 
       <InfoDisplay >
-        <InfoPanel activePark={activePark} />
+        <Switch>
+          <Route exact path='/:parkCode'>
+            <InfoPanel activePark={activePark} />
+          </Route>
+          <Route exact path='/'>
+            Select a Park
+          </Route>
+        </Switch>
       </InfoDisplay>
 
       <Footer>
-
+        Footer
       </Footer>
 
     </Container>
