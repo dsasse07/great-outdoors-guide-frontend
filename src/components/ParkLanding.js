@@ -33,7 +33,7 @@ const ImageContainer = styled.div`
   width: auto;
   img{
     width: 100%;
-  }
+  } 
 `
 
 const TextContainer = styled.main`
