@@ -3,14 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
-import 'semantic-ui-css/semantic.min.css'
 import {BrowserRouter as Router} from 'react-router-dom'
+import './fonts/NationalPark-Regular.otf'; 
 
 ReactDOM.render(
   <Router>
-    {/* <React.StrictMode> */}
       <App />
-    {/* </React.StrictMode> */}
   </Router>,
   document.getElementById('root')
 );

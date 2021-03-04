@@ -40,18 +40,19 @@ const Container = styled.div`
   overflow:hidden;
   display: grid;
   grid-template-rows: auto 1fr;
-  padding-bottom: 5px;
+  padding-right: 10px;
   `
 const Header = styled.header`
   font-size: 2rem;
   text-align: center;
   margin-top: 5px;
   padding-bottom: 10px;
-  margin-bottom: 10px;
   border-bottom: 2px solid gray;
 `
 
 const List = styled.ul`
   height: 100%;
   overflow:scroll;
+  width: auto;
+  padding-right: 20px;
 `

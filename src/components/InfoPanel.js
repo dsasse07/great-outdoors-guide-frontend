@@ -13,19 +13,19 @@ function InfoPanel() {
   return (
     <Container>
       <SideBarContainer>
-        <SideBar activePark={activePark}/>
+        <SideBar />
       </SideBarContainer>
       <Switch>
           <ParkContainer>
-        <Route exact path={`${match.url}/description`}>
-            <ParkDescription activePark={activePark} />
-        </Route>
-        {/* <Route exact path={`${match.url}/description`}>
-            <ParkDescription activePark={activePark} />
-        </Route> */}
-        <Route exact path={`${match.url}`}>
-            <ParkLanding activePark={activePark} />
-        </Route>
+            <Route exact path={`${match.url}/description`}>
+                <ParkDescription  />
+            </Route>
+            {/* <Route exact path={`${match.url}/description`}>
+                <ParkDescription  />
+            </Route> */}
+            <Route exact path={`${match.url}`}>
+                <ParkLanding  />
+            </Route>
           </ParkContainer>
       </Switch>
     </Container>
@@ -51,6 +51,7 @@ const SideBarContainer = styled.aside`
 const ParkContainer = styled.main`
   grid-column: 2;
   background: gray;
+  width: auto;
 `
 
 

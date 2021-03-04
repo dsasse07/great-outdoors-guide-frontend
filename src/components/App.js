@@ -6,27 +6,14 @@ import styled from 'styled-components'
 import {useState} from 'react'
 import {Switch, Route } from 'react-router-dom'
 import ActiveParkProvider from './ActiveParkProvider'
-
+import '../fonts/NationalPark-Regular.otf'; 
 
 function App() {
   const [nationalParks, setNationalParks] = useState([])
-  // const [activePark, setActivePark] = useState(null)
-  // const [zoom, setZoom] = useState(4)
-  // const [center, setCenter] = useState({
-  //   lat: 44.5802,
-  //   lng: -103.4617,
-  // })
-  
 
   function handleSetParks(parkData){
     setNationalParks(parkData)
   }
-
-  // function handleActiveParkChange(park){
-  //   setActivePark(park)
-  //   setZoom(11)
-  //   setCenter({lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) })
-  // }
 
   return (
     <Container>
@@ -37,14 +24,9 @@ function App() {
       <MapContainer>
         <ParkList 
           nationalParks={nationalParks} 
-          // onActiveParkChange={handleActiveParkChange}
         />
         <Map 
           onFetchParks={handleSetParks} 
-          // onActiveParkChange={handleActiveParkChange}
-          // setZoom={setZoom}
-          // zoom={zoom}
-          // center={center}
         />  
       </MapContainer>
 
@@ -52,7 +34,6 @@ function App() {
         <Switch>
           <Route path='/:parkCode'>
             <InfoPanel 
-              // activePark={activePark} 
             />
           </Route>
           <Route exact path='/'>
