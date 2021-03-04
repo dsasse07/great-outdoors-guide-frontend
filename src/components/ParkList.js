@@ -1,21 +1,24 @@
 import styled from 'styled-components'
 import {NavLink} from 'react-router-dom'
+import {useContext} from 'react'
+import ActiveParkContext from "./ActiveParkContext";
 
-function ParkList({ nationalParks, onActiveParkChange, setCenter, setZoom }) {
+function ParkList({ nationalParks}) {
+  const {zoom, center, handleActiveParkChange, setZoom} = useContext(ActiveParkContext)
   
-    const nationalParksList = nationalParks.map((park)=>{
-      return(
-        <li 
-          onClick={()=>handleClick(park)} 
-          key={park.id}
-        >
-          <NavLink to={`/${park.parkCode}`}>{park.fullName}</NavLink>
-        </li>
-      )
+  const nationalParksList = nationalParks.map((park)=>{
+    return(
+      <li 
+        onClick={()=>handleClick(park)} 
+        key={park.id}
+      >
+        <NavLink to={`/${park.parkCode}`}>{park.fullName}</NavLink>
+      </li>
+    )
   })
   
   function handleClick(park){
-    onActiveParkChange(park)
+    handleActiveParkChange(park)
   }
 
   return (  

@@ -1,27 +1,33 @@
 import styled from 'styled-components'
 import SideBar from './SideBar'
-import ParkInfo from './ParkInfo'
-import { Switch, Route, useHistory} from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+import ParkDescription from './ParkDescription'
+import ParkLanding from './ParkLanding'
+import { Switch, Route, useRouteMatch} from 'react-router-dom'
+import {useContext} from 'react'
+import ActiveParkContext from "./ActiveParkContext";
 
-
-function InfoPanel({ activePark }) {
-
-  const params = useParams()
-  console.log('params', params)
+function InfoPanel() {
+  const {activePark} = useContext(ActiveParkContext)
+  const match = useRouteMatch()
 
   return (
     <Container>
       <SideBarContainer>
         <SideBar activePark={activePark}/>
       </SideBarContainer>
-      {/* <Switch>
-        <Route path='/parks/:parkCode/:component'>
+      <Switch>
           <ParkContainer>
-            <ParkInfo activePark={activePark} />
-          </ParkContainer>
+        <Route exact path={`${match.url}/description`}>
+            <ParkDescription activePark={activePark} />
         </Route>
-      </Switch> */}
+        {/* <Route exact path={`${match.url}/description`}>
+            <ParkDescription activePark={activePark} />
+        </Route> */}
+        <Route exact path={`${match.url}`}>
+            <ParkLanding activePark={activePark} />
+        </Route>
+          </ParkContainer>
+      </Switch>
     </Container>
   );
 
