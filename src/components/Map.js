@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import ExploreIcon from '@material-ui/icons/Explore';
 
@@ -12,22 +12,26 @@ const center = {
   lng: -103.4617,
 };
 
-function MyComponent() {
+function MyComponent({onFetchParks, onActiveParkChange}) {
+  const [markers, setMarkers] = useState([])
+ 
 
-  function fetchParkLocations(){
-    fetch("https://developer.nps.gov/api/v1/parks?limit=475&api_key=pZv5Z7M0OLQg4fbPDdRQ0pnVFYUIEOIWL0fNZhuX" )
+  useEffect( () => {
+    fetch("https://developer.nps.gov/api/v1/parks?limit=475&api_key=6WvSlQvruMbdmmEA08J4e7kPdP8G7dolp9DRMlJv" )
       .then( response => response.json() )
       .then( parksJSON => {
-        // console.log(parksJSON)
         const nationalParks = parksJSON.data.filter( park => {
-          return park.designation === "National Park"
+          return park.designation === "National Park" || park.designation === "National Park & Preserve" || park.name === "National Park of American Samoa" || park.designation=== "National Park and Preserve" || park.designation=== "National and State Parks" || park.designation=== "National Parks"
         }) 
-        console.log(nationalParks)
+        const markerArray= nationalParks.map((park)=> {
+          return(<Marker onClick={()=> {onActiveParkChange(park)}} key={park.id} position={ {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) }}/>)
+        })
+        onFetchParks(nationalParks)    
+        setMarkers(markerArray) 
+
       })
 
-  }
-
-  fetchParkLocations()
+  }, [])
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -46,6 +50,7 @@ function MyComponent() {
     setMap(null)
   }, [])
 
+
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
@@ -54,8 +59,8 @@ function MyComponent() {
         // onLoad={onLoad}
         onUnmount={onUnmount}
       >
-        <Marker position={ {lat:44.3386, lng:-68.2733} }/>
-        { /* Child components, such as markers, info windows, etc. */ }
+        {/* <Marker position={ {lat:44.3386, lng:-68.2733} }/> */}
+        {markers}
 
       </GoogleMap>
   ) : <></>

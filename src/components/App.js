@@ -1,15 +1,22 @@
-import './App.css';
-// import MapSection from './components/map/Map' // import the map here
-import Map from './components/maps2/Map'
+// import './App.css';
+import Map from './Map'
+import InfoPanel from './InfoPanel'
 import styled from 'styled-components'
+import {useState} from 'react'
+
+
 function App() {
 
+  const [nationalParks, setNationalParks] = useState([])
+  const [activePark, setActivePark] = useState(null)
 
-  const centerLocation = {
-    lat: 44.5802,
-    lng: -103.4617,
+  function handleSetParks(parkData){
+    setNationalParks(parkData)
   }
- 
+
+  function handleActiveParkChange(park){
+    setActivePark(park)
+  }
 
   return (
     <Container>
@@ -18,12 +25,11 @@ function App() {
       </HeaderContainer>
 
       <MapContainer>
-        <Map/>
-        {/* <MapSection location={centerLocation} zoomLevel={2} style={{flex: 1}}/> include it here */}
+        <Map onFetchParks={handleSetParks} onActiveParkChange={handleActiveParkChange}/>
       </MapContainer>
 
-      <InfoDisplay>
-        Info Panel
+      <InfoDisplay >
+        <InfoPanel activePark={activePark} />
       </InfoDisplay>
 
       <Footer>
