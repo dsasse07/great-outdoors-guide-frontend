@@ -1,8 +1,12 @@
 import styled from 'styled-components'
+import {useContext} from 'react'
+import ActiveParkContext from "./ActiveParkContext";
 
 
 
-function ParkDescription({ activePark }) {
+
+function ParkDescription({ }) {
+  const {activePark} = useContext(ActiveParkContext)
 
   return (
     <Container>

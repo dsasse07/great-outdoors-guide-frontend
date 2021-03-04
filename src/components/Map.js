@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import ActiveParkContext from "./ActiveParkContext";
+import {useHistory} from 'react-router-dom'
 
 const containerStyle = {
   width: '700px',
@@ -8,6 +9,8 @@ const containerStyle = {
 };
 
 function MyComponent({onFetchParks}) {
+
+  const history = useHistory()
   const {zoom, center, handleActiveParkChange, setZoom} = useContext(ActiveParkContext)
   const [markers, setMarkers] = useState([])
 
@@ -28,6 +31,7 @@ function MyComponent({onFetchParks}) {
 
   function handleMarkerClick(park){
     handleActiveParkChange(park)
+    history.push(`/${park.parkCode}/main`)
   }
 
   const { isLoaded } = useJsApiLoader({

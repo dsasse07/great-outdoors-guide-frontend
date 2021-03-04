@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import SideBar from './SideBar'
 import ParkDescription from './ParkDescription'
 import ParkLanding from './ParkLanding'
+import Images from './Images'
 import { Switch, Route, useRouteMatch} from 'react-router-dom'
 import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
@@ -20,9 +21,9 @@ function InfoPanel() {
             <Route exact path={`${match.url}/description`}>
                 <ParkDescription  />
             </Route>
-            {/* <Route exact path={`${match.url}/description`}>
-                <ParkDescription  />
-            </Route> */}
+            <Route exact path={`${match.url}/images`}>
+                <Images />
+            </Route>
             <Route exact path={`${match.url}`}>
                 <ParkLanding  />
             </Route>
@@ -38,14 +39,17 @@ export default InfoPanel;
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 360px 1fr;
   grid-gap: 30px;
   height: 100%;
+  padding-left: 10px;
+  padding-right: 20px;
 `
 
 const SideBarContainer = styled.aside`
   grid-column: 1;
-  background: gray;
+  /* background: gray; */
+
 `
 
 const ParkContainer = styled.main`

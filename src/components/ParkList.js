@@ -8,11 +8,10 @@ function ParkList({ nationalParks}) {
   
   const nationalParksList = nationalParks.map((park)=>{
     return(
-      <li 
-        onClick={()=>handleClick(park)} 
-        key={park.id}
-      >
-        <NavLink to={`/${park.parkCode}`}>{park.fullName}</NavLink>
+      <li onClick={()=>handleClick(park)} key={park.id} >
+        <LinkButton to={`/${park.parkCode}`} activeStyle={{background: "white"}}>
+          {park.fullName}
+        </LinkButton>
       </li>
     )
   })
@@ -40,7 +39,7 @@ const Container = styled.div`
   overflow:hidden;
   display: grid;
   grid-template-rows: auto 1fr;
-  padding-right: 10px;
+  border: 1px solid;
   `
 const Header = styled.header`
   font-size: 2rem;
@@ -54,5 +53,17 @@ const List = styled.ul`
   height: 100%;
   overflow:scroll;
   width: auto;
-  padding-right: 20px;
+  padding-right: 10px;
+  list-style-type: none;
+  padding-inline-start: 10px;
+`
+
+const LinkButton = styled(NavLink)`
+  display: block;
+  border: 1px solid cyan;
+  margin-bottom: 8px;
+  text-align: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 18px;
 `

@@ -1,5 +1,6 @@
 // import './App.css';
 import Map from './Map'
+import Header from './Header'
 import InfoPanel from './InfoPanel'
 import ParkList from './ParkList'
 import styled from 'styled-components'
@@ -18,7 +19,7 @@ function App() {
   return (
     <Container>
       <HeaderContainer>
-        Header
+        <Header/>
       </HeaderContainer>
     <ActiveParkProvider>
       <MapContainer>
@@ -68,8 +69,11 @@ const MapContainer = styled.section`
   grid-row: 2;
   background: pink;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   height: 400px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
 `
 
 const InfoDisplay = styled.section`
