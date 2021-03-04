@@ -17,7 +17,7 @@ function MyComponent({onFetchParks, onActiveParkChange}) {
  
 
   useEffect( () => {
-    fetch("https://developer.nps.gov/api/v1/parks?limit=475&api_key=6WvSlQvruMbdmmEA08J4e7kPdP8G7dolp9DRMlJv" )
+    fetch(`https://developer.nps.gov/api/v1/parks?limit=475&api_key=${process.env.REACT_APP_PARKS_API_KEY}` )
       .then( response => response.json() )
       .then( parksJSON => {
         const nationalParks = parksJSON.data.filter( park => {
@@ -35,7 +35,7 @@ function MyComponent({onFetchParks, onActiveParkChange}) {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyBqJxI-mD0WlcgOeHe-1h3JgHnAO9HoqaI"
+    googleMapsApiKey: `${process.env.REACT_APP_MAPS_API_KEY}`
   })
 
   const [map, setMap] = React.useState(null)
