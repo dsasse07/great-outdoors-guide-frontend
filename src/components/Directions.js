@@ -56,6 +56,7 @@ const TextContainer = styled.main`
   padding-bottom: 5px;
   padding-top: 5px;
   text-align: center;
+  font-weight: bold;
  
   h1 {
     text-align: center;
@@ -70,12 +71,15 @@ const TextContainer = styled.main`
   }
 `
 
-const DirectionsText = styled.div`
-  font-size: 1.5rem;
+const DirectionsText = styled.h3`
+  margin-top: 10px;
+  font-size: 1.4rem;
   text-align: center;
-  padding-inline-start: 0;
-  `
+  margin-left: 50px;
+  margin-right: 50px;
+`
 const DirectionsLink = styled.a`
   color: white;
   text-align: center;
+  font-weight: bold;
 `

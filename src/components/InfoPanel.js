@@ -7,7 +7,7 @@ import Directions from './Directions'
 import Contact from './Contact'
 import Weather from './Weather'
 import { Switch, Route, useRouteMatch, useParams} from 'react-router-dom'
-import {useContext} from 'react'
+import {useContext, useEffect} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 
 function InfoPanel() {
@@ -19,9 +19,12 @@ function InfoPanel() {
       return park.parkCode === params.parkCode
     })[0] 
 
-  if (!activePark){
-    handleActiveParkChange(initialActivePark)
-  }
+    useEffect( () => {
+      if (!activePark){
+        handleActiveParkChange(initialActivePark)
+      }
+    })
+  
   
 
   return ( 

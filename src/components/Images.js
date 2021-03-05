@@ -29,17 +29,17 @@ export default Images
 
 
 const Container = styled.div`
-    height: 100vh;
+    height: 100%;
     width: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
     display: flex;
     flex-direction: column;
 `
 
 const SlideImage = styled.img`
     background-color: none;
-    width: auto;
-    height: auto;
+    /* width: auto;
+    height: auto; */
     max-width: 100%;
     max-height: 100%;
     object-fit: cover;

@@ -61,6 +61,7 @@ const TextContainer = styled.main`
   width: 100%;
   padding-bottom: 5px;
   padding-top: 5px;
+  font-weight: bold;
 
   h1 {
     text-align: center;
@@ -73,6 +74,7 @@ const TextContainer = styled.main`
     font-size: 2.5rem;
     text-align: center;
   }
+  
 `
 
 const NoticesList = styled.ul`
@@ -82,6 +84,6 @@ const NoticesList = styled.ul`
 `
 
 const Notice = styled.li`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin-bottom: 6px;
 `

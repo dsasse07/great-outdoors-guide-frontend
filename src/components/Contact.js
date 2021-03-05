@@ -9,7 +9,7 @@ function Contact() {
   const emailAddress = activePark?.contacts.emailAddresses[0].emailAddress 
   const phoneNumber = activePark?.contacts.phoneNumbers[0].phoneNumber
   const homePage = activePark?.url
-  console.log('activePark', activePark)
+  
   if (activePark ) {
     return (
       <Container>
@@ -54,6 +54,7 @@ const TextContainer = styled.main`
   width: 100%;
   padding-bottom: 5px;
   padding-top: 5px;
+  font-weight: bold;
 
   h1 {
     text-align: center;
@@ -72,12 +73,13 @@ const List = styled.ul`
   list-style-type: none;
   text-align: center;
   padding-inline-start: 0;
+  font-weight: bold;
 `
 
 const ListItem = styled.li`
   font-size: 1.5rem;
   margin-bottom: 6px;
-
+  font-weight: bold;
   a {
     color: #6cfcc5;
   }

@@ -29,10 +29,6 @@ function SideBar() {
         <LinkButton type="button" to={`${match.url}/contact`} activeStyle={{background: "white"}}>
           Contact
         </LinkButton>
-        <h1>Images</h1>
-        <h1>Contact: Url, Phone NUmbers, Address, Hours</h1>
-        <h1>Directions Info + Url</h1>
-        <h1>Weather Info</h1>
     </Container>
   );
 }
