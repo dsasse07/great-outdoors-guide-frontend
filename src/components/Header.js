@@ -31,7 +31,7 @@ export default Header
 
 const Container = styled.header`
   height: 100%;
-  background: gray;
+  background: var(--md-green);
   display: flex;
   justify-content: space-between;
 `

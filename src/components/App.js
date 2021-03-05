@@ -80,14 +80,15 @@ export default App;
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 100px auto 1fr 50px;
-  height: 100vh;
-  grid-gap: 15px;
+  grid-template-rows: 120px auto 1fr 50px;
+  height: 100%;
+  /* grid-gap: 15px; */
 `
 
 const HeaderContainer = styled.header`
   grid-row: 1;
   background: pink;
+
 `
 
 const MapContainer = styled.section`
@@ -100,9 +101,6 @@ const MapContainer = styled.section`
   padding-bottom: 15px;
   padding-left: 10px;
 `
-// const LoginContainer = styled.div`
-//   background: black;
-// `
 
 const InfoDisplay = styled.section`
   grid-row: 3;
