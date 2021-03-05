@@ -45,8 +45,11 @@ export default Images
 
 
 const Container = styled.div`
-
-
+height: 100vh;
+width: 100%;
+overflow: hidden;
+display: flex;
+flex-direction: column;
 `
 
 const SlideImage = styled.img`
