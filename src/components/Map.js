@@ -8,30 +8,41 @@ const containerStyle = {
   height: '400px'
 };
 
-function MyComponent({onFetchParks}) {
+function MyComponent({}) {
 
   const history = useHistory()
-  const {zoom, center, handleActiveParkChange, setZoom} = useContext(ActiveParkContext)
+  const {zoom, center, handleActiveParkChange, setZoom, setNationalParks} = useContext(ActiveParkContext)
   const [markers, setMarkers] = useState([])
+
+  function isNationalPark(park){
+    return (
+        park.designation === "National Park" || 
+        park.designation === "National Park & Preserve" || 
+        park.name === "National Park of American Samoa" || 
+        park.designation=== "National Park and Preserve" || 
+        park.designation=== "National and State Parks" || 
+        park.designation=== "National Parks"
+    )
+  }
 
   useEffect( () => {
     fetch(`https://developer.nps.gov/api/v1/parks?limit=475&api_key=${process.env.REACT_APP_PARKS_API_KEY}` )
       .then( response => response.json() )
       .then( parksJSON => {
         const nationalParks = parksJSON.data.filter( park => {
-          return park.designation === "National Park" || park.designation === "National Park & Preserve" || park.name === "National Park of American Samoa" || park.designation=== "National Park and Preserve" || park.designation=== "National and State Parks" || park.designation=== "National Parks"
+          return isNationalPark(park)
         }) 
         const markerArray= nationalParks.map((park)=> {
           return(<Marker onClick={() => {handleMarkerClick(park)}} key={park.id} position={ {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) }}/>)
         })
-        onFetchParks(nationalParks)    
+        setNationalParks(nationalParks)    
         setMarkers(markerArray) 
       })
   }, [])
 
   function handleMarkerClick(park){
+    history.push(`/parks/${park.parkCode}`)
     handleActiveParkChange(park)
-    history.push(`/${park.parkCode}/main`)
   }
 
   const { isLoaded } = useJsApiLoader({

@@ -21,28 +21,23 @@ function App() {
       <HeaderContainer>
         <Header/>
       </HeaderContainer>
-    <ActiveParkProvider>
-      <MapContainer>
-        <ParkList 
-          nationalParks={nationalParks} 
-        />
-        <Map 
-          onFetchParks={handleSetParks} 
-        />  
-      </MapContainer>
+      <ActiveParkProvider>
+        <MapContainer>
+          <ParkList nationalParks={nationalParks} />
+          <Map onFetchParks={handleSetParks} />  
+        </MapContainer>
 
-      <InfoDisplay >
-        <Switch>
-          <Route path='/:parkCode'>
-            <InfoPanel 
-            />
-          </Route>
-          <Route exact path='/'>
-            Select a Park
-          </Route>
-        </Switch>
-      </InfoDisplay>
-    </ActiveParkProvider>
+        <InfoDisplay >
+          <Switch>
+            <Route path='/parks/:parkCode'>
+              <InfoPanel />
+            </Route>
+            <Route exact path='/parks'>
+              Select a Park
+            </Route>
+          </Switch>
+        </InfoDisplay>
+      </ActiveParkProvider>
       <Footer>
         Footer
       </Footer>

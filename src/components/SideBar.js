@@ -1,11 +1,17 @@
 import styled from 'styled-components'
 import {NavLink, useRouteMatch, useParams} from "react-router-dom";
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import ActiveParkContext from "./ActiveParkContext";
 
 
 function SideBar({ activePark }) {
-  const [showComponent, setShowComponent] = useState('/')
   const match = useRouteMatch()
+  // const {nationalParks} = useContext(ActiveParkContext)
+  // const params = useParams()
+
+  // const activePark = nationalParks.filter( park => {
+  //   return park.parkCode === params.parkCode
+  // })
 
   return (
     <Container>

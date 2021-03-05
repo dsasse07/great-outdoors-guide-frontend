@@ -3,6 +3,7 @@ import ActiveParkContext from "./ActiveParkContext";
 
 const ActiveParkProvider = ({ children }) => {
   const [activePark, setActivePark] = useState(null)
+  const [nationalParks, setNationalParks] = useState([])
   const [zoom, setZoom] = useState(4)
   const [center, setCenter] = useState({
     lat: 44.5802,
@@ -16,7 +17,7 @@ const ActiveParkProvider = ({ children }) => {
   }
 
   return (
-    <ActiveParkContext.Provider value={ {activePark, zoom, center, handleActiveParkChange, setZoom} }>
+    <ActiveParkContext.Provider value={ {activePark, zoom, center, handleActiveParkChange, setZoom, setNationalParks, nationalParks} }>
       {children}
     </ActiveParkContext.Provider>
   );

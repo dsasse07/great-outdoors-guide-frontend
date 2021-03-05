@@ -3,34 +3,43 @@ import SideBar from './SideBar'
 import ParkDescription from './ParkDescription'
 import ParkLanding from './ParkLanding'
 import Images from './Images'
-import { Switch, Route, useRouteMatch} from 'react-router-dom'
+import { Switch, Route, useRouteMatch, useParams} from 'react-router-dom'
 import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 
-function InfoPanel() {
-  const {activePark} = useContext(ActiveParkContext)
+function InfoPanel({activePark}) {
+  // const {activePark} = useContext(ActiveParkContext)
   const match = useRouteMatch()
 
-  return (
+  // const {nationalParks} = useContext(ActiveParkContext)
+  // const params = useParams()
+
+  // const activePark = nationalParks.filter( park => {
+  //   debugger
+  //   return park.parkCode === params.parkCode
+  // })
+// console.log('activePark', activePark)
+// console.log('params', params)
+  return ( 
     <Container>
       <SideBarContainer>
-        <SideBar />
+        <SideBar activePark={activePark} />
       </SideBarContainer>
       <Switch>
           <ParkContainer>
             <Route exact path={`${match.url}/description`}>
-                <ParkDescription  />
+                <ParkDescription  activePark={activePark}/>
             </Route>
             <Route exact path={`${match.url}/images`}>
-                <Images />
+                <Images activePark={activePark}/>
             </Route>
             <Route exact path={`${match.url}`}>
-                <ParkLanding  />
+                <ParkLanding activePark={activePark} />
             </Route>
           </ParkContainer>
       </Switch>
     </Container>
-  );
+  )
 
 }
 
