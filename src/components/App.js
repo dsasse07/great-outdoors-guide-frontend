@@ -3,6 +3,7 @@ import Map from './Map'
 import Header from './Header'
 import InfoPanel from './InfoPanel'
 import ParkList from './ParkList'
+import Login from './Login'
 import styled from 'styled-components'
 import {useState} from 'react'
 import {Switch, Route} from 'react-router-dom'
@@ -11,7 +12,7 @@ import '../fonts/NationalPark-Regular.otf';
 
 function App() {
   const [nationalParks, setNationalParks] = useState([])
-  const [currentUser, setCurrentUser] = useState(true)
+  const [currentUser, setCurrentUser] = useState(false)
   const [viewMode, setViewMode] = useState('parks')
 
   function handleSetParks(parkData){
@@ -27,16 +28,18 @@ function App() {
 
       <Switch>  
         { !currentUser ? (
-        <Route path='/login'>
-
+        <Route exact path='/login'>
+          {/* <LoginContainer> */}
+            <Login setCurrentUser={setCurrentUser}/>
+          {/* </LoginContainer> */}
         </Route> ) :
         (
         <>
-          <MapContainer>
-            <ParkList nationalParks={nationalParks} viewMode={viewMode} />
-            <Map onFetchParks={handleSetParks} viewMode={viewMode}/>  
-          </MapContainer>
           <Route path='/journal'>
+            <MapContainer>
+              <ParkList nationalParks={nationalParks} viewMode={viewMode} />
+              <Map onFetchParks={handleSetParks} viewMode={viewMode}/>  
+            </MapContainer>
             <JournalDisplay>
               <Route exact path='/journal/:parkCode'>
                 Specific Journal
@@ -47,14 +50,11 @@ function App() {
             </JournalDisplay>
           </Route>
 
-
-
-
-
-
-
-
           <Route path='/parks'>
+            <MapContainer>
+              <ParkList nationalParks={nationalParks} viewMode={viewMode} />
+              <Map onFetchParks={handleSetParks} viewMode={viewMode}/>  
+            </MapContainer>
             <InfoDisplay >
               <Route exact path='/parks/:parkCode'>
                 <InfoPanel />
@@ -100,6 +100,9 @@ const MapContainer = styled.section`
   padding-bottom: 15px;
   padding-left: 10px;
 `
+// const LoginContainer = styled.div`
+//   background: black;
+// `
 
 const InfoDisplay = styled.section`
   grid-row: 3;
