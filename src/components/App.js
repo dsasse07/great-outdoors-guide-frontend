@@ -5,12 +5,13 @@ import InfoPanel from './InfoPanel'
 import ParkList from './ParkList'
 import styled from 'styled-components'
 import {useState} from 'react'
-import {Switch, Route } from 'react-router-dom'
+import {Switch, Route, useRouteMatch } from 'react-router-dom'
 import ActiveParkProvider from './ActiveParkProvider'
 import '../fonts/NationalPark-Regular.otf'; 
 
 function App() {
   const [nationalParks, setNationalParks] = useState([])
+  const [currentUser, setCurrentUser] = useState(true)
 
   function handleSetParks(parkData){
     setNationalParks(parkData)
@@ -21,23 +22,31 @@ function App() {
       <HeaderContainer>
         <Header/>
       </HeaderContainer>
-      <ActiveParkProvider>
-        <MapContainer>
-          <ParkList nationalParks={nationalParks} />
-          <Map onFetchParks={handleSetParks} />  
-        </MapContainer>
 
-        <InfoDisplay >
-          <Switch>
-            <Route path='/parks/:parkCode'>
-              <InfoPanel />
-            </Route>
-            <Route exact path='/parks'>
-              Select a Park
-            </Route>
-          </Switch>
-        </InfoDisplay>
-      </ActiveParkProvider>
+      <Switch>  
+        { !currentUser ? (
+        <Route path='/login'>
+
+        </Route> ) :
+        (
+        <ActiveParkProvider>
+          <MapContainer>
+            <ParkList nationalParks={nationalParks} />
+            <Map onFetchParks={handleSetParks} />  
+          </MapContainer>
+
+          <InfoDisplay >
+              <Route path='/parks/:parkCode'>
+                <InfoPanel />
+              </Route>
+              <Route exact path='/parks'>
+                Select a Park
+              </Route>
+          </InfoDisplay>
+        </ActiveParkProvider>
+        )}
+      </Switch>
+
       <Footer>
         Footer
       </Footer>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { cloneElement } from 'react'
 import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 import styled from 'styled-components'
@@ -6,9 +6,9 @@ import styled from 'styled-components'
 function ParkLanding({}) {
   const {activePark} = useContext(ActiveParkContext)
 
+  console.log('activeParkIn Landing', activePark)
 
-
-
+  if (activePark ) {
   return (
     <Container>
         <TextContainer>
@@ -20,6 +20,9 @@ function ParkLanding({}) {
       </ImageContainer>
     </Container>
   )
+  } else {
+    return null
+  }
 }
 
 export default ParkLanding

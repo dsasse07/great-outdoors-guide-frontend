@@ -9,7 +9,7 @@ const ActiveParkProvider = ({ children }) => {
     lat: 44.5802,
     lng: -103.4617,
   })
-
+  console.log('activePark in Context', activePark)
   function handleActiveParkChange(park){
     setActivePark(park)
     setZoom(11)
@@ -17,7 +17,18 @@ const ActiveParkProvider = ({ children }) => {
   }
 
   return (
-    <ActiveParkContext.Provider value={ {activePark, zoom, center, handleActiveParkChange, setZoom, setNationalParks, nationalParks} }>
+    <ActiveParkContext.Provider 
+      value={ {
+        activePark, 
+        zoom, 
+        center, 
+        handleActiveParkChange, 
+        setZoom, 
+        setNationalParks, 
+        nationalParks,
+        setActivePark
+        }}
+      >
       {children}
     </ActiveParkContext.Provider>
   );

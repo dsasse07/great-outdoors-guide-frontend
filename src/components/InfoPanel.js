@@ -4,26 +4,30 @@ import ParkDescription from './ParkDescription'
 import ParkLanding from './ParkLanding'
 import Images from './Images'
 import { Switch, Route, useRouteMatch, useParams} from 'react-router-dom'
-import {useContext} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 
-function InfoPanel({activePark}) {
-  // const {activePark} = useContext(ActiveParkContext)
+function InfoPanel() {
+  const {activePark, setActivePark, nationalParks} = useContext(ActiveParkContext)
+  // const [loaded, setLoaded] = useState(!!activePark)
   const match = useRouteMatch()
+  const params = useParams()
+  // console.log('loaded', loaded)
+  const [initialActivePark, setInitialActivePark] = useState(
+    nationalParks.filter( park => {
+      return park.parkCode === params.parkCode
+    })[0] 
+  )
+    // setActivePark(initialActivePark[0])
+    console.log('park set to ', initialActivePark )
+  // }, [])
 
-  // const {nationalParks} = useContext(ActiveParkContext)
-  // const params = useParams()
+  console.log('params', params)
 
-  // const activePark = nationalParks.filter( park => {
-  //   debugger
-  //   return park.parkCode === params.parkCode
-  // })
-// console.log('activePark', activePark)
-// console.log('params', params)
   return ( 
     <Container>
       <SideBarContainer>
-        <SideBar activePark={activePark} />
+        <SideBar activePark={activePark || initialActivePark} />
       </SideBarContainer>
       <Switch>
           <ParkContainer>
@@ -34,7 +38,7 @@ function InfoPanel({activePark}) {
                 <Images activePark={activePark}/>
             </Route>
             <Route exact path={`${match.url}`}>
-                <ParkLanding activePark={activePark} />
+                <ParkLanding activePark={activePark || initialActivePark} />
             </Route>
           </ParkContainer>
       </Switch>
