@@ -41,8 +41,8 @@ function Map({}) {
   }, [])
 
   function handleMarkerClick(park){
-    history.push(`/parks/${park.parkCode}`)
     handleActiveParkChange(park)
+    history.push(`/parks/${park.parkCode}`)
   }
 
   const { isLoaded } = useJsApiLoader({
