@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useContext} from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import ActiveParkContext from "./ActiveParkContext";
 import {useHistory} from 'react-router-dom'
@@ -8,37 +8,14 @@ const containerStyle = {
   height: '400px'
 };
 
-function MyComponent({}) {
+function MyComponent() {
 
   const history = useHistory()
-  const {zoom, center, handleActiveParkChange, setZoom, setNationalParks} = useContext(ActiveParkContext)
-  const [markers, setMarkers] = useState([])
+  const {zoom, center, handleActiveParkChange, setZoom, nationalParks} = useContext(ActiveParkContext)
 
-  function isNationalPark(park){
-    return (
-        park.designation === "National Park" || 
-        park.designation === "National Park & Preserve" || 
-        park.name === "National Park of American Samoa" || 
-        park.designation=== "National Park and Preserve" || 
-        park.designation=== "National and State Parks" || 
-        park.designation=== "National Parks"
-    )
-  }
-
-  useEffect( () => {
-    fetch(`https://developer.nps.gov/api/v1/parks?limit=475&api_key=${process.env.REACT_APP_PARKS_API_KEY}` )
-      .then( response => response.json() )
-      .then( parksJSON => {
-        const nationalParks = parksJSON.data.filter( park => {
-          return isNationalPark(park)
-        }) 
-        const markerArray= nationalParks.map((park)=> {
-          return(<Marker onClick={() => {handleMarkerClick(park)}} key={park.id} position={ {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) }}/>)
-        })
-        setNationalParks(nationalParks)    
-        setMarkers(markerArray) 
-      })
-  }, [])
+  const markerArray= nationalParks.map((park)=> {
+    return(<Marker onClick={() => {handleMarkerClick(park)}} key={park.id} position={ {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) }}/>)
+    })
 
   function handleMarkerClick(park){
     history.push(`/parks/${park.parkCode}`)
@@ -77,7 +54,7 @@ function MyComponent({}) {
         onZoomChanged={ handleZoomChange }
       >
         {/* <Marker position={ {lat:44.3386, lng:-68.2733} }/> */}
-        {markers}
+        {markerArray}
 
       </GoogleMap>
   ) : <></>

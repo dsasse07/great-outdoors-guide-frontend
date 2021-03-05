@@ -4,7 +4,7 @@ import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 
 function ParkList() {
-  const {zoom, center, handleActiveParkChange, setZoom, nationalParks} = useContext(ActiveParkContext)
+  const {handleActiveParkChange, nationalParks} = useContext(ActiveParkContext)
   
   const nationalParksList = nationalParks.map((park)=>{
     return(

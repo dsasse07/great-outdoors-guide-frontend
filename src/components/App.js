@@ -5,7 +5,7 @@ import InfoPanel from './InfoPanel'
 import ParkList from './ParkList'
 import styled from 'styled-components'
 import {useState} from 'react'
-import {Switch, Route, useRouteMatch } from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 import ActiveParkProvider from './ActiveParkProvider'
 import '../fonts/NationalPark-Regular.otf'; 
 

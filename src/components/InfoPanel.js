@@ -4,25 +4,22 @@ import ParkDescription from './ParkDescription'
 import ParkLanding from './ParkLanding'
 import Images from './Images'
 import { Switch, Route, useRouteMatch, useParams} from 'react-router-dom'
-import {useContext, useEffect, useState} from 'react'
+import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 
 function InfoPanel() {
-  const {activePark, setActivePark, nationalParks} = useContext(ActiveParkContext)
-  // const [loaded, setLoaded] = useState(!!activePark)
+  const {activePark, handleActiveParkChange, nationalParks} = useContext(ActiveParkContext)
   const match = useRouteMatch()
   const params = useParams()
-  // console.log('loaded', loaded)
-  const [initialActivePark, setInitialActivePark] = useState(
-    nationalParks.filter( park => {
+
+  const initialActivePark = nationalParks.filter( park => {
       return park.parkCode === params.parkCode
     })[0] 
-  )
-    // setActivePark(initialActivePark[0])
-    console.log('park set to ', initialActivePark )
-  // }, [])
 
-  console.log('params', params)
+  if (!activePark){
+    handleActiveParkChange(initialActivePark)
+  }
+  
 
   return ( 
     <Container>
