@@ -73,7 +73,7 @@ const MapContainer = styled.section`
   grid-row: 2;
   background: pink;
   display: flex;
-  justify-content: space-between;
+  gap: 25px;
   height: 400px;
   padding-top: 15px;
   padding-bottom: 15px;

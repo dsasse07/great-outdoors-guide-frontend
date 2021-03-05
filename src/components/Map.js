@@ -8,7 +8,7 @@ const containerStyle = {
   height: '400px'
 };
 
-function Map({}) {
+function Map() {
 
   const history = useHistory()
   const {zoom, center, handleActiveParkChange, setZoom, nationalParks} = useContext(ActiveParkContext)

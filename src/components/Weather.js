@@ -1,21 +1,31 @@
-import styled from 'styled-components'
+import React from 'react'
 import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
+import styled from 'styled-components'
 
-
-
-
-function ParkDescription() {
+function Weather() {
   const {activePark} = useContext(ActiveParkContext)
   const randomIndex = Math.floor(Math.random() * activePark?.images.length)
+
+  const weatherNotices = activePark?.weatherInfo.split(".")
+    .filter( notice => {
+      return !!notice
+    })
+    .map(notice => {
+      return <Notice key={notice}>{notice}</Notice>
+    })
+
+
 
   if (activePark ) {
     return (
       <Container>
           <TextContainer>
               <h1>{activePark.fullName }</h1>
-              <h2> Description </h2>
-              <h3>{activePark.description}</h3>
+              <h2>Weather Information</h2>
+              <NoticesList>
+                {weatherNotices}
+              </NoticesList>
           </TextContainer>
         <ImageContainer>
           <img src={activePark.images[randomIndex].url} alt={activePark.images[randomIndex].altText}></img>
@@ -27,7 +37,8 @@ function ParkDescription() {
     }
 }
 
-export default ParkDescription;
+export default Weather
+
 
 const Container = styled.div`
   position: relative;
@@ -62,12 +73,15 @@ const TextContainer = styled.main`
     font-size: 2.5rem;
     text-align: center;
   }
+`
 
-  h3 {
-    margin-top: 10px;
-    font-size: 1.4rem;
-    text-align: center;
-    margin-left: 50px;
-    margin-right: 50px;
-  }
+const NoticesList = styled.ul`
+  list-style-type: none;
+  text-align: center;
+  padding-inline-start: 0;
+`
+
+const Notice = styled.li`
+  font-size: 1.5rem;
+  margin-bottom: 6px;
 `

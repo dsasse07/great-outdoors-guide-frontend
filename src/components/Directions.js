@@ -1,21 +1,25 @@
-import styled from 'styled-components'
+import React from 'react'
 import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
+import styled from 'styled-components'
 
-
-
-
-function ParkDescription() {
+function Directions() {
   const {activePark} = useContext(ActiveParkContext)
   const randomIndex = Math.floor(Math.random() * activePark?.images.length)
+
 
   if (activePark ) {
     return (
       <Container>
           <TextContainer>
               <h1>{activePark.fullName }</h1>
-              <h2> Description </h2>
-              <h3>{activePark.description}</h3>
+              <h2>Directions Information</h2>
+              <DirectionsText>
+                {activePark.directionsInfo}
+              </DirectionsText>
+              <DirectionsLink target="_blank" href={activePark.directionsUrl}>
+                Further Directions & Alerts
+              </DirectionsLink>
           </TextContainer>
         <ImageContainer>
           <img src={activePark.images[randomIndex].url} alt={activePark.images[randomIndex].altText}></img>
@@ -27,7 +31,8 @@ function ParkDescription() {
     }
 }
 
-export default ParkDescription;
+export default Directions
+
 
 const Container = styled.div`
   position: relative;
@@ -50,7 +55,8 @@ const TextContainer = styled.main`
   width: 100%;
   padding-bottom: 5px;
   padding-top: 5px;
-
+  text-align: center;
+ 
   h1 {
     text-align: center;
     font-size: 3.5rem;
@@ -62,12 +68,14 @@ const TextContainer = styled.main`
     font-size: 2.5rem;
     text-align: center;
   }
+`
 
-  h3 {
-    margin-top: 10px;
-    font-size: 1.4rem;
-    text-align: center;
-    margin-left: 50px;
-    margin-right: 50px;
-  }
+const DirectionsText = styled.div`
+  font-size: 1.5rem;
+  text-align: center;
+  padding-inline-start: 0;
+  `
+const DirectionsLink = styled.a`
+  color: white;
+  text-align: center;
 `

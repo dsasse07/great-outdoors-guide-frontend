@@ -1,34 +1,38 @@
-import styled from 'styled-components'
+import React from 'react'
 import {useContext} from 'react'
-import ActiveParkContext from "./ActiveParkContext";
+import ActiveParkContext from "./ActiveParkContext"
+import styled from 'styled-components'
 
-
-
-
-function ParkDescription() {
+function Contact() {
   const {activePark} = useContext(ActiveParkContext)
   const randomIndex = Math.floor(Math.random() * activePark?.images.length)
-
+  const emailAddress = activePark?.contacts.emailAddresses[0].emailAddress 
+  const phoneNumber = activePark?.contacts.phoneNumbers[0].phoneNumber
+  const homePage = activePark?.url
+  console.log('activePark', activePark)
   if (activePark ) {
     return (
       <Container>
           <TextContainer>
               <h1>{activePark.fullName }</h1>
-              <h2> Description </h2>
-              <h3>{activePark.description}</h3>
+              <h2>Contact Information:</h2>
+              <List>
+                <ListItem>Email : <a href= {"mailto: " + emailAddress}>{emailAddress}</a> </ListItem>
+                <ListItem>Phone : {phoneNumber}</ListItem>
+                <ListItem> <a href={homePage} target="_blank" rel="noreferrer">Home Page</a> </ListItem>
+              </List>
           </TextContainer>
         <ImageContainer>
           <img src={activePark.images[randomIndex].url} alt={activePark.images[randomIndex].altText}></img>
         </ImageContainer>
       </Container>
     )
-    } else {
-      return null
-    }
+  } else {
+    return null
+  }
 }
 
-export default ParkDescription;
-
+export default Contact
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -62,12 +66,19 @@ const TextContainer = styled.main`
     font-size: 2.5rem;
     text-align: center;
   }
+`
 
-  h3 {
-    margin-top: 10px;
-    font-size: 1.4rem;
-    text-align: center;
-    margin-left: 50px;
-    margin-right: 50px;
+const List = styled.ul`
+  list-style-type: none;
+  text-align: center;
+  padding-inline-start: 0;
+`
+
+const ListItem = styled.li`
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+
+  a {
+    color: #6cfcc5;
   }
 `

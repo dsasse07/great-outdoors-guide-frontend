@@ -10,31 +10,15 @@ import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
 function Images() {
     const {activePark} = useContext(ActiveParkContext)
     
-    const slideImages = activePark.images.map((image)=>{
+
+    const slideImages = activePark?.images.map((image)=>{
         return( 
             < SlideImage key={image.title}img src={image.url} alt={image.alt}/>
     )}) 
 
-    // const responsive = {
-    //     0: { items: 1 },
-    //     1024: { items: 2 },
-    //   }
-    
-
     return (
         <Container >
-            {/* <AliceCarousel 
-                items={slideImages}
-                responsive={responsive}
-                autoPlayInterval={2000}
-                autoPlayDirection="rtl"
-                autoPlay={true}
-                fadeOutAnimation={true}
-                mouseTrackingEnabled={true}
-                disableAutoPlayOnAction={true}
-            />
-             */}
-             <Carousel showThumbs={false} infiniteLoop={true}>
+            <Carousel showThumbs={false} infiniteLoop={true}>
                 {slideImages}
             </Carousel>
         </Container>
@@ -45,20 +29,22 @@ export default Images
 
 
 const Container = styled.div`
-height: 100vh;
-width: 100%;
-overflow: hidden;
-display: flex;
-flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 `
 
 const SlideImage = styled.img`
-width: auto;
-height: auto;
-max-width: 100%;
-max-height: 100%;
-object-fit: cover;
-background-repeat: no-repeat;
-margin: auto;
+    background-color: none;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    margin: auto;
 `
-    
+
+

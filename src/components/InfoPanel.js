@@ -3,6 +3,9 @@ import SideBar from './SideBar'
 import ParkDescription from './ParkDescription'
 import ParkLanding from './ParkLanding'
 import Images from './Images'
+import Directions from './Directions'
+import Contact from './Contact'
+import Weather from './Weather'
 import { Switch, Route, useRouteMatch, useParams} from 'react-router-dom'
 import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
@@ -33,6 +36,15 @@ function InfoPanel() {
             </Route>
             <Route exact path={`${match.url}/images`}>
                 <Images/>
+            </Route>
+            <Route exact path={`${match.url}/directions`}>
+                <Directions/>
+            </Route>
+            <Route exact path={`${match.url}/weather`}>
+                <Weather/>
+            </Route>
+            <Route exact path={`${match.url}/contact`}>
+                <Contact/>
             </Route>
             <Route exact path={`${match.url}`}>
                 <ParkLanding activePark={activePark || initialActivePark} />

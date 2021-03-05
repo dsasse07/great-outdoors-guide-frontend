@@ -20,14 +20,14 @@ function SideBar() {
         <LinkButton type="button" to={`${match.url}/images`} activeStyle={{background: "white"}}>
           Images
         </LinkButton>
-        <LinkButton type="button" to={`${match.url}/contact`} activeStyle={{background: "white"}}>
-          Contact
+        <LinkButton type="button" to={`${match.url}/directions`} activeStyle={{background: "white"}}>
+          Directions
         </LinkButton>
         <LinkButton type="button" to={`${match.url}/weather`} activeStyle={{background: "white"}}>
           Weather
         </LinkButton>
-        <LinkButton type="button" to={`${match.url}/directions`} activeStyle={{background: "white"}}>
-          Directions
+        <LinkButton type="button" to={`${match.url}/contact`} activeStyle={{background: "white"}}>
+          Contact
         </LinkButton>
         <h1>Images</h1>
         <h1>Contact: Url, Phone NUmbers, Address, Hours</h1>
