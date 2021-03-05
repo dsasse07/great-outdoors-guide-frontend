@@ -8,7 +8,7 @@ const containerStyle = {
   height: '400px'
 };
 
-function Map() {
+function Map({viewMode}) {
 
   const history = useHistory()
   const {zoom, center, handleActiveParkChange, setZoom, nationalParks} = useContext(ActiveParkContext)
@@ -19,7 +19,7 @@ function Map() {
 
   function handleMarkerClick(park){
     handleActiveParkChange(park)
-    history.push(`/parks/${park.parkCode}`)
+    history.push(`/${viewMode}/${park.parkCode}`)
   }
 
   const { isLoaded } = useJsApiLoader({

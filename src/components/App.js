@@ -12,6 +12,7 @@ import '../fonts/NationalPark-Regular.otf';
 function App() {
   const [nationalParks, setNationalParks] = useState([])
   const [currentUser, setCurrentUser] = useState(true)
+  const [viewMode, setViewMode] = useState('parks')
 
   function handleSetParks(parkData){
     setNationalParks(parkData)
@@ -19,8 +20,9 @@ function App() {
 
   return (
     <Container>
+      <ActiveParkProvider>
       <HeaderContainer>
-        <Header/>
+        <Header onViewModeChange={setViewMode}/>
       </HeaderContainer>
 
       <Switch>  
@@ -29,28 +31,47 @@ function App() {
 
         </Route> ) :
         (
-        <ActiveParkProvider>
+        <>
           <MapContainer>
-            <ParkList nationalParks={nationalParks} />
-            <Map onFetchParks={handleSetParks} />  
+            <ParkList nationalParks={nationalParks} viewMode={viewMode} />
+            <Map onFetchParks={handleSetParks} viewMode={viewMode}/>  
           </MapContainer>
+          <Route path='/journal'>
+            <JournalDisplay>
+              <Route exact path='/journal/:parkCode'>
+                Specific Journal
+              </Route>
+              <Route exact path='/journal'>
+                Journal Default
+              </Route>
+            </JournalDisplay>
+          </Route>
 
-          <InfoDisplay >
-              <Route path='/parks/:parkCode'>
+
+
+
+
+
+
+
+          <Route path='/parks'>
+            <InfoDisplay >
+              <Route exact path='/parks/:parkCode'>
                 <InfoPanel />
               </Route>
               <Route exact path='/parks'>
                 Select a Park
               </Route>
-          </InfoDisplay>
-        </ActiveParkProvider>
+            </InfoDisplay>
+          </Route>
+        </>
         )}
       </Switch>
 
       <Footer>
         Footer 
       </Footer>
-
+    </ActiveParkProvider>
     </Container>
   );
 } 
@@ -87,5 +108,9 @@ const InfoDisplay = styled.section`
 
 const Footer = styled.footer`
   grid-row: 4;
+  background: pink;
+`
+const JournalDisplay = styled.section`
+  grid-row: 3;
   background: pink;
 `

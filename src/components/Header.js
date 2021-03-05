@@ -1,15 +1,25 @@
 import styled from 'styled-components'
+import {useHistory} from 'react-router-dom'
+import ActiveParkContext from "./ActiveParkContext";
+import {useContext} from 'react'
 
+function Header({onViewModeChange}) {
+  const {activePark} = useContext(ActiveParkContext)
+  const history = useHistory()
 
-function Header() {
+  function handleClick(event){
+    onViewModeChange(event.target.value)
+    history.push(`/${event.target.value}${activePark ? "/"+activePark.parkCode : "" }`)
+  }
+
   return (
     <Container>
       <LogoContainer>
         <h1>Logo Goes Here</h1>
       </LogoContainer>
       <NavContainer>
-        <button>Nav Button</button>
-        <button>Nav Button</button>
+        <button value="parks" onClick={handleClick}>Parks Mode</button>
+        <button value="journal" onClick={handleClick}>Journal Mode</button>
         <button>Nav Button</button>
         <button>Nav Button</button>
       </NavContainer>

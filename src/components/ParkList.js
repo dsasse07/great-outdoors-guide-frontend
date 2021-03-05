@@ -3,13 +3,13 @@ import {NavLink} from 'react-router-dom'
 import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 
-function ParkList() {
+function ParkList({viewMode}) {
   const {handleActiveParkChange, nationalParks} = useContext(ActiveParkContext)
   
   const nationalParksList = nationalParks.map((park)=>{
     return(
       <li onClick={()=>handleClick(park)} key={park.id} >
-        <LinkButton to={`/parks/${park.parkCode}`} activeStyle={{background: "white"}}>
+        <LinkButton to={`/${viewMode}/${park.parkCode}`} activeStyle={{background: "white"}}>
           {park.fullName}
         </LinkButton>
       </li>
