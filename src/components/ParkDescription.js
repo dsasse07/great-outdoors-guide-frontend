@@ -5,7 +5,7 @@ import ActiveParkContext from "./ActiveParkContext";
 
 
 
-function ParkDescription({ }) {
+function ParkDescription() {
   const {activePark} = useContext(ActiveParkContext)
 
   return (

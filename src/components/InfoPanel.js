@@ -8,22 +8,23 @@ import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 
 function InfoPanel() {
-  // const {activePark} = useContext(ActiveParkContext)
+  const {activePark, handleActiveParkChange, nationalParks} = useContext(ActiveParkContext)
   const match = useRouteMatch()
+  const params = useParams()
 
-  // const {nationalParks} = useContext(ActiveParkContext)
-  // const params = useParams()
+  const initialActivePark = nationalParks.filter( park => {
+      return park.parkCode === params.parkCode
+    })[0] 
 
-  // const activePark = nationalParks.filter( park => {
-  //   debugger
-  //   return park.parkCode === params.parkCode
-  // })
-// console.log('activePark', activePark)
-// console.log('params', params)
+  if (!activePark){
+    handleActiveParkChange(initialActivePark)
+  }
+  
+
   return ( 
     <Container>
       <SideBarContainer>
-        <SideBar />
+        <SideBar activePark={activePark || initialActivePark} />
       </SideBarContainer>
       <Switch>
           <ParkContainer>
@@ -34,7 +35,7 @@ function InfoPanel() {
                 <Images/>
             </Route>
             <Route exact path={`${match.url}`}>
-                <ParkLanding />
+                <ParkLanding activePark={activePark || initialActivePark} />
             </Route>
           </ParkContainer>
       </Switch>

@@ -3,12 +3,10 @@ import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 import styled from 'styled-components'
 
-function ParkLanding({}) {
+function ParkLanding() {
   const {activePark} = useContext(ActiveParkContext)
 
-
-
-
+  if (activePark ) {
   return (
     <Container>
         <TextContainer>
@@ -20,6 +18,9 @@ function ParkLanding({}) {
       </ImageContainer>
     </Container>
   )
+  } else {
+    return null
+  }
 }
 
 export default ParkLanding

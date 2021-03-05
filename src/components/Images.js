@@ -13,7 +13,7 @@ function Images() {
     const slideImages = activePark.images.map((image)=>{
         return( 
             < SlideImage key={image.title}img src={image.url} alt={image.alt}/>
-    )})
+    )}) 
 
     // const responsive = {
     //     0: { items: 1 },
