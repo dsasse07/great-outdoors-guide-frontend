@@ -8,7 +8,7 @@ const containerStyle = {
   height: '400px'
 };
 
-function MyComponent({}) {
+function Map({}) {
 
   const history = useHistory()
   const {zoom, center, handleActiveParkChange, setZoom, setNationalParks} = useContext(ActiveParkContext)
@@ -83,4 +83,4 @@ function MyComponent({}) {
   ) : <></>
 }
 
-export default React.memo(MyComponent)
+export default React.memo(Map)

@@ -7,7 +7,7 @@ import { Switch, Route, useRouteMatch, useParams} from 'react-router-dom'
 import {useContext} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 
-function InfoPanel({activePark}) {
+function InfoPanel() {
   // const {activePark} = useContext(ActiveParkContext)
   const match = useRouteMatch()
 
@@ -23,18 +23,18 @@ function InfoPanel({activePark}) {
   return ( 
     <Container>
       <SideBarContainer>
-        <SideBar activePark={activePark} />
+        <SideBar />
       </SideBarContainer>
       <Switch>
           <ParkContainer>
             <Route exact path={`${match.url}/description`}>
-                <ParkDescription  activePark={activePark}/>
+                <ParkDescription />
             </Route>
             <Route exact path={`${match.url}/images`}>
-                <Images activePark={activePark}/>
+                <Images/>
             </Route>
             <Route exact path={`${match.url}`}>
-                <ParkLanding activePark={activePark} />
+                <ParkLanding />
             </Route>
           </ParkContainer>
       </Switch>
