@@ -6,7 +6,7 @@ import ParkList from './ParkList'
 import Login from './Login'
 import styled from 'styled-components'
 import {useState, useEffect} from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import ActiveParkProvider from './ActiveParkProvider'
 import '../fonts/NationalPark-Regular.otf'; 
 
@@ -42,13 +42,16 @@ function App() {
       </HeaderContainer>
 
       <Switch>  
-        { !currentUser ? (
+
         <Route exact path='/login'>
             <Login setViewMode={setViewMode} setCurrentUser={setCurrentUser}/>
-        </Route> ) :
-        (
-        <>
-          <Route path='/journal'>
+        </Route> 
+{/* *********************************************************** */}
+{/* ***************        Journal Route      ***************** */}
+{/* *********************************************************** */}
+        <Route path='/journal'>
+          {currentUser ? 
+          <>
             <MapContainer>
               <ParkList nationalParks={nationalParks} viewMode={viewMode} />
               <Map onFetchParks={handleSetParks} viewMode={viewMode}/>  
@@ -61,15 +64,20 @@ function App() {
                 Journal Default
               </Route>
             </JournalDisplay>
-          </Route>
-
+          </>
+          : <Redirect to='/login' />
+          }
+        </Route>
+{/* *********************************************************** */}
+{/* ***************        Parks Route      ******************* */}
+{/* *********************************************************** */}
           <Route path='/parks'>
             <MapContainer>
               <ParkList nationalParks={nationalParks} viewMode={viewMode} />
               <Map onFetchParks={handleSetParks} viewMode={viewMode}/>  
             </MapContainer>
             <InfoDisplay >
-              <Route exact path='/parks/:parkCode'>
+              <Route path='/parks/:parkCode'>
                 <InfoPanel />
               </Route>
               <Route exact path='/parks'>
@@ -77,8 +85,13 @@ function App() {
               </Route>
             </InfoDisplay>
           </Route>
-        </>
-        )}
+{/* *********************************************************** */}
+{/* ***************        Parks Route      ******************* */}
+{/* *********************************************************** */}
+          <Route exact path = '/'>
+            Main About Page
+          </Route>
+        )
       </Switch>
 
       <Footer>
