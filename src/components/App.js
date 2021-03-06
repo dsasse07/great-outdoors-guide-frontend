@@ -20,7 +20,7 @@ function App() {
   }
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token)
+
     if (token) {
       fetch("http://localhost:3000/me", {
         headers: {
@@ -33,7 +33,6 @@ function App() {
       });
     }
   }, []);
-  console.log(currentUser);
 
   return (
     <Container>
@@ -45,9 +44,7 @@ function App() {
       <Switch>  
         { !currentUser ? (
         <Route exact path='/login'>
-          {/* <LoginContainer> */}
             <Login setViewMode={setViewMode} setCurrentUser={setCurrentUser}/>
-          {/* </LoginContainer> */}
         </Route> ) :
         (
         <>

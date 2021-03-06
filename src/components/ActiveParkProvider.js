@@ -39,6 +39,15 @@ const ActiveParkProvider = ({ children }) => {
     setCenter({lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) })
   }
 
+  function resetOnLogout(){
+    setActivePark(null)
+    setZoom(4)
+    setCenter({
+      lat: 44.5802,
+      lng: -103.4617,
+    })
+  }
+
   return (
     <ActiveParkContext.Provider 
       value={ {
@@ -49,7 +58,8 @@ const ActiveParkProvider = ({ children }) => {
         setZoom, 
         setNationalParks, 
         nationalParks,
-        setActivePark
+        setActivePark,
+        resetOnLogout
         }}
       >
       {children}

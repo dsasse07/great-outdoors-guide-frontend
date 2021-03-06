@@ -31,7 +31,8 @@ function LoginForm({setCurrentUser, setViewMode}) {
 
   function handleLoginSubmit(e) {
     e.preventDefault();
-    fetch("http://localhost:3000/login", {
+    // fetch("http://localhost:3000/login", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +68,8 @@ function LoginForm({setCurrentUser, setViewMode}) {
     }
 
     e.preventDefault();
-    fetch("http://localhost:3000/signup", {
+    // fetch("http://localhost:3000/signup", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

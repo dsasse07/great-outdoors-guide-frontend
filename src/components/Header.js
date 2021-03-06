@@ -4,7 +4,7 @@ import ActiveParkContext from "./ActiveParkContext";
 import {useContext} from 'react'
 
 function Header({onViewModeChange,currentUser, setCurrentUser}) {
-  const {activePark} = useContext(ActiveParkContext)
+  const {activePark, resetOnLogout} = useContext(ActiveParkContext)
   const history = useHistory()
 
   function handleClick(event){
@@ -14,7 +14,12 @@ function Header({onViewModeChange,currentUser, setCurrentUser}) {
 
   function logout() {
     localStorage.removeItem("token");
+    resetOnLogout()
     setCurrentUser(false);
+    history.push("/login")
+  }
+
+  function goToLogin(){
     history.push("/login")
   }
 
@@ -24,10 +29,14 @@ function Header({onViewModeChange,currentUser, setCurrentUser}) {
         <h1>Logo Goes Here</h1>
       </LogoContainer>
       <NavContainer>
-        <button value="parks" onClick={handleClick}>Parks Mode</button>
-        <button value="journal" onClick={handleClick}>Journal Mode</button>
-        <button>Nav Button</button>
-        <button onClick={logout}>Logout</button>
+        <button value="parks" onClick={handleClick}>Park Info</button>
+        { currentUser && 
+        <button value="journal" onClick={handleClick}>Travel Journal</button>
+        }
+        <button onClick={currentUser ? logout : goToLogin}>
+          {currentUser ? "Logout" : "Login" }
+        </button>
+
       </NavContainer>
     </Container>
   )
