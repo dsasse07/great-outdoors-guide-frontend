@@ -5,7 +5,7 @@ import { Switch, Route, useRouteMatch, useParams} from 'react-router-dom'
 import {useContext, useEffect} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 
-function JournalPanel() {
+function JournalPanel(currentUser) {
 
   const {activePark, handleActiveParkChange, nationalParks} = useContext(ActiveParkContext)
   const match = useRouteMatch()
@@ -24,7 +24,7 @@ function JournalPanel() {
   return (
         <Container>
       <SideBarContainer>
-        <JournalSideBar/>
+        <JournalSideBar currentUser={currentUser}/>
         {/* <SideBar activePark={activePark || initialActivePark} /> */}
       </SideBarContainer>
       <Switch>

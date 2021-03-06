@@ -15,6 +15,7 @@ function App() {
   const [nationalParks, setNationalParks] = useState([])
   const [currentUser, setCurrentUser] = useState(false)
   const [viewMode, setViewMode] = useState('parks')
+  const token = localStorage.getItem("token");
 
   function handleSetParks(parkData){
     setNationalParks(parkData)
@@ -22,7 +23,6 @@ function App() {
 
   // 
   useEffect(() => {
-    const token = localStorage.getItem("token");
 
     if (token) {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/me`, {
@@ -37,6 +37,7 @@ function App() {
     }
   }, []);
   console.log('currentUser in App', currentUser)
+  console.log("token", token)
   return (
     <Container>
       <ActiveParkProvider>

@@ -10,7 +10,7 @@ function JournalSideBar({currentUser}) {
   console.log('currentUser', currentUser)
   return (
     <Container>
-        <h1> {currentUser && `${currentUser.firstName}'s Travel Journal`}</h1>
+        <h1> {currentUser && `${currentUser.currentUser.first_name}'s Travel Journal`}</h1>
         <LinkButton type="button" exact to={`${match.url}`} activeStyle={{background: "white"}}>
           Main
         </LinkButton>
