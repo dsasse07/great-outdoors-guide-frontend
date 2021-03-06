@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 
-function LoginForm(setCurrentUser) {
+function LoginForm({setCurrentUser}) {
   const [isLogin, setIsLogin] = useState(true)
   const [formData, setFormData] = useState({
     firstName: "",
@@ -27,7 +27,7 @@ function LoginForm(setCurrentUser) {
       setIsLogin(isLogin => !isLogin)
   }
 
-  console.log('isLogin', isLogin)
+
 
   function handleLoginSubmit(e) {
     e.preventDefault();
@@ -48,9 +48,9 @@ function LoginForm(setCurrentUser) {
         }
       })
       .then((data) => {
-        // setCurrentUser(data.user);
+        setCurrentUser(data.user);
         localStorage.setItem("token", data.token);
-        history.push("/");
+        history.push("/journal");
       })
       .catch((data) => {
         setErrors(data.errors);
@@ -58,14 +58,20 @@ function LoginForm(setCurrentUser) {
   }
   
   function handleSignupSubmit(e) {
-    e.preventDefault();
+    const newSignup = {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      username: formData.username,
+      password: formData.password,
+    }
 
+    e.preventDefault();
     fetch("http://localhost:3000/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(newSignup),
     })
       .then((response) => {
         if (response.ok) {
@@ -77,8 +83,9 @@ function LoginForm(setCurrentUser) {
         }
       })
       .then((data) => {
+        setCurrentUser(data.user);
         localStorage.setItem("token", data.token);
-        // history.push("/");
+        history.push("/journal");
       })
       .catch((data) => {
         setErrors(data.errors);
@@ -86,8 +93,10 @@ function LoginForm(setCurrentUser) {
   }
     return ( 
         <Form onSubmit={isLogin ? handleLoginSubmit : handleSignupSubmit} autoComplete="off">
-            <button onClick={handleFormButtonClick}> {isLogin ? "Signup Form" : "Login Form"}</button>
+            <button type="button" onClick={handleFormButtonClick}> {isLogin ? "Signup Form" : "Login Form"}</button>
             <h1>{isLogin? "Login" : "Signup"}</h1>
+            {!isLogin? 
+            <>
               <input
               type="text"
               name="firstName"
@@ -103,7 +112,7 @@ function LoginForm(setCurrentUser) {
               value={formData.lastName}
               placeholder="Last Name"
               required
-            />
+            /> </>: <></> }
             <input
               type="text"
               name="username"
@@ -113,7 +122,7 @@ function LoginForm(setCurrentUser) {
               required
             />
             <input
-              type="text"
+              type="password"
               name="password"
               onChange={handleChange}
               checked={formData.password}

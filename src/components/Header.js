@@ -3,13 +3,19 @@ import {useHistory} from 'react-router-dom'
 import ActiveParkContext from "./ActiveParkContext";
 import {useContext} from 'react'
 
-function Header({onViewModeChange}) {
+function Header({onViewModeChange,currentUser, setCurrentUser}) {
   const {activePark} = useContext(ActiveParkContext)
   const history = useHistory()
 
   function handleClick(event){
     onViewModeChange(event.target.value)
     history.push(`/${event.target.value}${activePark ? "/"+activePark.parkCode : "" }`)
+  }
+
+  function logout() {
+    localStorage.removeItem("token");
+    setCurrentUser(false);
+    history.push("login")
   }
 
   return (
@@ -21,7 +27,7 @@ function Header({onViewModeChange}) {
         <button value="parks" onClick={handleClick}>Parks Mode</button>
         <button value="journal" onClick={handleClick}>Journal Mode</button>
         <button>Nav Button</button>
-        <button>Nav Button</button>
+        <button onClick={logout}>Logout</button>
       </NavContainer>
     </Container>
   )

@@ -3,11 +3,11 @@ import styled from 'styled-components'
 import LoginForm from './LoginForm'
 // import SignUpForm from './SignUpForm'
 
-function Login(setCurrentUser) {
+function Login({setCurrentUser}) {
   return (
     <Container>
       <FormContainer>
-        <LoginForm/>
+        <LoginForm setCurrentUser={setCurrentUser}/>
         {/* <SignUpForm/> */}
       </FormContainer>
       <ImageContainer>

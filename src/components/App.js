@@ -5,7 +5,7 @@ import InfoPanel from './InfoPanel'
 import ParkList from './ParkList'
 import Login from './Login'
 import styled from 'styled-components'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {Switch, Route} from 'react-router-dom'
 import ActiveParkProvider from './ActiveParkProvider'
 import '../fonts/NationalPark-Regular.otf'; 
@@ -18,12 +18,28 @@ function App() {
   function handleSetParks(parkData){
     setNationalParks(parkData)
   }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log(token)
+    if (token) {
+      fetch("http://localhost:3000/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((r) => r.json())
+      .then((user) => {
+        setCurrentUser(user);
+      });
+    }
+  }, []);
+  console.log(currentUser);
 
   return (
     <Container>
       <ActiveParkProvider>
       <HeaderContainer>
-        <Header onViewModeChange={setViewMode}/>
+        <Header currentUser={currentUser} setCurrentUser={setCurrentUser} onViewModeChange={setViewMode}/>
       </HeaderContainer>
 
       <Switch>  
