@@ -41,7 +41,7 @@ function App() {
         <Header currentUser={currentUser} setCurrentUser={setCurrentUser} onViewModeChange={setViewMode}/>
       </HeaderContainer>
 
-      <Switch>  
+      <Switch>   
 {/* *********************************************************** */}
 {/* ***************        Login Route      ***************** */}
 {/* *********************************************************** */}
