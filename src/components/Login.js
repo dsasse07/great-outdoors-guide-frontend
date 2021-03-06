@@ -11,7 +11,12 @@ function Login({setCurrentUser, setViewMode}) {
         {/* <SignUpForm/> */}
       </FormContainer>
       <ImageContainer>
-        <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fstatic3.businessinsider.com%2Fimage%2F5535513e6bb3f73c6b8b4567%2F33-stunning-pictures-of-us-national-parks.jpg&f=1&nofb=1"></img>
+        <img 
+          src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fstatic3.businessinsider.com%2Fimage%2F5535513e6bb3f73c6b8b4567%2F33-stunning-pictures-of-us-national-parks.jpg&f=1&nofb=1"
+          alt="National Parks Background"
+        />
+      
+      
       </ImageContainer>
   </Container>
   )

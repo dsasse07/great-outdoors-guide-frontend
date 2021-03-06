@@ -2,6 +2,7 @@
 import Map from './Map'
 import Header from './Header'
 import InfoPanel from './InfoPanel'
+import JournalPanel from './JournalPanel'
 import ParkList from './ParkList'
 import Login from './Login'
 import styled from 'styled-components'
@@ -18,13 +19,15 @@ function App() {
   function handleSetParks(parkData){
     setNationalParks(parkData)
   }
+
+  // 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      fetch("http://localhost:3000/me", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/me`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
       })
       .then((r) => r.json())
@@ -33,7 +36,7 @@ function App() {
       });
     }
   }, []);
-
+  console.log('currentUser in App', currentUser)
   return (
     <Container>
       <ActiveParkProvider>
@@ -52,7 +55,7 @@ function App() {
 {/* ***************        Journal Route      ***************** */}
 {/* *********************************************************** */}
         <Route path='/journal'>
-          {currentUser ? 
+          {currentUser && 
           <>
             <MapContainer>
               <ParkList nationalParks={nationalParks} viewMode={viewMode} />
@@ -60,14 +63,14 @@ function App() {
             </MapContainer>
             <JournalDisplay>
               <Route exact path='/journal/:parkCode'>
-                Specific Journal
+                <JournalPanel currentUser={currentUser}/>
               </Route>
               <Route exact path='/journal'>
                 Journal Default
               </Route>
             </JournalDisplay>
           </>
-          : <Redirect to='/login' />
+          // : <Redirect to='/login' />
           }
         </Route>
 {/* *********************************************************** */}
