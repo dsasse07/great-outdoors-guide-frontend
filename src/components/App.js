@@ -46,7 +46,7 @@ function App() {
         { !currentUser ? (
         <Route exact path='/login'>
           {/* <LoginContainer> */}
-            <Login setCurrentUser={setCurrentUser}/>
+            <Login setViewMode={setViewMode} setCurrentUser={setCurrentUser}/>
           {/* </LoginContainer> */}
         </Route> ) :
         (

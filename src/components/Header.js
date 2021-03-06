@@ -15,7 +15,7 @@ function Header({onViewModeChange,currentUser, setCurrentUser}) {
   function logout() {
     localStorage.removeItem("token");
     setCurrentUser(false);
-    history.push("login")
+    history.push("/login")
   }
 
   return (

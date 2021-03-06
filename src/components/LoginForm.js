@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 
-function LoginForm({setCurrentUser}) {
+function LoginForm({setCurrentUser, setViewMode}) {
   const [isLogin, setIsLogin] = useState(true)
   const [formData, setFormData] = useState({
     firstName: "",
@@ -50,6 +50,7 @@ function LoginForm({setCurrentUser}) {
       .then((data) => {
         setCurrentUser(data.user);
         localStorage.setItem("token", data.token);
+        setViewMode("journal")
         history.push("/journal");
       })
       .catch((data) => {
@@ -85,6 +86,7 @@ function LoginForm({setCurrentUser}) {
       .then((data) => {
         setCurrentUser(data.user);
         localStorage.setItem("token", data.token);
+        setViewMode("journal")
         history.push("/journal");
       })
       .catch((data) => {
