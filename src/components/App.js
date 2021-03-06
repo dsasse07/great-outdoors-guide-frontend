@@ -42,7 +42,9 @@ function App() {
       </HeaderContainer>
 
       <Switch>  
-
+{/* *********************************************************** */}
+{/* ***************        Login Route      ***************** */}
+{/* *********************************************************** */}
         <Route exact path='/login'>
             <Login setViewMode={setViewMode} setCurrentUser={setCurrentUser}/>
         </Route> 
