@@ -1,16 +1,16 @@
 import styled from 'styled-components'
 import {NavLink, useRouteMatch} from "react-router-dom";
-import {useContext} from 'react'
-import ActiveParkContext from "./ActiveParkContext";
+// import {useContext} from 'react'
+// import ActiveParkContext from "./ActiveParkContext";
 
 
 function JournalSideBar({currentUser}) {
   const match = useRouteMatch()
-  const {activePark} = useContext(ActiveParkContext)
-  console.log('currentUser', currentUser)
+  // const {activePark} = useContext(ActiveParkContext)
+  // console.log('currentUser', currentUser)
   return (
     <Container>
-        <h1> {currentUser && `${currentUser.currentUser.first_name}'s Travel Journal`}</h1>
+        <h1> {currentUser && `${currentUser.first_name}'s Travel Journal`}</h1>
         <LinkButton type="button" exact to={`${match.url}`} activeStyle={{background: "white"}}>
           Main
         </LinkButton>

@@ -7,7 +7,7 @@ import ParkList from './ParkList'
 import Login from './Login'
 import styled from 'styled-components'
 import {useState, useEffect} from 'react'
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 import ActiveParkProvider from './ActiveParkProvider'
 import '../fonts/NationalPark-Regular.otf'; 
 
@@ -35,9 +35,9 @@ function App() {
         setCurrentUser(user);
       });
     }
-  }, []);
-  console.log('currentUser in App', currentUser)
-  console.log("token", token)
+  }, [token]);
+  // console.log('currentUser in App', currentUser)
+  // console.log("token", token)
   return (
     <Container>
       <ActiveParkProvider>

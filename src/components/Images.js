@@ -4,7 +4,7 @@ import ActiveParkContext from "./ActiveParkContext";
 // import AliceCarousel from 'react-alice-carousel';
 // import 'react-alice-carousel/lib/alice-carousel.css';
 import { Carousel } from "react-responsive-carousel";
-import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 
 function Images() {
