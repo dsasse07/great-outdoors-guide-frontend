@@ -1,8 +1,9 @@
 // import './App.css';
 import Map from './Map'
 import Header from './Header'
-import InfoPanel from './InfoPanel'
-import JournalPanel from './JournalPanel'
+import ParksPanel from './ParksComponents/ParksPanel'
+import ParkReviews from './ParkReviews'
+import JournalPanel from './JournalComponents/JournalPanel'
 import ParkList from './ParkList'
 import Login from './Login'
 import styled from 'styled-components'
@@ -16,7 +17,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(false)
   const [viewMode, setViewMode] = useState('parks')
   const token = localStorage.getItem("token");
-
+  
   function handleSetParks(parkData){
     setNationalParks(parkData)
   }
@@ -36,8 +37,7 @@ function App() {
       });
     }
   }, [token]);
-  // console.log('currentUser in App', currentUser)
-  // console.log("token", token)
+
   return (
     <Container>
       <ActiveParkProvider>
@@ -47,13 +47,13 @@ function App() {
 
       <Switch>   
 {/* *********************************************************** */}
-{/* ***************        Login Route      ***************** */}
+{/* ***************        Login Route       ****************** */}
 {/* *********************************************************** */}
         <Route exact path='/login'>
             <Login setViewMode={setViewMode} setCurrentUser={setCurrentUser}/>
         </Route> 
 {/* *********************************************************** */}
-{/* ***************        Journal Route      ***************** */}
+{/* ***************        Journal Mode       ***************** */}
 {/* *********************************************************** */}
         <Route path='/journal'>
           {currentUser && 
@@ -75,16 +75,17 @@ function App() {
           }
         </Route>
 {/* *********************************************************** */}
-{/* ***************        Parks Route      ******************* */}
+{/* ***************        Parks Mode       ******************* */}
 {/* *********************************************************** */}
           <Route path='/parks'>
             <MapContainer>
               <ParkList nationalParks={nationalParks} viewMode={viewMode} />
-              <Map onFetchParks={handleSetParks} viewMode={viewMode}/>  
+              <Map onFetchParks={handleSetParks} viewMode={viewMode}/>
+              <ParkReviews />  
             </MapContainer>
             <InfoDisplay >
               <Route path='/parks/:parkCode'>
-                <InfoPanel />
+                <ParksPanel />
               </Route>
               <Route exact path='/parks'>
                 Select a Park
@@ -92,7 +93,7 @@ function App() {
             </InfoDisplay>
           </Route>
 {/* *********************************************************** */}
-{/* ***************        Parks Route      ******************* */}
+{/* ***************        Root Route      ******************* */}
 {/* *********************************************************** */}
           <Route exact path = '/'>
             Main About Page
@@ -112,21 +113,21 @@ export default App;
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 120px auto 1fr 50px;
+  grid-template-rows: 120px auto auto 50px;
   height: 100%;
+  background: var(--md-green);
   /* grid-gap: 15px; */
 `
 
 const HeaderContainer = styled.header`
   grid-row: 1;
-  background: pink;
-
 `
 
 const MapContainer = styled.section`
   grid-row: 2;
-  background: pink;
+  background: var(--md-green);
   display: flex;
+  justify-content: space-between;
   gap: 25px;
   height: 400px;
   padding-top: 15px;
@@ -136,14 +137,13 @@ const MapContainer = styled.section`
 
 const InfoDisplay = styled.section`
   grid-row: 3;
-  background: pink;
+  height: 100%;
 `
 
 const Footer = styled.footer`
   grid-row: 4;
-  background: pink;
+  background: mistyrose;
 `
 const JournalDisplay = styled.section`
   grid-row: 3;
-  background: pink;
 `

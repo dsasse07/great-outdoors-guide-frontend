@@ -31,12 +31,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   object-fit: cover;
-
 `
 
 const ImageContainer = styled.div`
-
   width: 100%;
+
   img{
     width: 100%;
   } 

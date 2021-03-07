@@ -2,6 +2,7 @@ import React, {useContext} from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import ActiveParkContext from "./ActiveParkContext";
 import {useHistory} from 'react-router-dom'
+import {badgeIcons} from '../assets/national-park-badges/badges';
 
 const containerStyle = {
   width: '700px',
@@ -53,7 +54,6 @@ function Map({viewMode}) {
         onUnmount={onUnmount}
         onZoomChanged={ handleZoomChange }
       >
-        {/* <Marker position={ {lat:44.3386, lng:-68.2733} }/> */}
         {markerArray}
 
       </GoogleMap>
@@ -61,3 +61,5 @@ function Map({viewMode}) {
 }
 
 export default React.memo(Map)
+
+
