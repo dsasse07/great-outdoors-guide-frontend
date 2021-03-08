@@ -6,7 +6,7 @@ import ActiveParkContext from "../ActiveParkContext"
 import {badges} from '../../assets/national-park-badges/badges';
 
 
-function JournalMain({hasVisited, onVisit, currentUser}) {
+function JournalMain({setVisit,visit, onVisit, currentUser}) {
   const {activePark} = useContext(ActiveParkContext)
   const [openVisitForm, setOpenVisitForm] = useState(false)
 
@@ -20,23 +20,23 @@ function JournalMain({hasVisited, onVisit, currentUser}) {
     <Container>
       <TextContainer>
         <Header>
-          <h1>{hasVisited ? `Adventures in ${activePark?.fullName}` : "You haven't logged a visit yet!" } </h1> 
-          {!hasVisited && 
+          <h1>{visit ? `Adventures in ${activePark?.fullName}` : "You haven't logged a visit yet!" } </h1> 
+          {!visit && 
             <button onClick={handleOpenForm}> 
               { openVisitForm ? "Close" : "Log Your Visit!" } 
             </button>
           }
         </Header>
         <Content>
-          { (!hasVisited && openVisitForm) && <NewVisitForm currentUser={currentUser}/> }
-          { (!hasVisited && !openVisitForm) && 
+          { (!visit && openVisitForm) && <NewVisitForm setvisit={setVisit} currentUser={currentUser}/> }
+          { (!visit && !openVisitForm) && 
           <WelcomeMessage>
             <h2>Create a Journal Entry </h2>
             <h2>To document your trip to {activePark?.fullName}</h2> 
             <h2> For each park that you visit, you will earn the badge for that park.</h2>
           </WelcomeMessage> 
           }
-          { hasVisited && <JournalPage currentUser={currentUser}/> }
+          {/* { visit && <JournalPage currentUser={currentUser} visit={visit}/> } */}
         </Content>
       </TextContainer>
       <ImageContainer>

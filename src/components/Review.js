@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function Review({review}) {
-  const {id, score, content, username, created_at} = review
+function Review({visit}) {
+  const {id, score, review, username, created_at} = visit
 
   const DateString = new Date(created_at).toDateString().slice(4)
 
@@ -10,11 +10,13 @@ function Review({review}) {
     <Container>
       <Header>
         <Username> {username} </Username>
+        { score && 
         <Score> Rating : <span> {score} </span> </Score>
+        }
       </Header>
-      <DateContainer> {DateString}  </DateContainer>
+      <DateContainer> {created_at && DateString}  </DateContainer>
       <Content>
-        {content}
+        {review}
       </Content>
 
     </Container>
@@ -41,7 +43,7 @@ const Header = styled.header`
 
 const Username = styled.h4`
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
 `
 
 const Score = styled.p`
@@ -53,7 +55,7 @@ const Score = styled.p`
 const DateContainer = styled.p`
   margin: 0;
   margin-bottom: 10px;
-  font-size: 16px;
+  font-size: 14px;
 `
 
 const Content = styled.section`

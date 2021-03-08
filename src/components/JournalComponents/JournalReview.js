@@ -1,22 +1,25 @@
+import React from 'react'
 import styled from 'styled-components'
-import {useContext} from 'react'
-import ActiveParkContext from "../ActiveParkContext";
+import {badges} from '../../assets/national-park-badges/badges';
+import ActiveParkContext from "../ActiveParkContext"
+import {useContext, useState} from 'react'
 import EditIcon from '@material-ui/icons/Edit';
+import  Modal  from './Modal';
 
 
 
-function JournalPage({currentUser, visit}) {
-  const {activePark} = useContext(ActiveParkContext)
-  const {created_at, journal} = visit
-  console.log('visit', visit)
-  const DateString = new Date(created_at).toDateString().slice(4)
-  const featuredImages =  [[...visit.images], [...activePark.images.map(image => image.url)]].flat()
-  const randomIndex = Math.floor(Math.random() * featuredImages.length)
+function JournalReview({currentUser, visit}) {
+    const {activePark} = useContext(ActiveParkContext)
+    const {review, created_at} = visit
+    const DateString = new Date(created_at).toDateString().slice(4)
+    const randomIndex = Math.floor(Math.random() * activePark?.images.length)
+    const [isShown,setisShown] = useState(false)
+    function handleEdit(){
 
-  console.log('featuredImages', featuredImages)
-  if (activePark ) {
+    }
+    if (activePark ) {
     return (
-      <Container>
+        <Container>
           <TextContainer>
               <Title>
                 {activePark.fullName }
@@ -26,16 +29,17 @@ function JournalPage({currentUser, visit}) {
                 <EditContainer>
                   <button> 
                     Edit 
-                    <EditIcon/>
+                    <EditIcon onClick={handleEdit}/>
                   </button>
                 </EditContainer>
               </SubTitle>
-              <Journal>
-                {journal}
-              </Journal> 
+              <Review>
+                {review}
+              </Review> 
+              <Modal> </Modal>
           </TextContainer>
         <ImageContainer>
-          <img src={visit.images[4]} alt={activePark.fullName}></img>
+          <img src={activePark.images[randomIndex].url} alt={activePark.images[randomIndex].altText}></img>
         </ImageContainer>
       </Container>
     )
@@ -44,7 +48,7 @@ function JournalPage({currentUser, visit}) {
     }
 }
 
-export default JournalPage;
+export default JournalReview;
 
 const Container = styled.div`
   position: relative;
@@ -121,10 +125,12 @@ const EditContainer = styled.div`
   }
 `
 
-const Journal = styled.h3`
-  margin-top: 10px;
-  font-size: 1.4rem;
-  text-align: center;
-  margin-left: 50px;
-  margin-right: 50px;
+const Review = styled.h3`
+margin-top: 10px;
+font-size: 1.4rem;
+text-align: center;
+margin-left: 50px;
+margin-right: 50px;
 `
+
+

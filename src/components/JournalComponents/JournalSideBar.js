@@ -4,7 +4,7 @@ import {useContext, useState} from 'react'
 import ActiveParkContext from "../ActiveParkContext";
 
 
-function JournalSideBar({currentUser, hasVisited}) {
+function JournalSideBar({currentUser, visit}) {
   const match = useRouteMatch()
   const {activePark} = useContext(ActiveParkContext)
 
@@ -13,7 +13,7 @@ function JournalSideBar({currentUser, hasVisited}) {
         <h1> {currentUser && `${currentUser.first_name}'s Travel Journal`}</h1>
         <h2> {activePark?.fullName} </h2>
 
-        {hasVisited ? 
+        {visit ? 
         <>
           <LinkButton type="button" exact to={`${match.url}`} activeStyle={{background: "var(--yellow)", color: "var(--md-green)"}}>
             Journal Entry

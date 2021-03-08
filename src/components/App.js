@@ -7,6 +7,7 @@ import JournalPanel from './JournalComponents/JournalPanel'
 import ParkList from './ParkList'
 import Login from './Login'
 import Footer from './Footer'
+import DelayedRedirect from './DelayedRedirect'
 import styled from 'styled-components'
 import {useState, useEffect} from 'react'
 import {Switch, Route} from 'react-router-dom'
@@ -23,7 +24,6 @@ function App() {
     setNationalParks(parkData)
   }
 
-  // 
   useEffect(() => {
 
     if (token) {
@@ -57,7 +57,7 @@ function App() {
 {/* ***************        Journal Mode       ***************** */}
 {/* *********************************************************** */}
         <Route path='/journal'>
-          {currentUser && 
+          {currentUser ?
           <>
             <MapContainer>
               <ParkList nationalParks={nationalParks} viewMode={viewMode} />
@@ -65,7 +65,7 @@ function App() {
               <ParkReviews />  
             </MapContainer>
             <JournalDisplay>
-              <Route exact path='/journal/:parkCode'>
+              <Route path='/journal/:parkCode'>
                 <JournalPanel currentUser={currentUser}/>
               </Route>
               <Route exact path='/journal'>
@@ -73,7 +73,7 @@ function App() {
               </Route>
             </JournalDisplay>
           </>
-          // : <Redirect to='/login' />
+          : <DelayedRedirect />
           }
         </Route>
 {/* *********************************************************** */}

@@ -1,25 +1,36 @@
 import styled from 'styled-components'
-import {useContext, useState} from 'react'
+import {useContext, useState, useEffect} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 import Review from './Review'
 
 function ParkReviews() {
   const {activePark} = useContext(ActiveParkContext)
+  const [visits, setVisits] = useState([])
   const [sortBy, setSortBy] = useState({
     type:"rating",
     order: "asc"
   })
-  const reviews = [
-    {id: 1, score: 1, content: "It was Beautiful!", username: "Scuba Steve", created_at: 1615152249648 },
-    {id: 2, score: 4, content: "I hate nature", username: "testUser", created_at: 1615152211284},  
-    {id: 3, score: 2, content: "I like Turtles", username: "Joey", created_at: 1615161477128}  
-  ]
+  const noVisit = {
+    review: "No Reviews have been left yet for this park.", username: ""
+  }
 
-  const totalScore = reviews.reduce( (total, review) => {
-    return total = total + review.score
+  function fetchParkVisits(parkCode){
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/reviews?code=${parkCode}`)
+    .then( response => response.json() )
+  }
+
+  useEffect( () => {
+    if (!activePark) return
+    fetchParkVisits(activePark.parkCode).then( visitData =>{
+      setVisits(visitData)
+    })
+  }, [activePark])
+
+  const totalScore = visits.reduce( (total, visit) => {
+    return total = total + visit.score
   }, 0)
 
-  const averageScore = (totalScore / reviews.length).toPrecision(3)
+  const averageScore = visits.length > 0 ? (totalScore / visits.length).toPrecision(3) : "--"
 
   function handleSortChange(event){
     const key = event.target.name
@@ -28,15 +39,13 @@ function ParkReviews() {
     setSortBy(newSort)
   }
 
-  const sortedReviews = reviews.sort( (reviewA, reviewB) => {
-    if (sortBy.order === "asc") return reviewA[sortBy.type] - reviewB[sortBy.type]
-    return reviewB[sortBy.type] - reviewA[sortBy.type]
+  const sortedVisits = visits.sort( (visitA, visitB) => {
+    if (sortBy.order === "asc") return visitA[sortBy.type] - visitB[sortBy.type]
+    return visitB[sortBy.type] - visitA[sortBy.type]
   })
 
-  const reviewComponents = reviews.map( review => {
-    return (
-      <Review key={review.id} review={review}/>
-    )
+  const visitComponents = sortedVisits.map( visit => {
+    return <Review key={visit.id} visit={visit}/>
   })
 
 
@@ -65,7 +74,7 @@ function ParkReviews() {
           </ReviewsFilter>
         </SubHeading>
         <ReviewList>
-          {reviewComponents}
+          {visits.length > 0 ? visitComponents : <Review visit={noVisit}/>}
         </ReviewList>
 
     </Container>

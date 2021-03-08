@@ -2,12 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import JournalSideBar from './JournalSideBar'
 import JournalMain from './JournalMain'
+import JournalPage from './JournalPage'
+import JournalReview from './JournalReview'
 import { Switch, Route, useRouteMatch, useParams} from 'react-router-dom'
 import {useContext, useEffect, useState} from 'react'
 import ActiveParkContext from "../ActiveParkContext";
 
 function JournalPanel({currentUser}) {
-  const [hasVisited, setHasVisited] = useState(false)
+  const [visit, setVisit] = useState(false)
   const {activePark, handleActiveParkChange, nationalParks} = useContext(ActiveParkContext)
   const match = useRouteMatch()
   const params = useParams()
@@ -22,16 +24,16 @@ function JournalPanel({currentUser}) {
       }
     })
 
-    // useEffect(() => {
-    //   checkHasVisited()
-    // }, [activePark])
+    useEffect(() => {
+      checkvisit()
+    }, [activePark])
 
-    // function checkHasVisited() {
-    //   setHasVisited(
-    //     currentUser.trips.includes(trip => trip.parkCode === activePark.parkCode)
-    //   )
-    // }
-
+    function checkvisit() {
+      setVisit(
+        currentUser.visits.filter(visit => visit.code === activePark?.parkCode)[0]
+      )
+    }
+    console.log("match URL", match.url)
 
     function handleOnVisit(){
 
@@ -40,7 +42,7 @@ function JournalPanel({currentUser}) {
   return (
     <Container>
       <SideBarContainer>
-        <JournalSideBar currentUser={currentUser} hasVisited={hasVisited}/>
+        <JournalSideBar currentUser={currentUser} visit={visit}/>
       </SideBarContainer>
       <Switch>
         <JournalWrapper>
@@ -49,14 +51,18 @@ function JournalPanel({currentUser}) {
                 {/* <Images/> */}
             </Route>
             <Route exact path={`${match.url}/review`}>
-                {/* <Review/> */}
+                <JournalReview currentUser={currentUser} visit={visit}/>
             </Route>
             <Route exact path={`${match.url}`}>
+              { !visit ? 
                 <JournalMain 
-                  hasVisited={hasVisited} 
+                  visit={visit} 
                   onVisit={handleOnVisit}
                   currentUser={currentUser}
+                  setVisit={setVisit}
                 />
+              : <JournalPage currentUser={currentUser} visit={visit}/>
+              }
             </Route>
           </JournalContainer>
         </JournalWrapper>

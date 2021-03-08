@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import styled from 'styled-components';
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import ActiveParkContext from "../ActiveParkContext";
 
-function NewVisitForm({currentUser}) {
+function NewVisitForm({currentUser, setVisit}) {
   const history = useHistory();
+  const match = useRouteMatch();
   const {activePark} = useContext(ActiveParkContext)
   const [formData, setFormData] = useState({
     journal: "",
@@ -29,16 +30,9 @@ function NewVisitForm({currentUser}) {
   function handleImageChange(event){
 
     const name = event.target.name;
-    // const value = event.target.files[0];
+ 
     const value = event.target.files;
 
-    
-  //   // for (let i = 0; i < files.length; i++) {
-  //     setFormData({...formData, images: files })
-  // }
-    // let value = event.target.files[0]
-    // let value = event.target.files.forEach((file) => fileData.append('files[]', file));
-  
     setFormData({
         ...formData,
         [name]: value,
@@ -48,21 +42,12 @@ function NewVisitForm({currentUser}) {
   console.log("New Visit",formData)
 
   function handleVisitSubmit(e) {
-    // const newVisitObj= {
-    //   journal: formData.journal,
-    //   review: formData.review,
-    //   score: formData.score,
-    //   code: formData.code,
-    //   images: formData.images,
-    //   user_id: formData.user_id
-    // }
     e.preventDefault();
     const visitFormData = new FormData();
     visitFormData.append('journal', formData.journal);
     visitFormData.append('review', formData.review);
     visitFormData.append('score', formData.score);
     visitFormData.append('code', formData.code);
-    // visitFormData.append('images', formData.images);
     visitFormData.append('user_id', formData.user_id);
     
     for (var i=0; i < formData.images.length; i++) {
@@ -72,16 +57,12 @@ function NewVisitForm({currentUser}) {
       console.log("visit",visitFormData)
     fetch(`${process.env.REACT_APP_BACKEND_URL}/visits`, {
       method: "POST",
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
       body: visitFormData,
     })
     .then((r) => r.json())
     .then((newVisit) => {
-      console.log("Submission",newVisit);
-      
-      // history.push(``);
+      setVisit(newVisit)
+      history.push(`${match.url}/${newVisit.code}`);
     })
     .catch((data) => {
       setErrors(data.errors);
