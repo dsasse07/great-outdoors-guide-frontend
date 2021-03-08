@@ -6,6 +6,7 @@ import ParkReviews from './ParkReviews'
 import JournalPanel from './JournalComponents/JournalPanel'
 import ParkList from './ParkList'
 import Login from './Login'
+import Footer from './Footer'
 import styled from 'styled-components'
 import {useState, useEffect} from 'react'
 import {Switch, Route} from 'react-router-dom'
@@ -61,6 +62,7 @@ function App() {
             <MapContainer>
               <ParkList nationalParks={nationalParks} viewMode={viewMode} />
               <Map onFetchParks={handleSetParks} viewMode={viewMode}/>  
+              <ParkReviews />  
             </MapContainer>
             <JournalDisplay>
               <Route exact path='/journal/:parkCode'>
@@ -101,9 +103,9 @@ function App() {
         )
       </Switch>
 
-      <Footer>
-        Footer 
-      </Footer>
+      <FooterContainer>
+        <Footer />
+      </FooterContainer>
     </ActiveParkProvider>
     </Container>
   );
@@ -113,14 +115,15 @@ export default App;
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 120px auto auto 50px;
+  grid-template-rows: 100px auto auto 50px;
   height: 100%;
   background: var(--md-green);
-  /* grid-gap: 15px; */
+  grid-gap: 15px;
 `
 
 const HeaderContainer = styled.header`
   grid-row: 1;
+  border-bottom: 2px solid var(--yellow);
 `
 
 const MapContainer = styled.section`
@@ -138,12 +141,18 @@ const MapContainer = styled.section`
 const InfoDisplay = styled.section`
   grid-row: 3;
   height: 100%;
+  margin-top: 20px;
 `
 
-const Footer = styled.footer`
+const FooterContainer = styled.footer`
   grid-row: 4;
-  background: mistyrose;
+  height: 100%;
+  display: flex;
+  background: var(--white);
+  color: var(--md-green);  
 `
 const JournalDisplay = styled.section`
   grid-row: 3;
+  height: 100%;
+  margin-top: 20px;
 `

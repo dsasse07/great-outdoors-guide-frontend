@@ -33,8 +33,10 @@ const Container = styled.div`
 
 const ImageContainer = styled.div`
   width: auto;
+
   img{
-    width: 100%;
+    max-height: 1350px;
+    max-width: 1350px;
   } 
 `
 

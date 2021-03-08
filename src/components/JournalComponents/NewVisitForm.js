@@ -60,9 +60,9 @@ function NewVisitForm({currentUser}) {
     // fetch("http://localhost:3000/login", {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/visits`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
       body: newVisitObj,
     })
     .then((r) => r.json())

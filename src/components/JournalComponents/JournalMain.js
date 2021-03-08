@@ -71,13 +71,8 @@ const WelcomeMessage = styled.div`
 
 
 const ImageContainer = styled.div`
-  max-width: 1375px;
-  height: 100%;
-  width: 100%;
-  
   img{
     width: 100%;
-    height: auto%;
   } 
 `
 

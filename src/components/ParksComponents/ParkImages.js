@@ -46,5 +46,3 @@ const SlideImage = styled.img`
     background-repeat: no-repeat;
     margin: auto;
 `
-
-

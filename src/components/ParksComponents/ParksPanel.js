@@ -33,6 +33,7 @@ function ParksPanel() {
         <ParkSideBar activePark={activePark || initialActivePark} />
       </SideBarContainer>
       <Switch>
+        <ParkWrapper>
           <ParkContainer>
             <Route exact path={`${match.url}/description`}>
                 <ParkDescription />
@@ -53,6 +54,7 @@ function ParksPanel() {
                 <ParkLanding activePark={activePark || initialActivePark} />
             </Route>
           </ParkContainer>
+        </ParkWrapper>
       </Switch>
     </Container>
   )
@@ -73,14 +75,19 @@ const Container = styled.div`
 
 const SideBarContainer = styled.aside`
   grid-column: 1;
-  /* background: gray; */
-
 `
 
 const ParkContainer = styled.main`
   grid-column: 2;
-  background: gray;
-  width: auto;
+  max-width: 1350px;
+  max-height: 1350px;
+`
+
+const ParkWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 `
 
 
