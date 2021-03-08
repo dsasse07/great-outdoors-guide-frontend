@@ -1,8 +1,8 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +10,28 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+@font-face {
+  font-family: "NationalPark-Regular";
+  src: local("NationalPark-Regular"),
+    url('./fonts/NationalPark-Regular.otf') format("opentype");
+  font-weight: normal;
+}
+
+* {
+  font-family: NationalPark-Regular;
+}
+
+:root {
+  --lt-green: #5d762f ;
+  --md-green: #464B40 ;
+  --dk-green: #121815 ;
+  --lt-blue: #788FB5;
+  --dk-blue: #5A638E ;
+  --yellow: #FFEB38 ;
+  --orange: #FF8E00 ;
+  --white: #f2f2f2;
+  --semi-gray: "rbga(43, 43, 43, 60%)";
 }
