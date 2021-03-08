@@ -42,7 +42,7 @@ const Container = styled.div`
   border: 1px solid;
   background: var(--white);
   border-radius: 10px;
-  box-shadow: 0 0 7px 3px var(--yellow);
+  box-shadow: 0 0 7px 3px var(--lt-orange);
   color: var(--md-green);  
   margin-left: 20px;
   
@@ -51,6 +51,8 @@ const Container = styled.div`
     text-align: center;
     margin-top: 10px;
     margin-bottom: 15px;
+    text-shadow: 2px 2px 4px var(--lt-orange);
+
   }
 
   h2 {
@@ -58,6 +60,8 @@ const Container = styled.div`
     text-align: center;
     margin-top: 10px;
     margin-bottom: 15px;
+    text-shadow: 2px 2px 4px var(--lt-orange);
+
   }
 `
 

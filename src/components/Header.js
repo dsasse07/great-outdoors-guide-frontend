@@ -30,8 +30,10 @@ function Header({onViewModeChange,currentUser, setCurrentUser}) {
         <Logo>
           <img src={logo} alt="GOG Logo"/>
         </Logo>
-        <h1>Great Outdoors Guide</h1>
       </LogoContainer>
+      <Title>
+        <h1>Great Outdoors Guide</h1>
+      </Title>
       <NavContainer>
         <button value="parks" onClick={handleClick}>Park Info</button>
         { currentUser && 
@@ -56,14 +58,21 @@ const Container = styled.header`
   background: var(--white);
   color: var(--md-green);  
 `
+const Title = styled.div`
+  width: 700px;
+  h1{
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 4px var(--lt-orange);
+  }
+`
 
 const LogoContainer = styled.div`
   display: flex;
-  margin-left: 115px;
+  margin-left: 145px;
   padding-right: 30px;
   padding-left: 30px;
-  font-size: 2rem;
   align-items: center;
+  width: 375px;
 `
 const Logo = styled.div`
   height: 100%;
@@ -80,9 +89,10 @@ const NavContainer = styled.nav`
   height: 100px;
   padding-right: 10px;
   padding-left: 10px;
-  margin-right: 95px;
+  margin-right: 75px;
   display: flex;
   align-items: center;
+  width: 430px;
   
   button {
     border: 1px solid var(--yellow);

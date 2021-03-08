@@ -58,7 +58,7 @@ const Container = styled.div`
   border: 1px solid;
   background: var(--white);
   border-radius: 10px;
-  box-shadow: 0 0 7px 3px var(--yellow);
+  box-shadow: 0 0 7px 3px var(--lt-orange);
   color: var(--md-green);
   width: 370px;
   margin-left: 20px;
@@ -71,6 +71,9 @@ const Header = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px var(--lt-orange);
+
 `
 const SearchArea = styled.div`
   display: flex;
@@ -81,8 +84,10 @@ const SearchArea = styled.div`
     border-radius: 6px;
     border: 1px solid var(--md-green);
     margin-top: 5px;
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
+    height: 25px;
+    color: var(--md-green);
   }
 
   svg {
