@@ -43,7 +43,8 @@ function JournalPanel({currentUser}) {
         <JournalSideBar currentUser={currentUser} hasVisited={hasVisited}/>
       </SideBarContainer>
       <Switch>
-          <ParkContainer>
+        <JournalWrapper>
+          <JournalContainer>
             <Route exact path={`${match.url}/images`}>
                 {/* <Images/> */}
             </Route>
@@ -57,7 +58,8 @@ function JournalPanel({currentUser}) {
                   currentUser={currentUser}
                 />
             </Route>
-          </ParkContainer>
+          </JournalContainer>
+        </JournalWrapper>
       </Switch>
     </Container>
   )
@@ -77,11 +79,19 @@ const Container = styled.div`
 const SideBarContainer = styled.aside`
   grid-column: 1;
   /* background: gray; */
-
+  
 `
 
-const ParkContainer = styled.main`
+const JournalContainer = styled.main`
   grid-column: 2;
-  background: gray;
-  width: auto;
+  max-width: 1350px;
+  max-height: 1350px;
+  
+`
+
+const JournalWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 `

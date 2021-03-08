@@ -32,7 +32,7 @@ const Container = styled.div`
 `
 
 const ImageContainer = styled.div`
-  width: auto;
+  width: 100%;
   img{
     width: 100%;
   } 
@@ -40,7 +40,7 @@ const ImageContainer = styled.div`
 
 const TextContainer = styled.main`
   position: absolute;
-  top: 100px;
+  top: 30px;
   z-index: 2;
   color: white;
   background: rgba(43, 43, 43, 60%);

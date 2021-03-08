@@ -42,14 +42,17 @@ const Container = styled.div`
   border: 1px solid;
   background: var(--white);
   border-radius: 10px;
-  box-shadow: 0 0 7px 3px var(--yellow);
+  box-shadow: 0 0 7px 3px var(--lt-orange);
   color: var(--md-green);  
-
+  margin-left: 20px;
+  
   h1{
     font-size: 2rem;
     text-align: center;
     margin-top: 10px;
     margin-bottom: 15px;
+    text-shadow: 2px 2px 4px var(--lt-orange);
+
   }
 
   h2 {
@@ -57,12 +60,14 @@ const Container = styled.div`
     text-align: center;
     margin-top: 10px;
     margin-bottom: 15px;
+    text-shadow: 2px 2px 4px var(--lt-orange);
+
   }
 `
 
 const LinkButton = styled(NavLink)`
   display: block;
-  border: 1px solid cyan;
+  border: 1px solid var(--md-green);
   margin-bottom: 8px;
   text-align: center;
   padding-top: 4px;
@@ -71,7 +76,8 @@ const LinkButton = styled(NavLink)`
   border-radius: 8px;
   background: var(--md-green);
   color: var(--yellow);
-  
+  text-decoration: none;
+
   :hover{
     background: var(--yellow);
     color: var(--md-green);

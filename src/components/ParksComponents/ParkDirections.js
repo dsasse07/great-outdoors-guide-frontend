@@ -79,7 +79,8 @@ const DirectionsText = styled.h3`
   margin-right: 50px;
 `
 const DirectionsLink = styled.a`
-  color: white;
+  color: #6cfcc5;
   text-align: center;
   font-weight: bold;
 `
+

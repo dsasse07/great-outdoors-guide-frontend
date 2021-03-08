@@ -98,7 +98,7 @@ function NewVisitForm({currentUser}) {
         onChange={handleChange}
         value={formData.journal}
         placeholder="Journal Entry"
-      />
+      /> 
       <textarea 
         type="text"
         name="review"

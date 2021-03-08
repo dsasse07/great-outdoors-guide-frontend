@@ -43,15 +43,17 @@ const Container = styled.div`
   border: 1px solid;
   background: var(--white);
   border-radius: 10px;
-  box-shadow: 0 0 7px 3px var(--yellow);
+  box-shadow: 0 0 7px 3px #f2af58;
   color: var(--md-green);  
-  margin-top: 25px;
-
+  margin-left: 20px;
+  
   h1{
     font-size: 2rem;
     text-align: center;
     margin-top: 10px;
     margin-bottom: 15px;
+    text-shadow: 2px 2px 8px var(--lt-orange);
+
   }
 `
 
@@ -66,6 +68,8 @@ const LinkButton = styled(NavLink)`
   border-radius: 8px;
   background: var(--md-green);
   color: var(--yellow);
+  text-decoration: none;
+
 
   :hover{
     background: var(--yellow);
