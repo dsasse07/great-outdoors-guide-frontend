@@ -66,7 +66,7 @@ function NewVisitForm({currentUser}) {
     visitFormData.append('user_id', formData.user_id);
     
     for (var i=0; i < formData.images.length; i++) {
-      visitFormData.append('images', formData.images[i])
+      visitFormData.append('images[]', formData.images[i])
     }
 
       console.log("visit",visitFormData)
@@ -79,7 +79,7 @@ function NewVisitForm({currentUser}) {
     })
     .then((r) => r.json())
     .then((newVisit) => {
-      // console.log("Submission",newVisit.images.url);
+      console.log("Submission",newVisit);
       
       // history.push(``);
     })
