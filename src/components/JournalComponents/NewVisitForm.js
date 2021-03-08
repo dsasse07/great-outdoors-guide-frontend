@@ -86,7 +86,7 @@ function NewVisitForm({currentUser}) {
     .catch((data) => {
       setErrors(data.errors);
     });
-  }
+  } 
   return (
     <Form onSubmit={handleVisitSubmit} autoComplete="off">
 
