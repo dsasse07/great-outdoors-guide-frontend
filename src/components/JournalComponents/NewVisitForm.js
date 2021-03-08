@@ -28,46 +28,53 @@ function NewVisitForm({currentUser}) {
   }
 
   function handleImageChange(event){
-    console.log("files",event.target.files[0])
+    console.log("files",event)
     const name = event.target.name;
-    const files = event.target.files;
-    console.log("files",{images: files})
+    const value = event.target.files[0];
+    // console.log("filez",{images: files})
     
-    // for (let i = 0; i < files.length; i++) {
-      setFormData({...formData, images: files })
-  }
+  //   // for (let i = 0; i < files.length; i++) {
+  //     setFormData({...formData, images: files })
+  // }
     // let value = event.target.files[0]
     // let value = event.target.files.forEach((file) => fileData.append('files[]', file));
     // console.log(event)
-    // setFormData({
-    //     ...formData,
-    //     [name]: value,
-    // });
+    setFormData({
+        ...formData,
+        [name]: value,
+    });
+  }
   
   console.log("New Visit",formData)
 
   function handleVisitSubmit(e) {
-    const newVisitObj= {
-      journal: formData.journal,
-      review: formData.review,
-      score: formData.score,
-      code: formData.code,
-      images: formData.images,
-      user_id: formData.user_id
-    }
+    // const newVisitObj= {
+    //   journal: formData.journal,
+    //   review: formData.review,
+    //   score: formData.score,
+    //   code: formData.code,
+    //   images: formData.images,
+    //   user_id: formData.user_id
+    // }
+    const visitFormData = new FormData();
+      visitFormData.append('journal', formData.journal);
+      visitFormData.append('review', formData.review);
+      visitFormData.append('score', formData.score);
+      visitFormData.append('code', formData.code);
+      visitFormData.append('images', formData.images);
+      visitFormData.append('user_id', formData.user_id);
 
     e.preventDefault();
-    // fetch("http://localhost:3000/login", {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/visits`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: newVisitObj,
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+      body: visitFormData,
     })
     .then((r) => r.json())
     .then((newVisit) => {
-      console.log(newVisit);
+      console.log("Submission",newVisit.images.url);
       
       // history.push(``);
     })
@@ -78,7 +85,7 @@ function NewVisitForm({currentUser}) {
   return (
     <Form onSubmit={handleVisitSubmit} autoComplete="off">
 
-      <input type="file" accept="image/*" multiple={true} onChange={handleImageChange} />
+      <input name="images" type="file" accept="image/*" multiple={true} onChange={handleImageChange} />
 
       <textarea 
         type="text"
