@@ -1,12 +1,25 @@
 import styled from 'styled-components'
-import {NavLink, useRouteMatch} from "react-router-dom";
+import {NavLink, useRouteMatch, useHistory} from "react-router-dom";
 import {useContext, useState} from 'react'
 import ActiveParkContext from "../ActiveParkContext";
 
 
-function JournalSideBar({currentUser, visit}) {
+function JournalSideBar({currentUser, visit, handleDeleteVisit}) {
   const match = useRouteMatch()
   const {activePark} = useContext(ActiveParkContext)
+  const history = useHistory();
+
+
+  function handleDelete(e){
+    const {id} = visit
+    if (window.confirm('Are you sure you wish to delete this visit?')) return
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
+        method: "DELETE"
+    })
+
+        handleDelete(id)
+        history.push(`${match.url}`)
+  }
 
   return (
     <Container>
@@ -24,6 +37,10 @@ function JournalSideBar({currentUser, visit}) {
           <LinkButton type="button" to={`${match.url}/review`} activeStyle={{background: "var(--yellow)", color: "var(--md-green)"}}>
             Your Review
           </LinkButton>
+          
+          <DeleteButton type="button" onClick={handleDelete}>
+            Delete my Visit
+          </DeleteButton>
         </>
         : 
       null 
@@ -78,6 +95,24 @@ const LinkButton = styled(NavLink)`
   color: var(--yellow);
   text-decoration: none;
 
+  :hover{
+    background: var(--yellow);
+    color: var(--md-green);
+  }
+`
+const DeleteButton = styled.button`
+  display: block;
+  border: 1px solid var(--md-green);
+  margin-bottom: 8px;
+  text-align: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 18px;
+  border-radius: 8px;
+  background: var(--md-green);
+  color: var(--yellow);
+  text-decoration: none;
+  width: 100%;
   :hover{
     background: var(--yellow);
     color: var(--md-green);

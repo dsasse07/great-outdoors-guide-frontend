@@ -4,6 +4,7 @@ import JournalSideBar from './JournalSideBar'
 import JournalMain from './JournalMain'
 import JournalPage from './JournalPage'
 import JournalReview from './JournalReview'
+import JournalImages from './JournalImages'
 import { Switch, Route, useRouteMatch, useParams} from 'react-router-dom'
 import {useContext, useEffect, useState} from 'react'
 import ActiveParkContext from "../ActiveParkContext";
@@ -24,51 +25,54 @@ function JournalPanel({currentUser, setCurrentUser}) {
       }
     })
 
-    // useEffect(() => {
-    //   checkvisit()
-    // }, [activePark])
-
     useEffect ( () => {
       setVisit(
         currentUser.visits.filter(visit => visit.code === activePark?.parkCode)[0]
       )
     }, [currentUser, activePark])
-    // function checkvisit() {
-    //   setVisit(
-    //     currentUser.visits.filter(visit => visit.code === activePark?.parkCode)[0]
-    //   )
-    // }
-    console.log("match URL", match.url)
 
-    function handleOnVisit(){
 
+    function handleVisitUpdate(updatedVisit){
+      const updatedVisits = currentUser.visits.map( visit => {
+        if (visit.id !== updatedVisit.id) return visit
+        return updatedVisit
+      })
+      setCurrentUser({...currentUser, visits: updatedVisits})
     }
-    console.log('visit', visit)
+
+    function handleImageDelete(remainingImages) {
+      console.log('remainingImages', remainingImages)
+    }
+
+    function handleDeleteVisit(id){
+      const updatedVisits = currentUser.visits.filter( (visit) => (
+        visit.id !== id ))
+      setCurrentUser({...currentUser, visits: updatedVisits})
+    }
 
   return (
     <Container>
       <SideBarContainer>
-        <JournalSideBar currentUser={currentUser} visit={visit}/>
+        <JournalSideBar handleDeleteVisit={handleDeleteVisit} currentUser={currentUser} visit={visit}/>
       </SideBarContainer>
       <Switch>
         <JournalWrapper>
           <JournalContainer>
             <Route exact path={`${match.url}/images`}>
-                {/* <Images/> */}
+                <JournalImages currentUser={currentUser} visit={visit} onImageDelete={handleImageDelete}/>
             </Route>
             <Route exact path={`${match.url}/review`}>
-                <JournalReview currentUser={currentUser} visit={visit}/>
+                <JournalReview onVisitUpdate={handleVisitUpdate} currentUser={currentUser} visit={visit}/>
             </Route>
             <Route exact path={`${match.url}`}>
               { !visit ? 
                 <JournalMain 
                   visit={visit} 
-                  onVisit={handleOnVisit}
                   currentUser={currentUser}
                   setCurrentUser={setCurrentUser}
                   setVisit={setVisit}
                 />
-              : <JournalPage currentUser={currentUser} visit={visit}/> 
+              : <JournalPage currentUser={currentUser} visit={visit} onVisitUpdate={handleVisitUpdate} /> 
             }
             </Route>
           </JournalContainer>

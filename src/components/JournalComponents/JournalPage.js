@@ -1,43 +1,100 @@
 import styled from 'styled-components'
-import {useContext} from 'react'
+import {useContext, useState, useEffect} from 'react'
 import ActiveParkContext from "../ActiveParkContext";
 import EditIcon from '@material-ui/icons/Edit';
+import  Modal  from './Modal';
+import {useHistory, useRouteMatch} from 'react-router-dom'
 
 
-
-function JournalPage({currentUser, visit}) {
+function JournalPage({currentUser, visit, onVisitUpdate}) {
   const {activePark} = useContext(ActiveParkContext)
-  const {created_at, journal} = visit
-  console.log('visit', visit)
+  const history = useHistory()
+  const match = useRouteMatch()
+  const {created_at, journal, id} = visit
+  const [modalOpen,setModalOpen] = useState(false)
+  const [formData, setFormData] = useState({
+    journal: journal
+  })
   const DateString = new Date(created_at).toDateString().slice(4)
-  const featuredImages =  [[...visit.images], [...activePark.images.map(image => image.url)]].flat()
-  const randomIndex = Math.floor(Math.random() * featuredImages.length)
+  const featuredImages = (visit.images && visit.images.length > 0) ? visit.images : activePark?.images
 
-  console.log('featuredImages', featuredImages)
+  function randomItemFromArray(array){
+    const randomIndex = Math.floor(Math.random() * array.length)
+    return array[randomIndex]
+  }
+
+  function handleModalToggle(){
+    setFormData( {journal: journal} )
+    setModalOpen( modalOpen => !modalOpen )
+  }
+
+  function handleChangeFormData(event){
+    setFormData({...formData, journal: event.target.value})
+  }
+
+  function handleUpdateSubmit(event){
+    event.preventDefault()
+
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
+      method: 'PATCH',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify( formData )
+    })
+    .then(response => response.json())
+    .then(updatedVisit => {
+        onVisitUpdate(updatedVisit)
+    })
+
+    handleModalToggle()
+    history.push(`${match.url}`)
+  }
+  
+  console.log('visit', visit)
+  
   if (activePark ) {
     return (
-      <Container>
-          <TextContainer>
-              <Title>
-                {activePark.fullName }
-              </Title>
-              <SubTitle>
-                <h2> {DateString} </h2>
-                <EditContainer>
-                  <button> 
-                    Edit 
-                    <EditIcon/>
-                  </button>
-                </EditContainer>
-              </SubTitle>
-              <Journal>
-                {journal}
-              </Journal> 
-          </TextContainer>
-        <ImageContainer>
-          <img src={visit.images[0]} alt={activePark.fullName}></img>
-        </ImageContainer>
-      </Container>
+      <>
+        <Container>
+            <TextContainer>
+                <Title>
+                  {activePark.fullName }
+                </Title>
+                <SubTitle>
+                  <h2> {DateString} </h2>
+                  <EditContainer onClick={handleModalToggle}>
+                    <button> 
+                      Edit 
+                      <EditIcon/>
+                    </button>
+                  </EditContainer>
+                </SubTitle>
+                <Journal>
+                  {journal}
+                </Journal> 
+            </TextContainer>
+          <ImageContainer>
+            <img src={randomItemFromArray(featuredImages).url} alt={activePark?.fullName}></img>
+          </ImageContainer>
+        </Container>
+        {modalOpen && (
+          <Modal isShown={modalOpen} toggle={handleModalToggle}>
+            <h1>Edit Your Journal</h1>
+
+            <form onSubmit={handleUpdateSubmit}>
+              <textarea
+                type="text"
+                name="journal"
+                value={formData.journal}
+                onChange={handleChangeFormData}
+              />
+              <input type="submit" value="Update Journal Entry" />
+            </form>
+            <button onClick={handleModalToggle}>Cancel</button>
+          </Modal>
+        )}
+      </>
     )
     } else {
       return null

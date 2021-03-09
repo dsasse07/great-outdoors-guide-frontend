@@ -25,12 +25,14 @@ function Modal({ children, toggle, isShown }) {
   return (
     <Portal>
       {isShown && (
-        <ModalWrapper onClick={toggle}>
-          <ModalBody onClick={event => event.stopPropagation()}>
+        <ModalWrapper onMouseDown={toggle}>
+          <ModalBody onClick={event => event.stopPropagation()} onMouseDown={(e)=>e.stopPropagation()}>
             <CloseButton onClick={toggle}>
               &times;
             </CloseButton>
-            {children}
+            <Content >
+              {children}  
+            </Content>
           </ModalBody>
         </ModalWrapper>
       )}
@@ -41,7 +43,7 @@ function Modal({ children, toggle, isShown }) {
 export default Modal
 const ModalWrapper = styled.div`
   position: fixed;
-  z-index: 1;
+  z-index: 5;
   padding-top: 100px;
   left: 0;
   top: 0;
@@ -49,6 +51,7 @@ const ModalWrapper = styled.div`
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+
 `
 
 const ModalBody = styled.div`
@@ -57,6 +60,15 @@ const ModalBody = styled.div`
   padding: 20px;
   border: 1px solid #888;
   width: 30%;
+  height: 70%;
+`
+
+const Content = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 
 const CloseButton = styled.span`

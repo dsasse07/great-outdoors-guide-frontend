@@ -5,24 +5,60 @@ import ActiveParkContext from "../ActiveParkContext"
 import {useContext, useState} from 'react'
 import EditIcon from '@material-ui/icons/Edit';
 import  Modal  from './Modal';
+import { useRouteMatch, useHistory} from 'react-router-dom'
 
 
 
-function JournalReview({currentUser, visit}) {
+function JournalReview({currentUser, visit, onVisitUpdate}) {
     const {activePark} = useContext(ActiveParkContext)
-    const {review, created_at} = visit
+    const {id, review, score, created_at} = visit
     const DateString = new Date(created_at).toDateString().slice(4)
     const randomIndex = Math.floor(Math.random() * activePark?.images.length)
     const [isShown,setisShown] = useState(false)
-    function handleEdit(){
+    const history = useHistory();
+    const match = useRouteMatch();
+    const featuredImages = (visit.images && visit.images.length > 0) ? visit.images : activePark?.images
+    const [formData, setFormData] = useState({
+      review: review,
+      score: score,
+    })
+    function randomItemFromArray(array){
+      const randomIndex = Math.floor(Math.random() * array.length)
+      return array[randomIndex]
+    }
+    function handleEdit(event){
       setisShown(isShown => !isShown)
     }
-    const onSubmit = (event) => {
+    
+    const handleSubmit = (event) => {
       event.preventDefault(event);
-      console.log(event.target.name.value);
-     
-    };
+      console.log(formData);
+      console.log(visit);
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify( formData )
+    })
+        .then(response => response.json())
+        .then(updatedVisit => {
+          onVisitUpdate(updatedVisit)
+        })
+  
+        handleEdit(event)
+        history.push(`${match.url}`)
+      };
 
+    function handleChangeReview(event){
+      const name = event.target.name;
+      let value = event.target.value;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+    
     if (activePark ) {
     return (
         <Container>
@@ -32,10 +68,10 @@ function JournalReview({currentUser, visit}) {
               </Title>
               <SubTitle>
                 <h2> {DateString} </h2>
-                <EditContainer>
-                  <button> 
+                <EditContainer onClick={handleEdit}>
+                  <button > 
                     Edit 
-                    <EditIcon onClick={handleEdit}/>
+                    <EditIcon />
                   </button>
                 </EditContainer>
               </SubTitle>
@@ -46,19 +82,35 @@ function JournalReview({currentUser, visit}) {
         <Modal isShown={isShown} toggle={handleEdit}>
           <h1>Edit Your Review</h1>
 
-          <form onSubmit={e => e.preventDefault()}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <textarea
               type="text"
               name="review"
-              value={review}
-              // onChange={e => onChangeReview(e)}
+              value={formData.review}
+              onChange={(e) => handleChangeReview(e)}
             />
+            <br />
+            <label htmlFor="score">Rate Your Visit: {formData.score}</label>
+            <input
+              id="score"
+              type="range"
+              name="score"
+              onChange={(e) => handleChangeReview(e)}
+              value={formData.score}
+              min="1"
+              max="5"
+              step="1"
+            />
+            <br />
+           <input type="submit" value="Update your Review"/>
+           <br />
+           <button onClick={handleEdit}>Cancel</button>
           </form>
         </Modal>
       )}
           </TextContainer>
         <ImageContainer>
-          <img src={activePark.images[randomIndex].url} alt={activePark.images[randomIndex].altText}></img>
+        <img src={randomItemFromArray(featuredImages).url} alt={activePark?.fullName}></img>
         </ImageContainer>
       </Container>
     )
