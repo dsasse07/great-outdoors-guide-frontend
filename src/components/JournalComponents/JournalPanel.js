@@ -8,7 +8,7 @@ import { Switch, Route, useRouteMatch, useParams} from 'react-router-dom'
 import {useContext, useEffect, useState} from 'react'
 import ActiveParkContext from "../ActiveParkContext";
 
-function JournalPanel({currentUser}) {
+function JournalPanel({currentUser, setCurrentUser}) {
   const [visit, setVisit] = useState(false)
   const {activePark, handleActiveParkChange, nationalParks} = useContext(ActiveParkContext)
   const match = useRouteMatch()
@@ -24,20 +24,26 @@ function JournalPanel({currentUser}) {
       }
     })
 
-    useEffect(() => {
-      checkvisit()
-    }, [activePark])
+    // useEffect(() => {
+    //   checkvisit()
+    // }, [activePark])
 
-    function checkvisit() {
+    useEffect ( () => {
       setVisit(
         currentUser.visits.filter(visit => visit.code === activePark?.parkCode)[0]
       )
-    }
+    }, [currentUser, activePark])
+    // function checkvisit() {
+    //   setVisit(
+    //     currentUser.visits.filter(visit => visit.code === activePark?.parkCode)[0]
+    //   )
+    // }
     console.log("match URL", match.url)
 
     function handleOnVisit(){
 
     }
+    console.log('visit', visit)
 
   return (
     <Container>
@@ -59,10 +65,11 @@ function JournalPanel({currentUser}) {
                   visit={visit} 
                   onVisit={handleOnVisit}
                   currentUser={currentUser}
+                  setCurrentUser={setCurrentUser}
                   setVisit={setVisit}
                 />
-              : <JournalPage currentUser={currentUser} visit={visit}/>
-              }
+              : <JournalPage currentUser={currentUser} visit={visit}/> 
+            }
             </Route>
           </JournalContainer>
         </JournalWrapper>

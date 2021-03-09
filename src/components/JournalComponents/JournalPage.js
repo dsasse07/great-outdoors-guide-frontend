@@ -35,7 +35,7 @@ function JournalPage({currentUser, visit}) {
               </Journal> 
           </TextContainer>
         <ImageContainer>
-          <img src={visit.images[4]} alt={activePark.fullName}></img>
+          <img src={visit.images[0]} alt={activePark.fullName}></img>
         </ImageContainer>
       </Container>
     )

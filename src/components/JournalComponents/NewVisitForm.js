@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useHistory, useRouteMatch } from "react-router-dom";
 import ActiveParkContext from "../ActiveParkContext";
 
-function NewVisitForm({currentUser, setVisit}) {
+function NewVisitForm({currentUser, setVisit, setCurrentUser}) {
   const history = useHistory();
   const match = useRouteMatch();
   const {activePark} = useContext(ActiveParkContext)
@@ -38,8 +38,7 @@ function NewVisitForm({currentUser, setVisit}) {
         [name]: value,
     });
   }
-  
-  console.log("New Visit",formData)
+
 
   function handleVisitSubmit(e) {
     e.preventDefault();
@@ -54,20 +53,24 @@ function NewVisitForm({currentUser, setVisit}) {
       visitFormData.append('images[]', formData.images[i])
     }
 
-      console.log("visit",visitFormData)
     fetch(`${process.env.REACT_APP_BACKEND_URL}/visits`, {
       method: "POST",
       body: visitFormData,
     })
-    .then((r) => r.json())
-    .then((newVisit) => {
-      setVisit(newVisit)
-      history.push(`${match.url}/${newVisit.code}`);
+    .then(r => r.json() )
+    .then(newVisit => {
+      // console.log("updated User", {...currentUser, visits: [...currentUser.visits, newVisit]})
+      setCurrentUser(currentUser => {
+        return {...currentUser, visits: [...currentUser.visits, newVisit]} 
+      })
+      // setVisit(newVisit)
+      history.push(`${match.url}`);
     })
     .catch((data) => {
       setErrors(data.errors);
     });
   }  
+  
   return (
     <Form onSubmit={handleVisitSubmit} autoComplete="off">
 

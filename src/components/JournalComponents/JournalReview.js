@@ -15,12 +15,18 @@ function JournalReview({currentUser, visit}) {
     const randomIndex = Math.floor(Math.random() * activePark?.images.length)
     const [isShown,setisShown] = useState(false)
     function handleEdit(){
-
+      setisShown(isShown => !isShown)
     }
+    const onSubmit = (event) => {
+      event.preventDefault(event);
+      console.log(event.target.name.value);
+     
+    };
+
     if (activePark ) {
     return (
         <Container>
-          <TextContainer>
+          <TextContainer >
               <Title>
                 {activePark.fullName }
               </Title>
@@ -35,8 +41,21 @@ function JournalReview({currentUser, visit}) {
               </SubTitle>
               <Review>
                 {review}
-              </Review> 
-              <Modal> </Modal>
+              </Review>
+              {isShown && (
+        <Modal isShown={isShown} toggle={handleEdit}>
+          <h1>Edit Your Review</h1>
+
+          <form onSubmit={e => e.preventDefault()}>
+            <textarea
+              type="text"
+              name="review"
+              value={review}
+              // onChange={e => onChangeReview(e)}
+            />
+          </form>
+        </Modal>
+      )}
           </TextContainer>
         <ImageContainer>
           <img src={activePark.images[randomIndex].url} alt={activePark.images[randomIndex].altText}></img>

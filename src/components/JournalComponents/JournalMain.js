@@ -6,7 +6,7 @@ import ActiveParkContext from "../ActiveParkContext"
 import {badges} from '../../assets/national-park-badges/badges';
 
 
-function JournalMain({setVisit,visit, onVisit, currentUser}) {
+function JournalMain({setVisit,visit, onVisit, currentUser, setCurrentUser}) {
   const {activePark} = useContext(ActiveParkContext)
   const [openVisitForm, setOpenVisitForm] = useState(false)
 
@@ -28,7 +28,7 @@ function JournalMain({setVisit,visit, onVisit, currentUser}) {
           }
         </Header>
         <Content>
-          { (!visit && openVisitForm) && <NewVisitForm setvisit={setVisit} currentUser={currentUser}/> }
+          { (!visit && openVisitForm) && <NewVisitForm setVisit={setVisit} currentUser={currentUser} setCurrentUser={setCurrentUser}/> }
           { (!visit && !openVisitForm) && 
           <WelcomeMessage>
             <h2>Create a Journal Entry </h2>
@@ -40,7 +40,7 @@ function JournalMain({setVisit,visit, onVisit, currentUser}) {
         </Content>
       </TextContainer>
       <ImageContainer>
-        <img src={activePark?.images[1].url} alt={activePark?.images[1].altText}></img>
+        <img src={activePark?.images[0].url} alt={activePark?.images[0].altText}></img>
       </ImageContainer>
     </Container>
   )

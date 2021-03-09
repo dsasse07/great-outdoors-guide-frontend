@@ -29,7 +29,7 @@ function ParkReviews() {
   const totalScore = visits.reduce( (total, visit) => {
     return total = total + visit.score
   }, 0)
-
+  
   const averageScore = visits.length > 0 ? (totalScore / visits.length).toPrecision(3) : "--"
 
   function handleSortChange(event){

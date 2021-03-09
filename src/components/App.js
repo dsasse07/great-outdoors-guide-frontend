@@ -66,7 +66,7 @@ function App() {
             </MapContainer>
             <JournalDisplay>
               <Route path='/journal/:parkCode'>
-                <JournalPanel currentUser={currentUser}/>
+                <JournalPanel currentUser={currentUser} setCurrentUser={setCurrentUser}/>
               </Route>
               <Route exact path='/journal'>
                 Journal Default
