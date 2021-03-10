@@ -16,10 +16,10 @@ function JournalSideBar({currentUser, visit, handleDeleteVisit}) {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
         method: "DELETE"
     })
-
-    }
     handleDeleteVisit(id)
-    history.push(`${match.url}`)}
+  history.push(`${match.url}`)
+  }
+  }
 
   return (
     <Container>
