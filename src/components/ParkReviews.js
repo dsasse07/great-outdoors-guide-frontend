@@ -85,6 +85,7 @@ export default ParkReviews
 
 const Container = styled.div`
   height: 100%;
+  max-height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,7 +94,7 @@ const Container = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 7px 3px var(--lt-orange);
   color: var(--md-green);
-  margin-right: 85px;
+  /* margin-right: 85px; */
   
 `
 

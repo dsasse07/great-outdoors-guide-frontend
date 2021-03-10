@@ -53,10 +53,14 @@ export default Header
 const Container = styled.header`
   height: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   background: var(--white);
   color: var(--md-green);  
+  padding-left: 80px;
+  padding-right: 80px;
+  
 `
 const Title = styled.div`
   h1{

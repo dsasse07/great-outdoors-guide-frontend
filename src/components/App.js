@@ -5,6 +5,7 @@ import ParksPanel from './ParksComponents/ParksPanel'
 import ParkReviews from './ParkReviews'
 import JournalPanel from './JournalComponents/JournalPanel'
 import PanelPlaceHolder from './PanelPlaceholder'
+import ProfileContainer from './ProfileComponents/ProfileContainer'
 import ParkList from './ParkList'
 import Login from './Login'
 import Footer from './Footer'
@@ -105,6 +106,23 @@ function App() {
             </InfoDisplay>
           </Route>
 {/* *********************************************************** */}
+{/* ***************        Profile Mode       ******************* */}
+{/* *********************************************************** */}
+          <Route path='/profile'>
+            <ProfileContainer>
+              {/* <Route path='/profile'>
+                <ParksPanel />
+              </Route>
+              <Route exact path='/parks'>
+                <PanelPlaceHolder text={"Welcome to the Parks Explorer"} >
+                  <h2>Select a National Park to begin </h2>
+                  <h2>You may use the search bar to the left, or select the park from the map</h2> 
+                  <h2>Selecting a park will display its available information</h2>
+                </PanelPlaceHolder>
+              </Route> */}
+            </ProfileContainer>
+          </Route>
+{/* *********************************************************** */}
 {/* ***************        Root Route      ******************* */}
 {/* *********************************************************** */}
           <Route exact path = '/'>
@@ -125,7 +143,7 @@ export default App;
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 100px auto auto 50px;
+  grid-template-rows: auto auto auto 50px;
   height: 100%;
   background: var(--md-green);
   grid-gap: 15px;
@@ -140,12 +158,13 @@ const MapContainer = styled.section`
   grid-row: 2;
   background: var(--md-green);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  /* flex-wrap: wrap; */
   gap: 25px;
-  height: 400px;
+  min-height: 400px;
   padding-top: 15px;
   padding-bottom: 15px;
-  padding-left: 10px;
+  /* padding-left: 10px; */
 `
 
 const InfoDisplay = styled.section`

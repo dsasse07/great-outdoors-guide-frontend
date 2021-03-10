@@ -52,6 +52,7 @@ export default ParkList;
 
 const Container = styled.div`
   height: 100%;
+  max-height: 400px;
   overflow:hidden;
   display: grid;
   grid-template-rows: auto 1fr;

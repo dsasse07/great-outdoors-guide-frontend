@@ -5,6 +5,7 @@ body {
     sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--md-green);
 }
 
 code {
@@ -23,6 +24,7 @@ code {
 * {
   font-family: NationalPark-Regular;
 }
+
 
 :root {
   --lt-green: #5d762f ;
