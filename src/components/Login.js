@@ -20,7 +20,7 @@ function Login({setCurrentUser, setViewMode}) {
       </ImageContainer>
   </Container>
   )
-}
+} 
 
 export default Login
 
