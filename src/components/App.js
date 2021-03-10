@@ -109,7 +109,7 @@ function App() {
 {/* ***************        Profile Mode       ******************* */}
 {/* *********************************************************** */}
           <Route path='/profile'>
-            <ProfileContainer>
+            <ProfileContainer currentUser={currentUser}>
               {/* <Route path='/profile'>
                 <ParksPanel />
               </Route>

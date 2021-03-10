@@ -53,7 +53,7 @@ export default Header
 const Container = styled.header`
   height: 100%;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
   align-items: center;
   background: var(--white);
@@ -63,6 +63,10 @@ const Container = styled.header`
   
 `
 const Title = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   h1{
     font-size: 3.5rem;
     text-shadow: 2px 2px 4px var(--lt-orange);
