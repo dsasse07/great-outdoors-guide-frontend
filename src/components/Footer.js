@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import GitHubIcon from '@material-ui/icons/GitHub'
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import ReactAudioPlayer from 'react-audio-player';
-// import music from '../assets/nature.mp3'
-// import silence from '../assets/silence.mp3'
+import music from '../assets/nature.mp3'
+import silence from '../assets/silence.mp3'
 
 function Footer() {
   return (
@@ -19,13 +19,13 @@ function Footer() {
           <p> Back End </p>
         </LinkBlock>
       </GitHub>
-      {/* <IFrame src={silence} type="audio/mp3" allow="autoplay" id="audio" />
+      <IFrame src={silence} type="audio/mp3" allow="autoplay" id="audio" />
       <StyledReactAudioPlayer
         src= {music}
         volume= {.5}
         autoPlay= {true}
         loop= {true}
-        controls /> */}
+        controls />
       <AuthorsBlock>
         <p> Created By : </p>
         <a href="https://www.linkedin.com/in/danny-sasse/" target="_blank" rel="noreferrer">
