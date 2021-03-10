@@ -10,118 +10,140 @@ import { useRouteMatch, useHistory} from 'react-router-dom'
 
 
 function JournalReview({currentUser, visit, onVisitUpdate}) {
-    const {activePark} = useContext(ActiveParkContext)
-    const {id, review, score, created_at} = visit
-    const history = useHistory();
-    const match = useRouteMatch();
-    const [isShown,setisShown] = useState(false)
-    const [displayImage, setDisplayImage] = useState({})
-    const [formData, setFormData] = useState({
-      review: review,
-      score: score,
-    })
-    const featuredImages = (visit.images && visit.images.length > 0) ? visit.images : activePark?.images
-    const DateString = new Date(created_at).toDateString().slice(4)
-    
-    useEffect ( () => {
-      if (!featuredImages) return
-      const randomIndex = Math.floor(Math.random() * featuredImages.length)
-      setDisplayImage( featuredImages[randomIndex] )
-    }, [currentUser, featuredImages])
-
-    function handleEdit(event){
-      setisShown(isShown => !isShown)
-    }
-    
-    const handleSubmit = (event) => {
-      event.preventDefault(event);
-      console.log(formData);
-      console.log(visit);
-      fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify( formData )
-    })
-        .then(response => response.json())
-        .then(updatedVisit => {
-          onVisitUpdate(updatedVisit)
-        })
-  
-        handleEdit(event)
-        history.push(`${match.url}`)
-      };
-
-    function handleChangeReview(event){
-      const name = event.target.name;
-      let value = event.target.value;
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    }
-    
-    if (activePark ) {
+  const {activePark} = useContext(ActiveParkContext)
+  const {id, review, score, created_at} = visit
+  const history = useHistory();
+  const match = useRouteMatch();
+  const [loading, setLoading] = useState(false)
+  const [isShown,setisShown] = useState(false)
+  const [displayImage, setDisplayImage] = useState({})
+  const [formData, setFormData] = useState({
+    review: review,
+    score: score,
+  })
+  const [errors, setErrors] = useState([]);
+  const errorComponents = errors && ( errors.map((error) => {
     return (
-      <>
-        <Container>
-          <TextContainer >
-            <Header>
-              <BadgeContainer>
-                <img src={badges[activePark.parkCode]} alt={activePark.parkCode}/>
-                <h2> {DateString} </h2>
-              </BadgeContainer> 
-              <Title>
-                {activePark.fullName }
-              </Title>
-              <EditContainer onClick={handleEdit}>
-                <button > 
-                  Edit 
-                  <EditIcon />
-                </button>
-              </EditContainer>
-            </Header>
-            <Review>
-              {review}
-            </Review>
-          </TextContainer>
-          <ImageContainer>
-          <img src={displayImage.url} alt={activePark?.fullName}></img>
-          </ImageContainer>
-        </Container>
+      <p key={error} style={{ color: "red" }}>
+        {error}
+      </p>
+    )}
+))
 
-        {isShown && (
-        <Modal isShown={isShown} toggle={handleEdit}>
+  const loadingComponent = loading && (
+  <p style={{ color: "var(--teal)" }}>
+  Loading...
+  </p>
+  ) 
+  const featuredImages = (visit.images && visit.images.length > 0) ? visit.images : activePark?.images
+  const DateString = new Date(created_at).toDateString().slice(4)
+  
+  useEffect ( () => {
+    if (!featuredImages) return
+    const randomIndex = Math.floor(Math.random() * featuredImages.length)
+    setDisplayImage( featuredImages[randomIndex] )
+  }, [currentUser, featuredImages])
 
-          <Form onSubmit={(e) => handleSubmit(e)}>
-          <h1>Edit Your Review</h1>
-            <textarea
-              type="text"
-              name="review"
-              value={formData.review}
-              onChange={(e) => handleChangeReview(e)}
-            />
-            <label htmlFor="score">Rate Your Visit - {formData.score}</label>
-            <input
-              id="score"
-              type="range"
-              name="score"
-              onChange={(e) => handleChangeReview(e)}
-              value={formData.score}
-              min="1"
-              max="5"
-              step="1"
-            />
-            <input type="submit" value="Update your Review"/>
-          </Form>
-        </Modal>
-      )}
-      </>
-    )
-    } else {
-      return null
-    }
+  function handleEdit(event){
+    setisShown(isShown => !isShown)
+  }
+  
+  const handleSubmit = (event) => {
+    const token = localStorage.getItem("token");
+    setLoading(true)
+    event.preventDefault(event);
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
+      method: 'PATCH',
+      headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify( formData )
+  })
+      .then(response => response.json())
+      .then(updatedVisit => {
+        setLoading(false)
+        onVisitUpdate(updatedVisit)
+      })
+      .catch((data) => {
+        setLoading(false)
+        setErrors(data.errors);
+      });
+      handleEdit(event)
+      history.push(`${match.url}`)
+    };
+
+  function handleChangeReview(event){
+    const name = event.target.name;
+    let value = event.target.value;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  }
+  
+  if (activePark ) {
+  return (
+    <>
+      <Container>
+        <TextContainer >
+          <Header>
+            <BadgeContainer>
+              <img src={badges[activePark.parkCode]} alt={activePark.parkCode}/>
+              <h2> {DateString} </h2>
+            </BadgeContainer> 
+            <Title>
+              {activePark.fullName }
+            </Title>
+            <EditContainer onClick={handleEdit}>
+              <button > 
+                Edit 
+                <EditIcon />
+              </button>
+            </EditContainer>
+          </Header>
+          <Review>
+            {review}
+          </Review>
+        </TextContainer>
+        <ImageContainer>
+        <img src={displayImage.url} alt={activePark?.fullName}></img>
+        </ImageContainer>
+      </Container>
+
+      {isShown && (
+      <Modal isShown={isShown} toggle={handleEdit}>
+
+        <Form onSubmit={(e) => handleSubmit(e)}>
+        <h1>Edit Your Review</h1>
+          <textarea
+            type="text"
+            name="review"
+            value={formData.review}
+            onChange={(e) => handleChangeReview(e)}
+          />
+          <label htmlFor="score">Rate Your Visit - {formData.score}</label>
+          <input
+            id="score"
+            type="range"
+            name="score"
+            onChange={(e) => handleChangeReview(e)}
+            value={formData.score}
+            min="1"
+            max="5"
+            step="1"
+          />
+          {loadingComponent}
+          {errorComponents}
+          <input type="submit" disabled={loading} value="Update your Review"/>
+        </Form>
+      </Modal>
+    )}
+    </>
+  )
+  } else {
+    return null
+  }
 }
 
 export default JournalReview;
@@ -260,5 +282,13 @@ const Form = styled.form`
     width: 50%;
   }
 
+  input[type="submit"] {
+    cursor: pointer;
+    
+    :hover {
+      background: var(--yellow);
+      color: var(--md-green);
+    }
+  }
 `
 

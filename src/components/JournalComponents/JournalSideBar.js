@@ -12,9 +12,14 @@ function JournalSideBar({currentUser, visit, handleDeleteVisit}) {
 
   function handleDelete(e){
     const {id} = visit
+    const token = localStorage.getItem("token");
+    
     if (window.confirm('Are you sure you wish to delete this visit?')){ 
       fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
     })
     handleDeleteVisit(id)
   history.push(`${match.url}`)
@@ -39,7 +44,7 @@ function JournalSideBar({currentUser, visit, handleDeleteVisit}) {
           </LinkButton>
           
           <DeleteButton type="button" onClick={handleDelete}>
-            Delete my Visit
+            Delete This Visit
           </DeleteButton>
         </>
         : 
@@ -104,13 +109,14 @@ const DeleteButton = styled.button`
   display: block;
   border: 1px solid var(--md-green);
   margin-bottom: 8px;
+  margin-top: 50px;
   text-align: center;
   padding-top: 4px;
   padding-bottom: 4px;
   font-size: 18px;
   border-radius: 8px;
-  background: var(--md-green);
-  color: var(--yellow);
+  background: #ad0000;
+  color: var(--white);
   text-decoration: none;
   width: 100%;
   :hover{

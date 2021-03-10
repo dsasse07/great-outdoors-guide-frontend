@@ -6,6 +6,7 @@ import ActiveParkContext from "../ActiveParkContext";
 function NewVisitForm({currentUser, setVisit, setCurrentUser}) {
   const history = useHistory();
   const match = useRouteMatch();
+  const [loading, setLoading] = useState(false);
   const {activePark} = useContext(ActiveParkContext)
   const [formData, setFormData] = useState({
     journal: "",
@@ -16,6 +17,11 @@ function NewVisitForm({currentUser, setVisit, setCurrentUser}) {
     user_id: currentUser.id,
   });
   const [errors, setErrors] = useState([]);
+  const loadingComponent = loading && (
+    <p style={{ color: "var(--teal)" }}>
+    Loading...
+    </p>
+    ) 
 
   function handleChange(event) {
     const name = event.target.name;
@@ -40,6 +46,8 @@ function NewVisitForm({currentUser, setVisit, setCurrentUser}) {
 
   function handleVisitSubmit(e) {
     e.preventDefault();
+    setLoading(true)
+    const token = localStorage.getItem("token");
     const visitFormData = new FormData();
     visitFormData.append('journal', formData.journal);
     visitFormData.append('review', formData.review);
@@ -53,16 +61,21 @@ function NewVisitForm({currentUser, setVisit, setCurrentUser}) {
 
     fetch(`${process.env.REACT_APP_BACKEND_URL}/visits`, {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+    },
       body: visitFormData,
     })
     .then(r => r.json() )
     .then(newVisit => {
+      setLoading(false)
       setCurrentUser(currentUser => {
         return {...currentUser, visits: [...currentUser.visits, newVisit]} 
       })
       history.push(`${match.url}`);
     })
     .catch((data) => {
+      setLoading(false)
       setErrors(data.errors);
     });
   }  
@@ -97,12 +110,13 @@ function NewVisitForm({currentUser, setVisit, setCurrentUser}) {
         max="5"
         step="1"
       />
+      {loadingComponent}
       {errors && errors.map((error) => (
           <p key={error} style={{ color: "red" }}>
             {error}
           </p>
       ))}
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={loading}>Submit</button>
     </Form>
   )
 }
