@@ -3,7 +3,7 @@ import {useContext, useState, useEffect} from 'react'
 import ActiveParkContext from "./ActiveParkContext";
 import Review from './Review'
 
-function ParkReviews() {
+function ParkReviews({currentUser}) {
   const {activePark} = useContext(ActiveParkContext)
   const [visits, setVisits] = useState([])
   const [sortBy, setSortBy] = useState({
@@ -24,7 +24,7 @@ function ParkReviews() {
     fetchParkVisits(activePark.parkCode).then( visitData =>{
       setVisits(visitData)
     })
-  }, [activePark])
+  }, [activePark, currentUser])
 
   const totalScore = visits.reduce( (total, visit) => {
     return total = total + visit.score

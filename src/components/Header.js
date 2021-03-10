@@ -59,7 +59,6 @@ const Container = styled.header`
   color: var(--md-green);  
 `
 const Title = styled.div`
-  width: 700px;
   h1{
     font-size: 3.5rem;
     text-shadow: 2px 2px 4px var(--lt-orange);
@@ -72,7 +71,6 @@ const LogoContainer = styled.div`
   padding-right: 30px;
   padding-left: 30px;
   align-items: center;
-  width: 375px;
 `
 const Logo = styled.div`
   height: 100%;
@@ -92,7 +90,6 @@ const NavContainer = styled.nav`
   margin-right: 75px;
   display: flex;
   align-items: center;
-  width: 430px;
   
   button {
     border: 1px solid var(--yellow);

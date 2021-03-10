@@ -123,6 +123,69 @@ import wrstIcon from './iconSize/wrst.jpg'
 import yellIcon from './iconSize/yell.jpg'
 import yoseIcon from './iconSize/yose.jpg'
 import zionIcon from './iconSize/zion.jpg'
+// ************ MEDIUM SIZE **************
+import acadMed from './mediumSize/acad copy.png'
+import archMed from './mediumSize/arch copy.png'
+import badlMed from './mediumSize/badl copy.png'
+import bibeMed from './mediumSize/bibe copy.png'
+import biscMed from './mediumSize/bisc copy.png'
+import blcaMed from './mediumSize/blca copy.png'
+import brcaMed from './mediumSize/brca copy.png'
+import canyMed from './mediumSize/cany copy.png'
+import careMed from './mediumSize/care copy.png'
+import caveMed from './mediumSize/cave copy.png'
+import chisMed from './mediumSize/chis copy.png'
+import congMed from './mediumSize/cong copy.png'
+import crlaMed from './mediumSize/crla copy.png'
+import cuvaMed from './mediumSize/cuva copy.png'
+import denaMed from './mediumSize/dena copy.png'
+import devaMed from './mediumSize/deva copy.png'
+import drtoMed from './mediumSize/drto copy.png'
+import everMed from './mediumSize/ever copy.png'
+import gaarMed from './mediumSize/gaar copy.png'
+import glacMed from './mediumSize/glac copy.png'
+import glbaMed from './mediumSize/glba copy.png'
+import grbaMed from './mediumSize/grba copy.png'
+import grcaMed from './mediumSize/grca copy.png'
+import grsaMed from './mediumSize/grsa copy.png'
+import grsmMed from './mediumSize/grsm copy.png'
+import grteMed from './mediumSize/grte copy.png'
+import gumoMed from './mediumSize/gumo copy.png'
+import haleMed from './mediumSize/hale copy.png'
+import havoMed from './mediumSize/havo copy.png'
+import hospMed from './mediumSize/hosp copy.png'
+import induMed from './mediumSize/indu copy.png'
+import isroMed from './mediumSize/isro copy.png'
+import jeffMed from './mediumSize/jeff copy.png'
+import jotrMed from './mediumSize/jotr copy.png'
+import katmMed from './mediumSize/katm copy.png'
+import kefjMed from './mediumSize/kefj copy.png'
+import kovaMed from './mediumSize/kova copy.png'
+import laclMed from './mediumSize/lacl copy.png'
+import lavoMed from './mediumSize/lavo copy.png'
+import macaMed from './mediumSize/maca copy.png'
+import meveMed from './mediumSize/meve copy.png'
+import moraMed from './mediumSize/mora copy.png'
+import neriMed from './mediumSize/neri copy.png'
+import nocaMed from './mediumSize/noca copy.png'
+import npsaMed from './mediumSize/npsa copy.png'
+import olymMed from './mediumSize/olym copy.png'
+import pefoMed from './mediumSize/pefo copy.png'
+import pinnMed from './mediumSize/pinn copy.png'
+import redwMed from './mediumSize/redw copy.png'
+import romoMed from './mediumSize/romo copy.png'
+import saguMed from './mediumSize/sagu copy.png'
+import sekiMed from './mediumSize/seki copy.png'
+import shenMed from './mediumSize/shen copy.png'
+import throMed from './mediumSize/thro copy.png'
+import viisMed from './mediumSize/viis copy.png'
+import voyaMed from './mediumSize/voya copy.png'
+import whsaMed from './mediumSize/whsa copy.png'
+import wicaMed from './mediumSize/wica copy.png'
+import wrstMed from './mediumSize/wrst copy.png'
+import yellMed from './mediumSize/yell copy.png'
+import yoseMed from './mediumSize/yose copy.png'
+import zionMed from './mediumSize/zion copy.png'
 
 export const badges = {
   acad: acadFull,
@@ -254,3 +317,67 @@ export const badgeIcons = {
   zion: zionIcon
 }
 
+export const badgeMed = {
+  acad: acadMed,
+  arch: archMed,
+  badl: badlMed,
+  bibe: bibeMed,
+  bisc: biscMed,
+  blca: blcaMed,
+  brca: brcaMed,
+  cany: canyMed,
+  care: careMed,
+  cave: caveMed,
+  chis: chisMed,
+  cong: congMed,
+  crla: crlaMed,
+  cuva: cuvaMed,
+  dena: denaMed,
+  deva: devaMed,
+  drto: drtoMed,
+  ever: everMed,
+  gaar: gaarMed,
+  glac: glacMed,
+  glba: glbaMed,
+  grba: grbaMed,
+  grca: grcaMed,
+  grsa: grsaMed,
+  grsm: grsmMed,
+  grte: grteMed,
+  gumo: gumoMed,
+  hale: haleMed,
+  havo: havoMed,
+  hosp: hospMed,
+  indu: induMed,
+  isro: isroMed,
+  jeff: jeffMed,
+  jotr: jotrMed,
+  katm: katmMed,
+  kefj: kefjMed,
+  kova: kovaMed,
+  lacl: laclMed,
+  lavo: lavoMed,
+  maca: macaMed,
+  meve: meveMed,
+  mora: moraMed,
+  neri: neriMed,
+  noca: nocaMed,
+  npsa: npsaMed,
+  olym: olymMed,
+  pefo: pefoMed,
+  pinn: pinnMed,
+  redw: redwMed,
+  romo: romoMed,
+  sagu: saguMed,
+  seki: sekiMed,
+  shen: shenMed,
+  thro: throMed,
+  viis: viisMed,
+  voya: voyaMed,
+  whsa: whsaMed,
+  wica: wicaMed,
+  wrst: wrstMed,
+  yell: yellMed,
+  yose: yoseMed,
+  zion: zionMed
+}

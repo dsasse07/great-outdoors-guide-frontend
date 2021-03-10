@@ -40,8 +40,12 @@ function JournalPanel({currentUser, setCurrentUser}) {
       setCurrentUser({...currentUser, visits: updatedVisits})
     }
 
-    function handleImageDelete(remainingImages) {
-      console.log('remainingImages', remainingImages)
+    function handleImageDelete(updatedVisit) {
+      const newVisitsArray = currentUser.visits.map( visit => {
+        if (visit.id !== updatedVisit.id) return visit
+        return updatedVisit
+      })
+      setCurrentUser( {...currentUser, visits: newVisitsArray} )
     }
 
     function handleDeleteVisit(id){
@@ -61,7 +65,7 @@ function JournalPanel({currentUser, setCurrentUser}) {
         <JournalWrapper>
           <JournalContainer>
             <Route exact path={`${match.url}/images`}>
-                <JournalImages currentUser={currentUser} visit={visit} onImageDelete={handleImageDelete}/>
+                <JournalImages currentUser={currentUser} visit={visit} onImageDelete={handleImageDelete} onImageSubmit={handleVisitUpdate}/>
             </Route>
             <Route exact path={`${match.url}/review`}>
                 <JournalReview onVisitUpdate={handleVisitUpdate} currentUser={currentUser} visit={visit}/>

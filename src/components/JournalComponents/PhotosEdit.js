@@ -1,39 +1,69 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PhotoPreview from './PhotoPreview'
 import styled from 'styled-components'
 
-function PhotosEdit({handleUpdateSubmit, handleModalToggle, visit, onImageDelete}) {
-
+function PhotosEdit({onImageSubmit, handleModalToggle, visit, onImageDelete, currentUser}) {
+  const [formData, setFormData] = useState( { images: [] } )
   const photoComponents = visit.images.map( image => {
     return <PhotoPreview key={image.signed_id} image={image.url} id={image.signed_id} onDelete={handleDeleteImage}/>
   })
 
   function handleDeleteImage(id){
-    console.log('id', id) 
-   // const remainingImages = visit.images.filter( image => {
-    //   return image !== deletedImage
-    // })
-
     fetch(`${process.env.REACT_APP_BACKEND_URL}/images/${id}`, {method: "DELETE"} )
-    // onImageDelete(remainingImages)
+    onImageDelete(id)
   }
+
+  function handleImageChange(event){
+    const name = event.target.name;
+    const value = event.target.files;
+    setFormData( {...formData, [name]: value } )
+  }
+
+  function handleImagesSubmit(e) {
+    e.preventDefault();
+    const imageFormData = new FormData();
+
+    for (let i=0; i < formData.images.length; i++) {
+      imageFormData.append('images[]', formData.images[i])
+    }
+
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${visit.id}`, {
+      method: "PATCH",
+      body: imageFormData,
+    })
+    .then(r => r.json() )
+    .then(updatedVisit => {
+      onImageSubmit(updatedVisit)
+      // setCurrentUser(currentUser => {
+      //   return {...currentUser, visits: [...currentUser.visits, newVisit]} 
+      // })
+    })
+    // .catch((data) => {
+    //   setErrors(data.errors);
+    // });
+  }  
+
+
 
   return (
     <>
       <Header>
         <h1>Edit Your Trip Photos</h1>
       </Header>
-      <FormContainer>
-        <form onSubmit={handleUpdateSubmit}>
-          Upload New Files Here
-        </form>
-      </FormContainer>
       <ThumnbailContainter>
         <Thumbnails>
           {photoComponents}
         </Thumbnails>
       </ThumnbailContainter>
-      <button onClick={handleModalToggle}>Cancel</button>
+      <FormContainer>
+        <Form onSubmit={handleImagesSubmit}>
+          <label htmlFor="images">
+            Upload New Photos
+          </label>
+          <input id="images" name="images" type="file" accept="image/*" multiple={true} onChange={handleImageChange}/>
+          <input type="submit" value="Submit" />
+        </Form>
+      </FormContainer>
     </>
   )
 }
@@ -41,15 +71,19 @@ function PhotosEdit({handleUpdateSubmit, handleModalToggle, visit, onImageDelete
 export default PhotosEdit
 
 const Header = styled.div`
-
+  h1 {
+    margin: 0;
+    padding: 0;
+  }
 `
 
 const ThumnbailContainter = styled.div`
   overflow: hidden;
-  width: 80%;
-  border: 1px solid var(--md-green);
+  width: 90%;
+  /* border: 1px solid var(--md-green); */
   min-height: 300px;
   max-height: 60%;
+  box-shadow: 0 0 8px 2px gray;
 `
 
 const Thumbnails = styled.div`
@@ -64,4 +98,23 @@ const Thumbnails = styled.div`
 `
 
 const FormContainer = styled.div`
+`
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--md-green);
+  font-size: 1.5rem;
+ 
+
+  input[type="file"]::file-selector-button  {
+    font-size: 18px;
+    border-radius: 8px;
+    background: var(--md-green);
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    outline: none;
+    margin-bottom: 10px;
+  }
 `

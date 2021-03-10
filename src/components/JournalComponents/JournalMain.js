@@ -1,9 +1,7 @@
 import React, {useState, useContext} from 'react'
 import styled from 'styled-components'
 import NewVisitForm from './NewVisitForm'
-import JournalPage from './JournalPage'
 import ActiveParkContext from "../ActiveParkContext"
-import {badges} from '../../assets/national-park-badges/badges';
 
 
 function JournalMain({setVisit,visit, onVisit, currentUser, setCurrentUser}) {
@@ -36,7 +34,6 @@ function JournalMain({setVisit,visit, onVisit, currentUser, setCurrentUser}) {
             <h2> For each park that you visit, you will earn the badge for that park.</h2>
           </WelcomeMessage> 
           }
-          {/* { visit && <JournalPage currentUser={currentUser} visit={visit}/> } */}
         </Content>
       </TextContainer>
       <ImageContainer>

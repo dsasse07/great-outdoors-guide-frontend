@@ -1,22 +1,49 @@
 import React, {useContext} from 'react'
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, MarkerClusterer } from '@react-google-maps/api';
 import ActiveParkContext from "./ActiveParkContext";
 import {useHistory} from 'react-router-dom'
-import {badgeIcons} from '../assets/national-park-badges/badges';
+import {badgeMed} from '../assets/national-park-badges/badges';
+
 
 const containerStyle = {
   width: '700px',
   height: '400px'
 };
 
-function Map({viewMode}) {
-
+function Map({viewMode, currentUser}) {
   const history = useHistory()
   const {zoom, center, handleActiveParkChange, setZoom, nationalParks} = useContext(ActiveParkContext)
 
-  const markerArray= nationalParks.map((park)=> {
-    return(<Marker onClick={() => {handleMarkerClick(park)}} key={park.id} position={ {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) }}/>)
-    })
+  function userVisited (parkCode) {
+    return currentUser?.visits?.filter(visit => visit.code === parkCode).length > 0
+  }
+  
+  const options = {
+    imagePath:
+    'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m', 
+  }
+ 
+  const markerArray = (
+      <MarkerClusterer options={options}>
+      {(clusterer) =>
+        nationalParks.map((park)=> {
+          return (
+            <Marker 
+              onClick={() => {handleMarkerClick(park)}} 
+              key={park.id} 
+              position= {{
+                lat: parseFloat(park.latitude), 
+                lng: parseFloat(park.longitude) 
+              }}
+              icon={userVisited(park.parkCode) ? badgeMed[park.parkCode] : ""}
+              clusterer={clusterer}
+            />
+          )   
+        })
+      }
+      </MarkerClusterer>
+  )
+
 
   function handleMarkerClick(park){
     handleActiveParkChange(park)
@@ -54,8 +81,7 @@ function Map({viewMode}) {
         onUnmount={onUnmount}
         onZoomChanged={ handleZoomChange }
       >
-        {markerArray}
-
+          {markerArray}
       </GoogleMap>
   ) : <></>
 }

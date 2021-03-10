@@ -35,6 +35,8 @@ const Container = styled.div`
 
 const ImageContainer = styled.div`
   width: 100%;
+  max-height: calc(100vh - 180px);
+  overflow:hidden;
 
   img{
     width: 100%;
@@ -49,4 +51,31 @@ const FormContainer = styled.main`
   height: 100%;
   align-items: center;
   justify-content: center;
+  font-size: 1.5rem;
+
+  input {
+    font-size: 1.3rem;
+    margin-top: 5px;
+  }
+
+  button {
+    font-size: 1.5rem;
+    border-radius: 8px;
+    background: var(--md-green);
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    outline: none;
+    margin-bottom: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+
+    :hover{
+      background: var(--yellow);
+      color: var(--md-green);
+    }
+
+  }
+  button[type="submit"] {
+    margin-top: 15px;
+  }
 `

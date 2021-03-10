@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {NavLink, useRouteMatch, useHistory} from "react-router-dom";
-import {useContext, useState} from 'react'
+import {useContext} from 'react'
 import ActiveParkContext from "../ActiveParkContext";
 
 

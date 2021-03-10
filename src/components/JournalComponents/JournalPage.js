@@ -4,6 +4,7 @@ import ActiveParkContext from "../ActiveParkContext";
 import EditIcon from '@material-ui/icons/Edit';
 import  Modal  from './Modal';
 import {useHistory, useRouteMatch} from 'react-router-dom'
+import {badges} from '../../assets/national-park-badges/badges';
 
 
 function JournalPage({currentUser, visit, onVisitUpdate}) {
@@ -12,16 +13,18 @@ function JournalPage({currentUser, visit, onVisitUpdate}) {
   const match = useRouteMatch()
   const {created_at, journal, id} = visit
   const [modalOpen,setModalOpen] = useState(false)
+  const [displayImage, setDisplayImage] = useState({})
   const [formData, setFormData] = useState({
     journal: journal
   })
   const DateString = new Date(created_at).toDateString().slice(4)
   const featuredImages = (visit.images && visit.images.length > 0) ? visit.images : activePark?.images
 
-  function randomItemFromArray(array){
-    const randomIndex = Math.floor(Math.random() * array.length)
-    return array[randomIndex]
-  }
+  useEffect ( () => {
+    if (!featuredImages) return
+    const randomIndex = Math.floor(Math.random() * featuredImages.length)
+    setDisplayImage( featuredImages[randomIndex] )
+  }, [currentUser, featuredImages])
 
   function handleModalToggle(){
     setFormData( {journal: journal} )
@@ -50,39 +53,40 @@ function JournalPage({currentUser, visit, onVisitUpdate}) {
     handleModalToggle()
     history.push(`${match.url}`)
   }
-  
-  // console.log('visit', visit)
-  
+    
   if (activePark ) {
     return (
       <>
         <Container>
             <TextContainer>
-                <Title>
-                  {activePark.fullName }
-                </Title>
-                <SubTitle>
-                  <h2> {DateString} </h2>
+                <Header>
+                  <BadgeContainer>
+                    <img src={badges[activePark.parkCode]} alt={activePark.parkCode}/>
+                    <h2> {DateString} </h2>
+                  </BadgeContainer>
+                  <Title>
+                    {activePark.fullName }
+                  </Title>
                   <EditContainer onClick={handleModalToggle}>
                     <button> 
                       Edit 
                       <EditIcon/>
                     </button>
                   </EditContainer>
-                </SubTitle>
+                </Header>
                 <Journal>
                   {journal}
                 </Journal> 
             </TextContainer>
           <ImageContainer>
-            <img src={randomItemFromArray(featuredImages).url} alt={activePark?.fullName}></img>
+            <img src={displayImage.url} alt={activePark?.fullName}></img>
           </ImageContainer>
         </Container>
         {modalOpen && (
           <Modal isShown={modalOpen} toggle={handleModalToggle}>
             <h1>Edit Your Journal</h1>
 
-            <form onSubmit={handleUpdateSubmit}>
+            <Form onSubmit={handleUpdateSubmit}>
               <textarea
                 type="text"
                 name="journal"
@@ -90,8 +94,7 @@ function JournalPage({currentUser, visit, onVisitUpdate}) {
                 onChange={handleChangeFormData}
               />
               <input type="submit" value="Update Journal Entry" />
-            </form>
-            <button onClick={handleModalToggle}>Cancel</button>
+            </Form>
           </Modal>
         )}
       </>
@@ -127,23 +130,30 @@ const TextContainer = styled.main`
 `
 
 const Title = styled.h1`
-    text-align: center;
-    font-size: 3.5rem;
-    margin-bottom: 0;
+  font-size: 3.5rem;
 `
 
-const SubTitle = styled.div`
+const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 75px;
-  padding-right: 75px;
+  padding-left: 30px;
+  padding-right: 30px; */
 
   h2 {
     margin: 0;
     font-size: 1.5rem;
     text-align: center;
   }
+`
+
+const BadgeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 3px solid white; */
+  padding-top: 15px;
 `
 
 const EditContainer = styled.div`
@@ -185,3 +195,52 @@ const Journal = styled.h3`
   margin-left: 50px;
   margin-right: 50px;
 `
+
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--md-green);
+  font-size: 1.5rem;
+  width: 90%;
+  gap: 15px;
+  
+  h1{
+    text-shadow: 2px 2px 4px var(--lt-orange);
+  }
+
+  input  {
+    font-size: 18px;
+    border-radius: 8px;
+    background: var(--md-green);
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    outline: none;
+    padding: 8px;
+  }
+
+  textarea{
+    width: 95%;
+    padding: 15px;
+    font-size: 1.15rem;
+    border-radius: 8px;
+    box-shadow: 0 0 5px 2px var(--lt-orange);
+    background: var(--md-green);
+    color: var(--yellow);
+    border: var(--yellow);
+    min-height: 150px;
+    margin-bottom: 8px;
+  }
+
+  label {
+    font-size: 1.75rem;
+  }
+
+  input[type="range"] {
+    width: 50%;
+  }
+
+`
+
+

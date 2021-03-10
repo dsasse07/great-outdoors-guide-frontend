@@ -9,7 +9,7 @@ function PhotoPreview({image, onDelete, id}) {
 
   return (
     <Container>
-      <img src={image}/>
+      <img src={image} alt={id}/>
       <DeleteButton onClick={handleImageDelete}>
         X
       </DeleteButton>

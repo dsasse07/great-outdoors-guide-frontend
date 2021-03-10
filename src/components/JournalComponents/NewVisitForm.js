@@ -28,9 +28,7 @@ function NewVisitForm({currentUser, setVisit, setCurrentUser}) {
   }
 
   function handleImageChange(event){
-
     const name = event.target.name;
- 
     const value = event.target.files;
 
     setFormData({
@@ -59,11 +57,9 @@ function NewVisitForm({currentUser, setVisit, setCurrentUser}) {
     })
     .then(r => r.json() )
     .then(newVisit => {
-      // console.log("updated User", {...currentUser, visits: [...currentUser.visits, newVisit]})
       setCurrentUser(currentUser => {
         return {...currentUser, visits: [...currentUser.visits, newVisit]} 
       })
-      // setVisit(newVisit)
       history.push(`${match.url}`);
     })
     .catch((data) => {

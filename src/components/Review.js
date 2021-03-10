@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 function Review({visit}) {
-  const {id, score, review, username, created_at} = visit
+  const {score, review, username, created_at} = visit
 
   const DateString = new Date(created_at).toDateString().slice(4)
 

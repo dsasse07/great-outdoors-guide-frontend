@@ -8,51 +8,33 @@ import  Modal  from './Modal';
 import PhotosEdit from './PhotosEdit'
 
 
-function JournalImages({currentUser, visit, onImageDelete}) {
+function JournalImages({currentUser, visit, onImageDelete, onImageSubmit}) {
     const {activePark} = useContext(ActiveParkContext)
-    // const hasPersonalImages = false
     const hasPersonalImages = visit?.images && visit?.images?.length > 0
     const [modalOpen,setModalOpen] = useState(false)
-    const [formData, setFormData] = useState({
-      // journal: journal
-    })
-  
+
 
     function handleModalToggle(){
       setModalOpen( modalOpen => !modalOpen )
-      console.log('click')
     }
 
-    const slideImages = visit.images.map( image => {
+    const slideImages = visit?.images?.map( image => {
       return( 
         < SlideImage key={image.signed_id}img src={image.url} alt={activePark?.fullName}/>
       )
     }) 
-    console.log('visit', visit)
 
-  function handleChangeFormData(event){
-    // setFormData({...formData, journal: event.target.value})
+  function removeImageFromVisit(id){
+    const remainingImages = visit.images.filter( image => {
+      return image.signed_id !== id
+    })
+
+    const updatedVisit = {...visit, images: remainingImages}
+    onImageDelete(updatedVisit)
   }
 
-  function handleUpdateSubmit(event){
-    // event.preventDefault()
 
-    // const patchConfig = {
-    //   method: "PATCH",
-    //   headers:{
-    //     "Content-type":"application/json"
-    //   },
-    //   body: JSON.stringify( formData )
-    // }
 
-    // console.log('patchConfig', patchConfig)
-    // onVisitUpdate
-  }
-
-  function removeImageFromVisit(updatedImages){
-    const updatedVisit = {...visit, images: updatedImages}
-    console.log('updatedVisit', updatedVisit)
-  }
 
     return (
       <>
@@ -83,10 +65,11 @@ function JournalImages({currentUser, visit, onImageDelete}) {
         {modalOpen && (
           <Modal isShown={modalOpen} toggle={handleModalToggle}>
             <PhotosEdit 
-              handleUpdateSubmit={handleUpdateSubmit} 
+              onImageSubmit={onImageSubmit} 
               handleModalToggle={handleModalToggle} 
               visit={visit} 
               onImageDelete={removeImageFromVisit}
+              currentUser={currentUser}
             />
           </Modal>
         )}

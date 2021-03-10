@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {badges} from '../../assets/national-park-badges/badges';
 import ActiveParkContext from "../ActiveParkContext"
-import {useContext, useState} from 'react'
+import {useContext, useState, useEffect} from 'react'
 import EditIcon from '@material-ui/icons/Edit';
 import  Modal  from './Modal';
 import { useRouteMatch, useHistory} from 'react-router-dom'
@@ -12,20 +12,23 @@ import { useRouteMatch, useHistory} from 'react-router-dom'
 function JournalReview({currentUser, visit, onVisitUpdate}) {
     const {activePark} = useContext(ActiveParkContext)
     const {id, review, score, created_at} = visit
-    const DateString = new Date(created_at).toDateString().slice(4)
-    const randomIndex = Math.floor(Math.random() * activePark?.images.length)
-    const [isShown,setisShown] = useState(false)
     const history = useHistory();
     const match = useRouteMatch();
-    const featuredImages = (visit.images && visit.images.length > 0) ? visit.images : activePark?.images
+    const [isShown,setisShown] = useState(false)
+    const [displayImage, setDisplayImage] = useState({})
     const [formData, setFormData] = useState({
       review: review,
       score: score,
     })
-    function randomItemFromArray(array){
-      const randomIndex = Math.floor(Math.random() * array.length)
-      return array[randomIndex]
-    }
+    const featuredImages = (visit.images && visit.images.length > 0) ? visit.images : activePark?.images
+    const DateString = new Date(created_at).toDateString().slice(4)
+    
+    useEffect ( () => {
+      if (!featuredImages) return
+      const randomIndex = Math.floor(Math.random() * featuredImages.length)
+      setDisplayImage( featuredImages[randomIndex] )
+    }, [currentUser, featuredImages])
+
     function handleEdit(event){
       setisShown(isShown => !isShown)
     }
@@ -61,36 +64,45 @@ function JournalReview({currentUser, visit, onVisitUpdate}) {
     
     if (activePark ) {
     return (
+      <>
         <Container>
           <TextContainer >
+            <Header>
+              <BadgeContainer>
+                <img src={badges[activePark.parkCode]} alt={activePark.parkCode}/>
+                <h2> {DateString} </h2>
+              </BadgeContainer> 
               <Title>
                 {activePark.fullName }
               </Title>
-              <SubTitle>
-                <h2> {DateString} </h2>
-                <EditContainer onClick={handleEdit}>
-                  <button > 
-                    Edit 
-                    <EditIcon />
-                  </button>
-                </EditContainer>
-              </SubTitle>
-              <Review>
-                {review}
-              </Review>
-              {isShown && (
-        <Modal isShown={isShown} toggle={handleEdit}>
-          <h1>Edit Your Review</h1>
+              <EditContainer onClick={handleEdit}>
+                <button > 
+                  Edit 
+                  <EditIcon />
+                </button>
+              </EditContainer>
+            </Header>
+            <Review>
+              {review}
+            </Review>
+          </TextContainer>
+          <ImageContainer>
+          <img src={displayImage.url} alt={activePark?.fullName}></img>
+          </ImageContainer>
+        </Container>
 
-          <form onSubmit={(e) => handleSubmit(e)}>
+        {isShown && (
+        <Modal isShown={isShown} toggle={handleEdit}>
+
+          <Form onSubmit={(e) => handleSubmit(e)}>
+          <h1>Edit Your Review</h1>
             <textarea
               type="text"
               name="review"
               value={formData.review}
               onChange={(e) => handleChangeReview(e)}
             />
-            <br />
-            <label htmlFor="score">Rate Your Visit: {formData.score}</label>
+            <label htmlFor="score">Rate Your Visit - {formData.score}</label>
             <input
               id="score"
               type="range"
@@ -101,18 +113,11 @@ function JournalReview({currentUser, visit, onVisitUpdate}) {
               max="5"
               step="1"
             />
-            <br />
-           <input type="submit" value="Update your Review"/>
-           <br />
-           <button onClick={handleEdit}>Cancel</button>
-          </form>
+            <input type="submit" value="Update your Review"/>
+          </Form>
         </Modal>
       )}
-          </TextContainer>
-        <ImageContainer>
-        <img src={randomItemFromArray(featuredImages).url} alt={activePark?.fullName}></img>
-        </ImageContainer>
-      </Container>
+      </>
     )
     } else {
       return null
@@ -145,23 +150,30 @@ const TextContainer = styled.main`
 `
 
 const Title = styled.h1`
-    text-align: center;
-    font-size: 3.5rem;
-    margin-bottom: 0;
+  font-size: 3.5rem;
 `
 
-const SubTitle = styled.div`
+const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 75px;
-  padding-right: 75px;
+  padding-left: 30px;
+  padding-right: 30px;
 
   h2 {
     margin: 0;
     font-size: 1.5rem;
     text-align: center;
   }
+`
+
+const BadgeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 3px solid white; */
+  padding-top: 15px;
 `
 
 const EditContainer = styled.div`
@@ -204,4 +216,49 @@ margin-left: 50px;
 margin-right: 50px;
 `
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--md-green);
+  font-size: 1.5rem;
+  width: 90%;
+  gap: 15px;
+  
+  h1{
+    text-shadow: 2px 2px 4px var(--lt-orange);
+  }
+
+  input  {
+    font-size: 18px;
+    border-radius: 8px;
+    background: var(--md-green);
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    outline: none;
+    padding: 8px;
+  }
+
+  textarea{
+    width: 95%;
+    padding: 15px;
+    font-size: 1.15rem;
+    border-radius: 8px;
+    box-shadow: 0 0 5px 2px var(--lt-orange);
+    background: var(--md-green);
+    color: var(--yellow);
+    border: var(--yellow);
+    min-height: 150px;
+    margin-bottom: 8px;
+  }
+
+  label {
+    font-size: 1.75rem;
+  }
+
+  input[type="range"] {
+    width: 50%;
+  }
+
+`
 
