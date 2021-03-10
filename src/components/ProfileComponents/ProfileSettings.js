@@ -21,7 +21,7 @@ function ProfileBadges({currentUser, onUserUpdate}) {
         )}
     ))
   
-  const loadingComponent = loading && (
+  const loadingComponent = loading && ( 
     <p style={{ color: "var(--teal)" }}>
       Loading...
   </p>
