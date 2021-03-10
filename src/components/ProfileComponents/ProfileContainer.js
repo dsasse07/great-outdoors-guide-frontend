@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import ProfileBadges from './ProfileBadges'
 import ProfileVisits from './ProfileVisits'
+import ProfileSettings from './ProfileSettings'
 import {NavLink, useRouteMatch, Switch, Route} from "react-router-dom";
 
-function ProfileContainer({currentUser}) {
+function ProfileContainer({currentUser, onUserUpdate}) {
   const match = useRouteMatch()
   return (
     <Container>
@@ -30,7 +31,7 @@ function ProfileContainer({currentUser}) {
             <ProfileVisits currentUser={currentUser} />
           </Route>
           <Route exact path={`${match.url}/settings`} >
-            Settings!
+            <ProfileSettings currentUser={currentUser} onUserUpdate={onUserUpdate}/>
           </Route>
         </ProfilePanel>
       </Switch>

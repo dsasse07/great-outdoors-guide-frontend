@@ -11,6 +11,7 @@ function JournalPage({currentUser, visit, onVisitUpdate}) {
   const {activePark} = useContext(ActiveParkContext)
   const history = useHistory()
   const match = useRouteMatch()
+  const [loading, setLoading] = useState(false)
   const {created_at, journal, id} = visit
   const [modalOpen,setModalOpen] = useState(false)
   const [displayImage, setDisplayImage] = useState({})
@@ -19,7 +20,22 @@ function JournalPage({currentUser, visit, onVisitUpdate}) {
   })
   const DateString = new Date(created_at).toDateString().slice(4)
   const featuredImages = (visit.images && visit.images.length > 0) ? visit.images : activePark?.images
+  const [errors, setErrors] = useState([]);
 
+  const errorComponents = errors && ( errors.map((error) => {
+            return (
+              <p key={error} style={{ color: "red" }}>
+                {error}
+              </p>
+            )}
+  ))
+
+  const loadingComponent = loading && (
+    <p style={{ color: "var(--teal)" }}>
+      Loading...
+    </p>
+  )
+  
   useEffect ( () => {
     if (!featuredImages) return
     const randomIndex = Math.floor(Math.random() * featuredImages.length)
@@ -36,19 +52,28 @@ function JournalPage({currentUser, visit, onVisitUpdate}) {
   }
 
   function handleUpdateSubmit(event){
+    setLoading(true)
     event.preventDefault()
+
+    const token = localStorage.getItem("token");
 
     fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
       method: 'PATCH',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization' : `Bearer ${token}`
       },
       body: JSON.stringify( formData )
     })
     .then(response => response.json())
     .then(updatedVisit => {
+        setLoading(false)
         onVisitUpdate(updatedVisit)
     })
+    .catch((data) => {
+      setLoading(false)
+      setErrors(data.errors);
+    });
 
     handleModalToggle()
     history.push(`${match.url}`)
@@ -93,7 +118,9 @@ function JournalPage({currentUser, visit, onVisitUpdate}) {
                 value={formData.journal}
                 onChange={handleChangeFormData}
               />
-              <input type="submit" value="Update Journal Entry" />
+              {loadingComponent}
+              {errorComponents}
+              <input type="submit" disabled={loading} value="Update Journal Entry" />
             </Form>
           </Modal>
         )}
@@ -239,6 +266,15 @@ const Form = styled.form`
 
   input[type="range"] {
     width: 50%;
+  }
+
+  input[type="submit"] {
+    cursor: pointer;
+
+    :hover {
+      background: var(--yellow);
+      color: var(--md-green);
+    }
   }
 
 `

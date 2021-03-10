@@ -64,7 +64,8 @@ const ModalBody = styled.div`
   height: 65%;
   box-shadow: 0 0 8px 2px var(--lt-orange);
   border-radius: 10px;
-
+  padding: 40px;
+  color: var(--md-green);
 `
 
 const Content = styled.div`

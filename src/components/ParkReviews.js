@@ -7,15 +7,15 @@ function ParkReviews({currentUser}) {
   const {activePark} = useContext(ActiveParkContext)
   const [visits, setVisits] = useState([])
   const [sortBy, setSortBy] = useState({
-    type:"rating",
-    order: "asc"
+    type:"score"
   })
   const noVisit = {
     review: "No Reviews have been left yet for this park.", username: ""
   }
 
   function fetchParkVisits(parkCode){
-    return fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/reviews?code=${parkCode}`)
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/reviews?code=${parkCode}`, {
+    })
     .then( response => response.json() )
   }
 
@@ -26,9 +26,12 @@ function ParkReviews({currentUser}) {
     })
   }, [activePark, currentUser])
 
-  const totalScore = visits.reduce( (total, visit) => {
-    return total = total + visit.score
-  }, 0)
+    const totalScore = visits.length > 0 && (
+      visits.reduce( (total, visit) => {
+      return total = total + visit.score
+    }, 0)
+    )
+
   
   const averageScore = visits.length > 0 ? (totalScore / visits.length).toPrecision(3) : "--"
 
@@ -39,12 +42,12 @@ function ParkReviews({currentUser}) {
     setSortBy(newSort)
   }
 
-  const sortedVisits = visits.sort( (visitA, visitB) => {
-    if (sortBy.order === "asc") return visitA[sortBy.type] - visitB[sortBy.type]
+  const sortedVisits = visits.length > 0 && visits?.sort( (visitA, visitB) => {
+    if (sortBy.type === "created_at") return new Date(visitB[sortBy.type]) - new Date(visitA[sortBy.type])
     return visitB[sortBy.type] - visitA[sortBy.type]
   })
 
-  const visitComponents = sortedVisits.map( visit => {
+  const visitComponents = visits.length > 0 && sortedVisits.map( visit => {
     return <Review key={visit.id} visit={visit}/>
   })
 
@@ -63,7 +66,7 @@ function ParkReviews({currentUser}) {
           <ReviewsFilter>
             <div>
               <label>
-                <input type="radio" name="type" value="rating" onChange={handleSortChange} checked={sortBy.type ==="rating"}/>
+                <input type="radio" name="type" value="score" onChange={handleSortChange} checked={sortBy.type ==="score"}/>
                 Rating
               </label>
               <label>

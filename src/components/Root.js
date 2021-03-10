@@ -103,6 +103,10 @@ const Content = styled.main`
 
 const WelcomeMessage = styled.div`
   text-align: center;
+
+  ul {
+    padding-inline-start: 0;
+  }
 `
 
 
@@ -113,7 +117,7 @@ const TextContainer = styled.main`
   padding-bottom: 5px;
   padding-top: 5px;
 
-  p{
+  p {
     font-size: 1.4rem;
     font-weight: bold;
     margin: 0;

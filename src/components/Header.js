@@ -24,6 +24,10 @@ function Header({onViewModeChange,currentUser, setCurrentUser}) {
     history.push("/login")
   }
 
+  function goToProfile(){
+    history.push("/profile")
+  }
+
   return (
     <Container>
       <LogoContainer>
@@ -38,6 +42,9 @@ function Header({onViewModeChange,currentUser, setCurrentUser}) {
         <button value="parks" onClick={handleClick}>Park Info</button>
         { currentUser && 
         <button value="journal" onClick={handleClick}>Travel Journal</button>
+        }
+        { currentUser && 
+        <button value="profile" onClick={goToProfile}>Profile</button>
         }
         <button onClick={currentUser ? logout : goToLogin}>
           {currentUser ? "Logout" : "Login" }
@@ -58,8 +65,8 @@ const Container = styled.header`
   align-items: center;
   background: var(--white);
   color: var(--md-green);  
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 50px;
+  padding-right: 50px;
   
 `
 const Title = styled.div`

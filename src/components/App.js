@@ -42,6 +42,10 @@ function App() {
     }
   }, [token]);
 
+  function handleUserUpdate(user) {
+    setCurrentUser(user)
+  }
+
   return (
     <Container>
       <ActiveParkProvider>
@@ -109,18 +113,10 @@ function App() {
 {/* ***************        Profile Mode       ******************* */}
 {/* *********************************************************** */}
           <Route path='/profile'>
-            <ProfileContainer currentUser={currentUser}>
-              {/* <Route path='/profile'>
-                <ParksPanel />
-              </Route>
-              <Route exact path='/parks'>
-                <PanelPlaceHolder text={"Welcome to the Parks Explorer"} >
-                  <h2>Select a National Park to begin </h2>
-                  <h2>You may use the search bar to the left, or select the park from the map</h2> 
-                  <h2>Selecting a park will display its available information</h2>
-                </PanelPlaceHolder>
-              </Route> */}
-            </ProfileContainer>
+          {currentUser ?
+            <ProfileContainer currentUser={currentUser} onUserUpdate={handleUserUpdate}/>
+            : <DelayedRedirect />
+          }
           </Route>
 {/* *********************************************************** */}
 {/* ***************        Root Route      ******************* */}

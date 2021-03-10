@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 function LoginForm({setCurrentUser, setViewMode}) {
   const [isLogin, setIsLogin] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,6 +24,12 @@ function LoginForm({setCurrentUser, setViewMode}) {
     });
   }
 
+  const loadingComponent = loading && (
+    <p style={{ color: "var(--teal)" }}>
+      Loading...
+    </p>
+    )
+
   function handleFormButtonClick(){
       setIsLogin(isLogin => !isLogin)
   }
@@ -31,7 +38,7 @@ function LoginForm({setCurrentUser, setViewMode}) {
 
   function handleLoginSubmit(e) {
     e.preventDefault();
-    // fetch("http://localhost:3000/login", {
+    setLoading(true)
     fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
       method: "POST",
       headers: {
@@ -49,12 +56,14 @@ function LoginForm({setCurrentUser, setViewMode}) {
         }
       })
       .then((data) => {
+        setLoading(false)
         setCurrentUser(data.user);
         localStorage.setItem("token", data.token);
         setViewMode("journal")
         history.push("/journal");
       })
       .catch((data) => {
+        setLoading(false)
         setErrors(data.errors);
       });
   }
@@ -97,7 +106,6 @@ function LoginForm({setCurrentUser, setViewMode}) {
   }
     return ( 
         <Form onSubmit={isLogin ? handleLoginSubmit : handleSignupSubmit} autoComplete="off">
-            <button type="button" onClick={handleFormButtonClick}> {isLogin ? "Signup Form" : "Login Form"}</button>
             <h1>{isLogin? "Login" : "Signup"}</h1>
             {!isLogin? 
             <>
@@ -133,12 +141,14 @@ function LoginForm({setCurrentUser, setViewMode}) {
               placeholder="Password"
               required
             />
+            {loadingComponent}
               {errors && errors.map((error) => (
           <p key={error} style={{ color: "red" }}>
             {error}
           </p>
         ))}
-            <button type="submit">Submit</button>
+            <button disabled={loading} type="submit">Submit</button>
+            <button type="button" onClick={handleFormButtonClick}> {isLogin ? "Sign Up Today!" : "Login"}</button>
       </Form>
     )
 }
@@ -152,14 +162,29 @@ const Form = styled.form`
   background: rgba(43, 43, 43, 60%);
   color: white;
   padding: 70px;
+
   box-shadow: 0 1px 3px rgb(0 0 0 / 30%), 0 1px 2px rgb(0 0 0 / 50%);
 
-
+  h1 {
+    margin-top: 0;
+  }
   input {
     border-radius: 6px;
     width: 175px;
     height: 20px;
     margin-bottom: 5px;
     text-align: center;
+    padding-bottom: 4px;
+    padding-top: 4px;
+  }
+
+  button{
+    :last-of-type{
+      margin-top: 40px;
+      padding: 2px;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 1.3rem;
+    }
   }
 `
