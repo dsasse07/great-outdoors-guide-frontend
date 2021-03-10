@@ -48,7 +48,9 @@ function JournalPanel({currentUser, setCurrentUser}) {
       const updatedVisits = currentUser.visits.filter( (visit) => (
         visit.id !== id ))
       setCurrentUser({...currentUser, visits: updatedVisits})
+      
     }
+    
 
   return (
     <Container>

@@ -23,7 +23,7 @@ function Footer() {
           Daniel Sasse
         </a>
         <p > and </p>
-        <a>
+        <a href="www.linkedin.com/in/john-wisneski/" target="_blank" rel="noreferrer" >
         <LinkedInIcon/>
           John Wisneski
         </a>

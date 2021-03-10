@@ -51,7 +51,7 @@ function JournalPage({currentUser, visit, onVisitUpdate}) {
     history.push(`${match.url}`)
   }
   
-  console.log('visit', visit)
+  // console.log('visit', visit)
   
   if (activePark ) {
     return (

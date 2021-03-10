@@ -12,14 +12,14 @@ function JournalSideBar({currentUser, visit, handleDeleteVisit}) {
 
   function handleDelete(e){
     const {id} = visit
-    if (window.confirm('Are you sure you wish to delete this visit?')) return
+    if (window.confirm('Are you sure you wish to delete this visit?')){ 
       fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
         method: "DELETE"
     })
 
-        handleDelete(id)
-        history.push(`${match.url}`)
-  }
+    }
+    handleDeleteVisit(id)
+    history.push(`${match.url}`)}
 
   return (
     <Container>
