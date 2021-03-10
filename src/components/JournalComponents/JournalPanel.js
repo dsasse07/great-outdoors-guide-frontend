@@ -55,7 +55,7 @@ function JournalPanel({currentUser, setCurrentUser}) {
       
     }
     
-
+ 
   return (
     <Container>
       <SideBarContainer>
