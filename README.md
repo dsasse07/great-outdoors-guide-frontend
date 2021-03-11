@@ -24,9 +24,9 @@ Great Outdoors Guide was completed as a phase 4 project at Flatiron School by Da
   * run `npm start` to start a local server for the frontend
     * The url for the backend server must be saved into your `.env.local` from with the variable name `REACT_APP_BACKEND_URL `
     * Ex: `REACT_APP_BACKEND_URL="http://localhost:3001"`
-  * In order to connect to the Google Maps API, you will need a Google API key with Javascript Maps API enabled. You can get an key [here]("https://developers.google.com/maps/gmp-get-started")
+  * In order to connect to the Google Maps API, you will need a Google API key with Javascript Maps API enabled. You can get an key [here](https://developers.google.com/maps/gmp-get-started)
     * store this API key in the `env.local` file with the variable name `REACT_APP_MAPS_API_KEY`
-  * In order to connect to the National Parks Service API, you will need an API key. You can obtain one [here]("https://www.nps.gov/subjects/developer/get-started.htm").
+  * In order to connect to the National Parks Service API, you will need an API key. You can obtain one [here](https://www.nps.gov/subjects/developer/get-started.htm).
     * Store this API key in the `env.local` file with the variable name `REACT_APP_PARKS_API_KEY`
 
 
