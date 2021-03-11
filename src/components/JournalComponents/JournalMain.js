@@ -83,6 +83,8 @@ const TextContainer = styled.main`
   width: 100%;
   padding-bottom: 5px;
   padding-top: 5px;
+  max-height: 90%;
+  overflow: scroll;
 
   h1 {
     text-align: center;
