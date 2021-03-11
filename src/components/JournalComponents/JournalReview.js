@@ -169,6 +169,8 @@ const TextContainer = styled.main`
   width: 100%;
   padding-bottom: 5px;
   padding-top: 5px;
+  max-height: 90%;
+  overflow: scroll;
 `
 
 const Title = styled.h1`
@@ -272,6 +274,8 @@ const Form = styled.form`
     border: var(--yellow);
     min-height: 150px;
     margin-bottom: 8px;
+    max-height: 400px;
+    max-width: 105%;
   }
 
   label {

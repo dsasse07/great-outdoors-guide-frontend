@@ -33,7 +33,7 @@ function Footer() {
           Daniel Sasse
         </a>
         <p > and </p>
-        <a href="www.linkedin.com/in/john-wisneski/" target="_blank" rel="noreferrer" >
+        <a href="https://www.linkedin.com/in/john-wisneski/" target="_blank" rel="noreferrer" >
         <LinkedInIcon/>
           John Wisneski
         </a>
