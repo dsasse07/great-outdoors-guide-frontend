@@ -7,7 +7,7 @@
 </p>
 <h2 style="text-align: center"> Front End </h2>
 
---- 
+---  
 
 Welcome to the great outdoors. Plan your next great adventure to the U.S. National Parks throug the integrated National Parks Service database and interactive maps. Here you will find information and links for each of the national parks.
 
