@@ -165,6 +165,7 @@ const TextContainer = styled.main`
 
 const Title = styled.h1`
   font-size: 3.5rem;
+  text-align: center;
 `
 
 const Header = styled.div`
