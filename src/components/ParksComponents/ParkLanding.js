@@ -32,9 +32,14 @@ const Container = styled.div`
 `
 
 const ImageContainer = styled.div`
-  width: 100%;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   img{
-    width: 100%;
+    width: auto;
+    max-width: 100%;
+    max-height: 1000px;
   } 
 `
 

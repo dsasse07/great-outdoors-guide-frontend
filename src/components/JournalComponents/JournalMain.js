@@ -68,9 +68,14 @@ const WelcomeMessage = styled.div`
 
 
 const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: auto;
+
   img{
     width: 100%;
+    max-width: 1350px;
   } 
 `
 

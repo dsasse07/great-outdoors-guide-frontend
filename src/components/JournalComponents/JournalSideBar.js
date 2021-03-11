@@ -120,7 +120,7 @@ const DeleteButton = styled.button`
   text-decoration: none;
   width: 100%;
   :hover{
-    background: var(--yellow);
-    color: var(--md-green);
+    background: #e86800;
+    color: var(--white);
   }
 `
