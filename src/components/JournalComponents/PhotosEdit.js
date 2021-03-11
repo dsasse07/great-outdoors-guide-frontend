@@ -19,7 +19,7 @@ function PhotosEdit({onImageSubmit, handleModalToggle, visit, onImageDelete, cur
 ))
 
   const loadingComponent = loading && (
-    <p style={{ color: "var(--teal)" }}>
+    <p style={{ color: "#03a03a" }}>
     Loading...
     </p>
   )
@@ -87,11 +87,12 @@ function PhotosEdit({onImageSubmit, handleModalToggle, visit, onImageDelete, cur
       <FormContainer>
         <Form onSubmit={handleImagesSubmit}>
           <label htmlFor="images">
-            Upload New Photos
+            {loading ? loadingComponent : "Upload New Photos" }
+            {errors ? errorComponents : "Upload New Photos" }
           </label>
           <input id="images" name="images" type="file" accept="image/*" multiple={true} onChange={handleImageChange}/>
-          {loadingComponent}
-          {errorComponents}
+          {}
+          
           <input type="submit" value="Submit" disabled={loading}/>
         </Form>
       </FormContainer>
@@ -145,6 +146,10 @@ const Form = styled.form`
   font-weight: bold;
   font-size: 1.7rem;
 
+  p {
+    margin: 5px;
+    padding: 5px;
+  }
   input[type="file"]::file-selector-button, input[type="submit"]  {
     font-size: 18px;
     border-radius: 8px;

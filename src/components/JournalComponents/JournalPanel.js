@@ -26,6 +26,7 @@ function JournalPanel({currentUser, setCurrentUser}) {
     })
 
     useEffect ( () => {
+      if (!currentUser?.visits) return
       setVisit(
         currentUser.visits.filter(visit => visit.code === activePark?.parkCode)[0]
       )
@@ -109,6 +110,7 @@ const JournalContainer = styled.main`
   grid-column: 2;
   max-width: 1350px;
   max-height: 1350px;
+  min-width: 1000px;
   
 `
 

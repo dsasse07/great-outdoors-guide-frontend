@@ -128,7 +128,7 @@ const TextContainer = styled.main`
   
 const ImageContainer = styled.div`
   width: 100%;
-  max-height: calc(100vh - 180px);
+  max-height: calc(100vh - 230px);
   overflow:hidden;
   img{
     width: 100%;

@@ -37,7 +37,7 @@ function JournalMain({setVisit,visit, onVisit, currentUser, setCurrentUser}) {
         </Content>
       </TextContainer>
       <ImageContainer>
-        <img src={activePark?.images[0].url} alt={activePark?.images[0].altText}></img>
+        <img src={activePark?.images[2].url} alt={activePark?.images[2].altText}></img>
       </ImageContainer>
     </Container>
   )

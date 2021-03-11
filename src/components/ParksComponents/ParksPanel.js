@@ -81,6 +81,8 @@ const ParkContainer = styled.main`
   grid-column: 2;
   max-width: 1350px;
   max-height: 1350px;
+  min-width: 1000px;
+
 `
 
 const ParkWrapper = styled.div`
