@@ -70,7 +70,7 @@ const VisitsShell = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  overflow: scroll;
+  overflow-y: scroll;
   align-items: center;
   justify-content: center;
   gap: 15px;

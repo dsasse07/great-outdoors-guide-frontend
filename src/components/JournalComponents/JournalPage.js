@@ -160,7 +160,7 @@ const TextContainer = styled.main`
   padding-bottom: 5px;
   padding-top: 5px;
   max-height: 90%;
-  overflow: scroll;
+  overflow-overflow-y: scroll;
 `
 
 const Title = styled.h1`
