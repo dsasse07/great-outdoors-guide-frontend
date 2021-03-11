@@ -40,7 +40,7 @@ function App() {
         setCurrentUser(user);
       });
     }
-  }, [token]);
+  }, [token]); 
 
   function handleUserUpdate(user) {
     setCurrentUser(user)
