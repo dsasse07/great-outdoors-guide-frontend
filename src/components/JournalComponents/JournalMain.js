@@ -68,6 +68,7 @@ const WelcomeMessage = styled.div`
 
 
 const ImageContainer = styled.div`
+  width: auto;
   img{
     width: 100%;
   } 
